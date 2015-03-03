@@ -6,13 +6,13 @@ public class ShortTerm extends ADO
 {
 	private int beginningTime;
 	private LinkedList<Hourly>shortTerm = new LinkedList<Hourly>();
-	public ShortTerm
+	public ShortTerm()
 	{
 		for (int i =0; i <8; i++)
 		{
 			//The short term weather should be able to get the next 7 3 hour increments some how
-			Hourly hour1 = new (beginningTime,int air, int wind, double temp, double min, double max, double humid, String windDir, String sky);
-			shortTerm.addToLast(hour1);
+//			Hourly hour1 = new (beginningTime,int air, int wind, double temp, double min, double max, double humid, String windDir, String sky);	// UNCOMMENT WHEN IMPLEMENTING
+//			shortTerm.addToLast(hour1);// UNCOMMENT WHEN IMPLEMENTING
 		}
 	}
 /**
