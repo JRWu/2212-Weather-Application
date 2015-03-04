@@ -1,6 +1,6 @@
-@author Team 6
 /**
 * This class represents the general instances variables and classes shared between the different objects
+* @author Team 6
 */
 public class ADO
 {
@@ -16,6 +16,10 @@ public class ADO
 	private String windDirection;
 	private String skyCondition;
 	private String userPreferences;
+	
+	public ADO(){}	// UNCOMMENT WHEN IMPLEMENTING
+	
+	
 /**
 * Constructor for the abstract data object
 */
@@ -40,7 +44,7 @@ public class ADO
 	}
 	public void setAirPressure(String pressure)
 	{
-		airPressure = pressure;
+//		airPressure = pressure;	// UNCOMMENT WHEN IMPLEMENTING
 	}
 /**
 * Getter and seter methods for the wind speed
@@ -138,7 +142,7 @@ public class ADO
 
 	private double convertTemp(double temperature, String userPreferences)
 	{
-		if (userPreferences.equals("fahrenheit")
+		if (userPreferences.equals("fahrenheit"))
 		{
 			temperature = ((temperature -273.15)*1.8) + 32;
 		}

@@ -13,7 +13,7 @@ public class Current extends ADO
 	public Current (int now, int air, int wind, double temp, double min, double max, double humid, String windDir, String sky)
 	{
 		time = now;
-		super (air,wind,temp,min,max,humid,windDir,sky);
+//		super (air,wind,temp,min,max,humid,windDir,sky);	// UNCOMMENT WHEN IMPLEMENTING
 	}
 /**
 * Getter method for time
