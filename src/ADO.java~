@@ -84,7 +84,7 @@ public class ADO
 	}
 	public void setMaxTemp(double max)
 	{
-		maxTemp = convertTemp(max,userPreferences);
+		convertTemp(max,userPreferences);
 	}
 /**
 * Getter and setter methods for the humidity
@@ -95,7 +95,7 @@ public class ADO
 	}
 	public void setHumidity(double humid)
 	{
-		humidity = convertTemp(humid,userPreferences);
+		 convertTemp(humid,userPreferences);
 	}
 /**
 * Getter and setter methods for the wind direction
@@ -119,22 +119,11 @@ public class ADO
 	{
 		skyCondition = condition;
 	}
-
-/**
-* Getter and setter methods for user preferences
-*/
-	public String getPreferences()
-	{
-		return userPreferences;
-	}
-	public String setPreferences(String user)
-	{
-		userPreferences = user;
-	}	
 	
-/**
-* Converts the temperature value from kelvin to celsius, kelvin to fahrenheit or leaves it based on user preferences
-*/
+	
+	/**
+	* Converts the temperature value from kelvin to celsius, kelvin to fahrenheit or leaves it based on user preferences
+	*/
 
 	private double convertTemp(double temperature, String userPreferences)
 	{
@@ -152,4 +141,6 @@ public class ADO
 		}
 		return temperature;
 	}
+
+	
 }

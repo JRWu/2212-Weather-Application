@@ -5,8 +5,8 @@ import java.util.*;
 public class LongTerm extends ADO
 {
 	private String day;
-	private LinkedList<Day>longTerm = new LinkedList<Day>(); //array would work as well
-	public LongTerm () //parameter need to be figured out still
+	private LinkedList<Day>longTerm = new LinkedList<Day>();
+	public LongTerm ()
 	{
 		for (int i = 0; i < 5; i++)
 		{

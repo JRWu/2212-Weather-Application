@@ -7,7 +7,7 @@ public class WeatherDataObject extends ADO
 	private LongTerm longest;
 	private ShortTerm shortest;
 	private Current currentWeather;
-	public WeatherDataObject() //unsure about parameters
+	public WeatherDataObject()
 	{
 		if (findOutObject() == 1)
 		{
