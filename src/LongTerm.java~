@@ -5,11 +5,13 @@ import java.util.*;
 public class LongTerm extends ADO
 {
 	private String day;
+<<<<<<< HEAD
 	private LinkedList<Day>longTerm = new LinkedList<Day>(); //array would work as well
 	public LongTerm () //parameter need to be figured out still
+=======
 //	private LinkedList<Day>longTerm = new LinkedList<Day>();	// UNCOMMENT WHEN IMPLEMENTING
 //	public LongTerm												// UNCOMMENT WHEN IMPLEMENTING
-
+>>>>>>> dc3df1489902f72f227e77b9fa4d6d3f969b8cd3
 	{
 		for (int i = 0; i < 5; i++)
 		{
