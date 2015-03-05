@@ -1,0 +1,17 @@
+public class Hour extends DataObject{
+    int time;
+    
+    public Hour(String userSettings, int windSpeed, String windDirection, int airPressure, int humidity, String skyCondition, double temp, double minT, double maxT, int sunRise, int sunSet, int time){
+        super(userSettings, windSpeed, windDirection, airPressure, humidity, skyCondition, temp, minT, maxT, sunRise, sunSet);
+        setTime(time);
+    }
+    
+    public int getTime(){
+        return this.time;
+    }
+    
+    public void setTime(int t){
+        this.time = t;
+    }
+    
+}
