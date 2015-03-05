@@ -5,7 +5,7 @@ import java.util.*;
 public class LongTerm extends ADO
 {
 	private String day;
-	private LinkedList<Day>longTerm = new LinkedList<Day>(); //array would work as well
+	private LinkedList<Daily>longTerm = new LinkedList<Daily>(); //array would work as well
 	public LongTerm () //parameter need to be figured out still
 //	private LinkedList<Day>longTerm = new LinkedList<Day>();	// UNCOMMENT WHEN IMPLEMENTING
 //	public LongTerm												// UNCOMMENT WHEN IMPLEMENTING

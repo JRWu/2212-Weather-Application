@@ -5,10 +5,9 @@ import java.util.*;
 public class ShortTerm extends ADO
 {
 	private int beginningTime;
-	private LinkedList<Hourly>shortTerm = new LinkedList<Hourly>(); //array would work as well
-	public ShortTerm() //parameters need to be figured out still
+	public void ShortTerm(){}; //parameters need to be figured out still
 
-	private LinkedList<Hourly>shortTerm = new LinkedList<Hourly>();
+	private LinkedList<Hourly> shortTerm = new LinkedList<Hourly>();
 	public ShortTerm()
 	{
 		for (int i =0; i <8; i++)
