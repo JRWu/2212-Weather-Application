@@ -11,26 +11,20 @@
 // Import Libraries
 import javax.swing.SwingUtilities;
 
+
 public class main {
-    public static void main(String[] args) {
-        System.out.println("Hello, Team6 WeatherJunkies");
-        
-        SwingUtilities.invokeLater(new Runnable(){
-//        	@Override
-        	public void run(){
-        		DesignWindow window = new DesignWindow();
-        		window.setVisible(true);
-        	}
-        });
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
+	
+	public static void main(String[] args) 
+	{
+	    SwingUtilities.invokeLater(new Runnable()
+	    {
+
+	    	public void run()
+	    	{
+	    		GUI window = new GUI();		// Draw the main window
+	    		window.setVisible(true);
+	    	}
+	    });
+	}
 
 }
