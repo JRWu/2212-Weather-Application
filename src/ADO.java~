@@ -131,7 +131,7 @@ public class ADO
 	{
 		return userPreferences;
 	}
-	public void setPreferences(String user)
+	public String setPreferences(String user)
 	{
 		userPreferences = user;
 	}	
