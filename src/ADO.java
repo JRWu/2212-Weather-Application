@@ -16,11 +16,8 @@ public class ADO
 	private String windDirection;
 	private String skyCondition;
 	private String userPreferences;
-	
-	public ADO(){}	// UNCOMMENT WHEN IMPLEMENTING
-	
-	
-/**
+	public ADO(){};
+/*
 * Constructor for the abstract data object
 */
 	public ADO (String user, int air, double wind, double temp, double min, double max,int humid, String windDir, String sky)

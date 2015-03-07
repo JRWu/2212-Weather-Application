@@ -4,7 +4,7 @@
 public class Daily extends ADO
 {
 	private String day;
-	public Daily(String user, String days,int air, double wind, double temp, double min, double max, int humid, String windDir, String sky)
+	public Daily(String days, String user, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky)
 	{
 
 		super (user,air,wind,temp,min,max,humid,windDir,sky);

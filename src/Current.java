@@ -22,4 +22,8 @@ public class Current extends ADO
 	{
 		return time;
 	}
+	public void setTime(int timing)
+	{
+		time = timing;
+	}
 }
