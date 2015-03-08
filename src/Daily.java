@@ -1,4 +1,5 @@
 import java.io.*;
+import javax.swing.ImageIcon;
 /**
 * March 8,2014
 * CS 2212
@@ -22,10 +23,11 @@ public class Daily extends ADO implements java.io.Serializable
 * @param humid the humidity for the daily weather object
 * @param windDir the wind direction for the daily weather object
 * @param sky the sky condition for daily the weather object
+* @param state the image that goes along with the associated sky condition
 */
-	public Daily(String days, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky)
+	public Daily(String days, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
 	{
-		super (air,wind,temp,min,max,humid,windDir,sky);
+		super (air,wind,temp,min,max,humid,windDir,sky,state);
 		day = days;
 	}
 

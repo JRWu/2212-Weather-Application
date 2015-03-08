@@ -1,4 +1,5 @@
 import java.io.*;
+import javax.swing.ImageIcon;
 /**
 * March 8, 2015
 * CS 2212
@@ -26,10 +27,11 @@ public class Current extends ADO implements java.io.Serializable
 * @param sky the sky condition for the current weather object
 * @param rise the projected sunrise time for the current weather object
 * @param set the projected sunset time for the current weather object
+* @param state the image that goes along with the associated sky condition
 */
-	public Current (int now, int rise, int set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky)
+	public Current (int now, int rise, int set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
 	{
-		super (air,wind,temp,min,max,humid,windDir,sky);
+		super (air,wind,temp,min,max,humid,windDir,sky,state);
 		time = now;
 		sunrise = rise;
 		sunset = set;

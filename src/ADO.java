@@ -1,4 +1,5 @@
 import java.io.*;
+import javax.swing.ImageIcon;
 /**
 * March 8, 2015
 * CS 2212
@@ -20,6 +21,7 @@ public class ADO implements java.io.Serializable
 	private String windDirection;
 	private String skyCondition;
 	private String userPreferences;
+	private ImageIcon skyState;
 /**
 * This serves as a general constructor for the abstract data object with no parameters
 */
@@ -34,8 +36,9 @@ public class ADO implements java.io.Serializable
 * @param humid the humidity for the abstract data object
 * @param windDir the wind direction for the abstract data object
 * @param sky the sky condition for the abstract data object
+* @param state the image that goes along with the associated sky condition
 */
-	public ADO (int air, double wind, double temp, double min, double max,int humid, String windDir, String sky)
+	public ADO (int air, double wind, double temp, double min, double max,int humid, String windDir, String sky, ImageIcon state)
 	{
 		deSerializePreferences();
 		airPressure = air;
@@ -46,6 +49,7 @@ public class ADO implements java.io.Serializable
 		humidity = humid;
 		windDirection = windDir;
 		skyCondition = sky;
+		skyState = state;
 	}
 /**
 *
@@ -185,6 +189,22 @@ public class ADO implements java.io.Serializable
 		return userPreferences;
 	}	
 	
+/**
+*
+* @return the image associated with the current sky state
+*/
+	public ImageIcon getCondition()
+	{
+		return skyState;
+	}
+/**
+*
+* @param newState the new image to represented the updated sky state
+*/
+	public void setCondition(ImageIcon newState)
+	{
+		skyState = newState;
+	}
 /**
 * This method converts the temperature value from kelvin to celsius, kelvin to fahrenheit or leaves it in kelvin based on user preferences
 * @param temp The temperature value to be converted 
