@@ -138,7 +138,7 @@ public class ADO implements java.io.Serializable
 */
 	public void setPreferences(String user)
 	{
-		deSerializePreferences(userPreferences);
+		deserializePreferences(userPreferences);
 		userPreferences = user;
 		serializePreferences(userPreferences);
 	}	
