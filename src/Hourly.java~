@@ -12,7 +12,6 @@ public class Hourly extends ADO implements java.io.Serializable
 */
 	private int hour;
 /**
-* Constructor for the hourly weather object
 * @para time the current hour for the weather object
 * @param air the air pressure for the weather object
 * @param wind the wind speed for the weather object
@@ -29,17 +28,12 @@ public class Hourly extends ADO implements java.io.Serializable
 		hour = time;
 	}
 /**
-* 
-* @return the current hour that the object is representing
+* Getter and setter methods for the current hour
 */
 	public int getHour()
 	{
 		return hour;
 	}
-/**
-* This method sets the current hour that the weather object is representing
-* @param hourly the hour to be set
-*/
 	public void setHour(int hourly)
 	{
 		hour = hourly;
