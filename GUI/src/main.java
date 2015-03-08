@@ -17,7 +17,6 @@ public class main {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new GUIWindow().setVisible(true);
                 GUIWindow window = new GUIWindow();
                 window.setLocationRelativeTo(null);
                 window.setVisible(true);

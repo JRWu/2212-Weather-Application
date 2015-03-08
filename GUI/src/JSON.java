@@ -65,7 +65,7 @@ public class JSON {
 			currentWeatherSetVariables(weather);
 			currentWindSetVariables(wind);
 			//return ADO_Object
-			return new Current("fun",time,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
+			return new Current("celsius",time,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
 			
 		}catch (IOException e){
 			System.out.println(e.getMessage());
