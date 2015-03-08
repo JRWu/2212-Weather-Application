@@ -2,11 +2,13 @@ import java.io.*;
 import java.net.*;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 import org.apache.commons.io.*;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONArray;
+
 
 /*unfortunately I needed to add some referenced libraries. 
 To get the JSON jar go to this link: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.json%22%20AND%20a%3A%22json%22
@@ -30,7 +32,7 @@ public class JSON {
 	private int pressure, humidity, windDirectionDegree,time,sunrise,sunset; 
 	private String weatherDescription, skyState, windDirection; //This may change, need to test out how the currentWeatherSetVariables function is for a while
 	private JSONObject allWeatherData; 
-	
+	private ImageIcon image;
 	
 	/**
 	 * Returns a JSON object to use for obtaining weather data. 
@@ -71,7 +73,7 @@ public class JSON {
 			currentWindSetVariables(wind);
 			currentSunTime(sun);
 			//return ADO_Object
-			return new Current(time, sunrise, sunset, pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
+			return new Current(time, sunrise, sunset, pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState, image);
 			
 		}catch (IOException e){
 			System.out.println(e.getMessage());
@@ -102,7 +104,13 @@ public class JSON {
 		JSONObject weatherData= weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
 		weatherDescription = weatherData.getString("description");
 		skyState = weatherData.getString("main");
-		
+		try {
+			URL im = new URL("http://openweathermap.org/img/w/" + weatherData.getString("icon") + ".png");
+			image = new ImageIcon(im);
+		}catch (Exception e)
+		{
+			
+		}
 	}
 	
 	/**
