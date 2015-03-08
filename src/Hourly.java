@@ -1,7 +1,8 @@
+import java.io.*;
 /**
 * This class represents the object for weather in 3 hour intervals
 */
-public class Hourly extends ADO
+public class Hourly extends ADO implements java.io.Serializable
 {
 	private int hour;
 	public Hourly(int time, String user, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky)

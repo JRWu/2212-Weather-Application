@@ -15,8 +15,8 @@ I'm not 100% done this class. What remains is a constructor that initializes eve
 I will add that later tonight. Also to make a txt file to store user settings.
 */
 
-
-public class AllObjects {
+import java.io.*;
+public class AllObjects extends ADO implements java.io.Serializable {
     private Daily[] longTerm;     // Will be length 7
     private Hourly[] shortTerm;   // Will be length 8
     private Current current;

@@ -1,8 +1,9 @@
+import java.io.*;
 /**
 * This class represents the general instances variables and classes shared between the different objects
 * @author Team 6
 */
-public class ADO
+public class ADO implements java.io.Serializable
 {
 /**
 * Instance variables
@@ -148,5 +149,22 @@ public class ADO
 			temperature = temperature - 273.15;
 		}
 		return temperature;
+	}
+/**
+* This method saves the user preferences to an external text file
+*/
+
+	public void serializePreferences (String preferences)
+	{
+		try 
+		{
+			FileOutputStream fout = new FileOutputStream("preferences.ser");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(preferences);
+			oos.close();
+		}catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 }
