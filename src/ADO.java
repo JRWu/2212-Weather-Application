@@ -1,5 +1,7 @@
 import java.io.*;
 import javax.swing.ImageIcon;
+import org.apache.commons.io.*;
+
 /**
 * March 8, 2015
 * CS 2212
@@ -20,7 +22,7 @@ public class ADO implements java.io.Serializable
 	private int humidity;
 	private String windDirection;
 	private String skyCondition;
-	private String userPreferences;
+	private String userPreferences = "";
 	private ImageIcon skyState;
 /**
 * This serves as a general constructor for the abstract data object with no parameters
@@ -248,16 +250,21 @@ public class ADO implements java.io.Serializable
 /**
 * This method deserializes the user preferences contained in the text file and loads them to the class
 */
-	public void deSerializePreferences()
-	{
-		userPreferences = null;
-		try
+		public void deSerializePreferences()
+		{
+			userPreferences = "";
+			try
 		{
 			FileInputStream fin = new FileInputStream("preferences.ser");
 			ObjectInputStream in = new ObjectInputStream (fin);
 			userPreferences = (String)in.readObject();
+			if (userPreferences == null)
+				userPreferences ="";
 			in.close();
 			fin.close();
+		}catch (FileNotFoundException e)
+		{
+			serializePreferences(userPreferences);
 		}catch (Exception e)
 		{
 			e.printStackTrace();
