@@ -16,7 +16,7 @@ public class AllObjects extends ADO implements java.io.Serializable {
 * Constructor for AllObjects that will take JSON objects as paramaters and create objects for the long term, short term and current forecast from that
 */
 	public AllObjects(){
-        	current = new Current(0, 0, 0, 0, 0, 0, 0, null,null);
+        	current = new Current(0,0,0, 0, 0, 0, 0, 0, 0, null,null);
         	shortTerm = new Hourly[8];
         	for (int i=0; i<8; i++){
             		shortTerm[i] = null;
