@@ -71,7 +71,7 @@ public class JSON {
 			currentWindSetVariables(wind);
 			currentSunTime(sun);
 			//return ADO_Object
-			return new Current(time,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
+			return new Current(time, sunrise, sunset, pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
 			
 		}catch (IOException e){
 			System.out.println(e.getMessage());
