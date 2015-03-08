@@ -248,16 +248,19 @@ public class ADO implements java.io.Serializable
 /**
 * This method deserializes the user preferences contained in the text file and loads them to the class
 */
-	public void deSerializePreferences()
-	{
-		userPreferences = null;
-		try
+		public void deSerializePreferences()
+		{
+		//	userPreferences = null;
+			try
 		{
 			FileInputStream fin = new FileInputStream("preferences.ser");
 			ObjectInputStream in = new ObjectInputStream (fin);
 			userPreferences = (String)in.readObject();
 			in.close();
 			fin.close();
+		}catch (FileNotFoundException e)
+		{
+			serializePreferences(userPreferences);
 		}catch (Exception e)
 		{
 			e.printStackTrace();
