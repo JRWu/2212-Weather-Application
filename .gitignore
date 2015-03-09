@@ -2,3 +2,5 @@
 /bin/
 /GUI/
 *.ser
+/nbproject/private/
+/build/
