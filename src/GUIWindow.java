@@ -340,7 +340,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
             pressureLabel.setText("Air Pressure");
 
-            pressurePanelLabel.setText("                     ");
+            pressurePanelLabel.setText("                            ");
 
             humidityLabel.setText("Humidity");
 
