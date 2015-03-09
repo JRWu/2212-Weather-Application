@@ -56,11 +56,21 @@ public class GUIPreferences extends javax.swing.JDialog {
         });
 
         FarenheitButton.setText("Farenheit");
+        FarenheitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FarenheitButtonActionPerformed(evt);
+            }
+        });
 
         UnitsLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         UnitsLabel.setText("Units:");
 
         KelvinButton.setText("Kelvin");
+        KelvinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KelvinButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout GUIPreferencesPanelLayout = new javax.swing.GroupLayout(GUIPreferencesPanel);
         GUIPreferencesPanel.setLayout(GUIPreferencesPanelLayout);
@@ -111,8 +121,16 @@ public class GUIPreferences extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CelsiusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CelsiusButtonActionPerformed
-        // TODO add your handling code here:
+        // Handle Celsius
     }//GEN-LAST:event_CelsiusButtonActionPerformed
+
+    private void KelvinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KelvinButtonActionPerformed
+        // Handle Kelvin
+    }//GEN-LAST:event_KelvinButtonActionPerformed
+
+    private void FarenheitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FarenheitButtonActionPerformed
+        // Handle Farenheit
+    }//GEN-LAST:event_FarenheitButtonActionPerformed
 
     /**
      * @param args the command line arguments

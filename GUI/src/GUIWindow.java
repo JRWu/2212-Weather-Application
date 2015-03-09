@@ -170,7 +170,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
         locationTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         locationTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        locationTextField.setText("Search: i.e. \"London,Ca\"");
+        locationTextField.setText("Default: \"London,Ca\"");
         locationTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         locationTextField.setMinimumSize(new java.awt.Dimension(82, 20));
         locationTextField.setColumns(30);
@@ -384,8 +384,8 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(temperaturePanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
+                                    .addComponent(temperaturePanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(pressurePanelLabel))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(temperatureLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
