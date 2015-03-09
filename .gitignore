@@ -4,3 +4,4 @@
 *.ser
 /nbproject/private/
 /build/
+/target/
