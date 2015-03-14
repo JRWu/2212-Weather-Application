@@ -1,7 +1,6 @@
 import java.io.*;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.*;
-
 /**
 * March 8, 2015
 * CS 2212
@@ -16,7 +15,7 @@ public class ADO implements java.io.Serializable
 */
 	private int airPressure;
 	private double windSpeed;
-	protected double temperature;
+	private double temperature;
 	private double minTemp;
 	private double maxTemp;
 	private int humidity;
@@ -212,20 +211,20 @@ public class ADO implements java.io.Serializable
 * @param temp The temperature value to be converted 
 * @param userPreferences The user preferences that indicate which type of units the user would like for the temperature to be displayed with
 */
-
 	private double convertTemp(double temp, String preferences)
 	{
-                double temperature;
+        double temperature;
 		if (preferences.equals("fahrenheit"))
 		{
                     temperature = ((temp -273.15)*1.8) + 32;
 		}
-                else if (preferences.equals("celsius"))
+        else if (preferences.equals("celsius"))
 		{
                     temperature = temp - 273.15;
 		} else {
                     temperature = temp;
                 }
+		temperature = Math.round(temperature*100)/100D;
 		return temperature;
 	}
 /**
@@ -270,12 +269,5 @@ public class ADO implements java.io.Serializable
 			e.printStackTrace();
 		}
 		
-	}
-	public static void main(String[]args)
-	{
-		ADO ad = new ADO();
-		ad.temperature = 100.0;
-		ad.temperature = ad.convertTemp(ad.temperature, "celsius");
-		System.out.println(ad.temperature);
 	}
 }
