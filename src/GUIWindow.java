@@ -1,32 +1,40 @@
-/**
-* This class represents the main window that stores the files within the GUI
-* @author Team 6
-*/
 
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
+
 import java.util.*;
 import java.sql.Time;
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Jia
+ */
 public class GUIWindow extends javax.swing.JFrame {
 
-    String userPreferences = "celsius";
     SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
-    GUIPreferences preferences = new GUIPreferences(this, false, userPreferences);
+    GUIPreferences preferences = new GUIPreferences(this, false);
     String location = "London,Ca";
     JSON jsonObj = new JSON(location);
     LinkedList<Current> currentList = new LinkedList(); 
     private Current currentObj = jsonObj.updateCurrentWeatherData();
     Time currentTime = new Time(System.currentTimeMillis());
     
+    String userPreferences = "";
     
-    
+
     
     /**
      * Creates new form GUIWindow
@@ -34,12 +42,9 @@ public class GUIWindow extends javax.swing.JFrame {
     public GUIWindow() {
         initComponents();
         invisible();
-        currentObj.setPreferences(userPreferences);
+        
     }
     
-    /**
-     * invisible() sets a panel's information to be non-displayable
-     **/
     private void invisible(){
         temperaturePanelLabel.setVisible(false);
         temperatureLabel.setVisible(false);
@@ -56,10 +61,6 @@ public class GUIWindow extends javax.swing.JFrame {
         lastUpdatedLabel.setVisible(false);
         lastUpdatedFieldLabel.setVisible(false);
     }
-    
-    /**
-     * visible() sets a panel's information to be displayable
-     **/
     private void visible()
     {
         temperaturePanelLabel.setVisible(true);
@@ -593,8 +594,6 @@ public class GUIWindow extends javax.swing.JFrame {
         System.out.println("Click Detected");
         preferences.setLocationRelativeTo(null);    // Display in main 
         preferences.setVisible(true);
-        currentObj.setPreferences(preferences.userPreferences);
-
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void locationTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_locationTextFieldFocusGained
@@ -654,14 +653,14 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     
     /**
-     * Block comments represents usage in netbeans
-     *
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         *
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -680,13 +679,13 @@ public class GUIWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form *
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUIWindow().setVisible(true);
             }
         });
-    }*/// Block comment represents usage in Netbeans
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CurrentlyViewingLocationLabel;
@@ -747,9 +746,6 @@ public class GUIWindow extends javax.swing.JFrame {
         jButton1.setIcon(icon);
     }
     
-    /**
-     * updateCurrentInfo() displays the current info for the current display panel
-     **/
     private void updateCurrentInfo()
     {
         temperatureLabel.setText("Temperature");

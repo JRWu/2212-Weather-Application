@@ -1,20 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 /**
-* This class represents the preferences within the GUI.
-* @author Team 6
-*/
+ *
+ * @author Jia
+ */
 public class GUIPreferences extends javax.swing.JDialog {
-	
-	String userPreferences = "";
+
     /**
      * Creates new form GUIPreferences
      */
-    public GUIPreferences(java.awt.Frame parent, boolean modal, String userPref) {
+    public GUIPreferences(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        userPreferences = userPref;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -116,20 +119,17 @@ public class GUIPreferences extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void CelsiusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CelsiusButtonActionPerformed
         // Handle Celsius
-    	userPreferences = "celsius";
     }//GEN-LAST:event_CelsiusButtonActionPerformed
 
     private void KelvinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KelvinButtonActionPerformed
         // Handle Kelvin
-    	userPreferences = "kelvin";
     }//GEN-LAST:event_KelvinButtonActionPerformed
 
     private void FarenheitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FarenheitButtonActionPerformed
         // Handle Farenheit
-    	userPreferences = "farenheit";
     }//GEN-LAST:event_FarenheitButtonActionPerformed
 
     /**
@@ -159,9 +159,10 @@ public class GUIPreferences extends javax.swing.JDialog {
         }
         //</editor-fold>
 
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                GUIPreferences dialog = new GUIPreferences(new javax.swing.JFrame(), true, "userPreferences");
+                GUIPreferences dialog = new GUIPreferences(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

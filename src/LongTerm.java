@@ -1,5 +1,7 @@
 import java.io.*;
+
 import javax.swing.ImageIcon;
+
 import org.apache.commons.io.*;
 /**
 * March 23, 2014
@@ -8,7 +10,7 @@ import org.apache.commons.io.*;
 * This class represents the objects and methods for the long term forecast
 */
 
-public class LongTerm extends ADO implements java.io.Serializable 
+public class LongTerm implements java.io.Serializable 
 {
 /**
 * Instance variables 
@@ -46,14 +48,7 @@ public class LongTerm extends ADO implements java.io.Serializable
 	{
 		return longTerm[0];
 	}
-/**
-* This method sets the value for the object representing monday
-* @param monday the object representing monday
-*/
-	public void setMonday(Daily monday)
-	{
-		longTerm[0] = monday;
-	}
+
 /**
 *
 *@return the object representing tuesday
@@ -61,14 +56,6 @@ public class LongTerm extends ADO implements java.io.Serializable
 	public Daily getTuesday()
 	{
 		return longTerm[1];
-	}
-/**
-* This method sets the value for the object representing tuesday
-* @param monday the object representing tuesday
-*/
-	public void setTuesday(Daily tuesday)
-	{
-		longTerm[1] = tuesday;
 	}
 /**
 *
@@ -79,14 +66,6 @@ public class LongTerm extends ADO implements java.io.Serializable
 		return longTerm[2];
 	}
 /**
-* This method sets the value for the object representing tuesday
-* @param monday the object representing tuesday
-*/
-	public void setWednesday(Daily wednesday)
-	{
-		longTerm[2] = wednesday;
-	}
-/**
 *
 *@return the object representing thursday
 */
@@ -94,14 +73,7 @@ public class LongTerm extends ADO implements java.io.Serializable
 	{
 		return longTerm[3];
 	}
-/**
-* This method sets the value for the object representing thursday
-* @param monday the object representing thursday
-*/
-	public void setThursday(Daily thursday)
-	{
-		longTerm[3] = thursday;
-	}
+
 /**
 *
 *@return the object representing friday
@@ -110,12 +82,5 @@ public class LongTerm extends ADO implements java.io.Serializable
 	{
 		return longTerm[4];
 	}
-/**
-* This method sets the value for the object representing friday
-* @param monday the object representing friday
-*/
-	public void setFriday(Daily friday)
-	{
-		longTerm[4] = friday;
-	}
+
 }

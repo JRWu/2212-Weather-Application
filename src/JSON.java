@@ -3,11 +3,11 @@ import java.net.*;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
-
 import org.apache.commons.io.*;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONArray;
+
 
 /*unfortunately I needed to add some referenced libraries. 
 To get the JSON jar go to this link: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.json%22%20AND%20a%3A%22json%22
@@ -24,16 +24,14 @@ public class JSON {
 	private final String HOST = "http://api.openweathermap.org"; //host and protocol 
 	private final String PATH_CURRENT = "/data/2.5/weather";	//where we'll be getting the current weather from
 	private final String PATH_FORECAST = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
-	private final String PATH_ICON = "/img/w";
 	private String query =  "?q="; 	//variable query, dependent on location and whether it will be current, short term, or long term
-	
 	private String location = ""; //String to contain location
-	private URL weatherURL,iconURL;	//URL Object, used to create connection
+	private URL url;	//URL Object, used to create connection
 	private double temp,temp_max,temp_min,windSpeed; //all the variables for CURRENT weather (forecast still needs to be figured out)
 	private int pressure, humidity, windDirectionDegree,time,sunrise,sunset; 
 	private String weatherDescription, skyState, windDirection; //This may change, need to test out how the currentWeatherSetVariables function is for a while
 	private JSONObject allWeatherData; 
-	private ImageIcon icon;
+	private ImageIcon image;
 	
 	/**
 	 * Returns a JSON object to use for obtaining weather data. 
@@ -55,12 +53,10 @@ public class JSON {
 	 * 
 	 * @return a Current object with all fields filled for the current weather data. 
 	 */
-//	public Current updateCurrentWeatherData() throws NoConnectionException {
-	public Current updateCurrentWeatherData(){ 
+	public Current updateCurrentWeatherData(){ //
 		try{
-			weatherURL = new URL(HOST + PATH_CURRENT + query);
-			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
-//			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+			url = new URL(HOST + PATH_CURRENT + query);
+			HttpURLConnection connect = (HttpURLConnection) url.openConnection();
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject currentWeatherData = new JSONObject(jsonString);
@@ -76,9 +72,8 @@ public class JSON {
 			currentWindSetVariables(wind);
 			currentSunTime(sun);
 			//return ADO_Object
-
-			return new Current("celsius",time,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState);
-	
+			return new Current(time, sunrise, sunset, pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState, image);
+			
 		}catch (IOException e){
 			System.out.println(e.getMessage());
 		}
@@ -99,8 +94,13 @@ public class JSON {
 		temp = main.getDouble("temp");
 		}
 	
+	public static void main(String [] args){
+		JSON asdf = new JSON("Toronto, CA");
+		Object fdsa = asdf.updateCurrentWeatherData();
+	}
+	
 	/**
-	 * Private method for weather variables. Gets sky state and weather description as well as ImageIcon for skystate
+	 * Private method for weather variables. Gets sky state and weather description
 	 * 
 	 * @param weather JSONArray containing all weather fields
 	 */
@@ -108,13 +108,13 @@ public class JSON {
 		JSONObject weatherData= weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
 		weatherDescription = weatherData.getString("description");
 		skyState = weatherData.getString("main");
-		
-		//Uses a URL to grab an ImageIcon, to later be implemented in the data
 		try {
-			iconURL = new URL(HOST + PATH_ICON + weatherData.getString("icon") + ".png");
-			icon = new ImageIcon(iconURL);
-		}catch (Exception e){}
-		
+			URL im = new URL("http://openweathermap.org/img/w/" + weatherData.getString("icon") + ".png");
+			image = new ImageIcon(im);
+		}catch (Exception e)
+		{
+			
+		}
 	}
 	
 	/**
@@ -125,28 +125,14 @@ public class JSON {
 	private void currentWindSetVariables(JSONObject wind){
 		windDirectionDegree = wind.getInt("deg");
 		windSpeed = wind.getDouble("speed");
-		if (windDirectionDegree == 0 || windDirectionDegree <=15){
+		if (windDirectionDegree == 0)
 			windDirection = "North";
-		}
-		else if (windDirectionDegree <= 45){
-			windDirection = "North East";
-		}
-		else if (windDirectionDegree <=105){
+		else if (windDirectionDegree > 0 && windDirectionDegree <=90)
 			windDirection = "East";
-		}
-		else if ( windDirectionDegree <= 135){
-			windDirection = "South East";
-		}
-		else if (windDirectionDegree <= 195){
+		else if (windDirectionDegree > 90 && windDirectionDegree <= 180)
 			windDirection = "South";
-		}
-		else if (windDirectionDegree <= 225){
-			windDirection = "South West";
-		}
-		else if (windDirectionDegree <= 285)
-			windDirection = "West";
 		else
-			windDirection = "North West";
+			windDirection = "West";
 	}
 	
 	/**
