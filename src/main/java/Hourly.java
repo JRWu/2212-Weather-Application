@@ -1,5 +1,6 @@
 import java.io.*;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 /**
 * March 8, 2014
@@ -26,21 +27,22 @@ public class Hourly extends ADO implements java.io.Serializable
 * @param sky the sky condition fo the weather object
 * @param state the image that goes along with the associated sky condition
 */
-	public Hourly(int time, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
+	public Hourly(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
 	{
 		super (air,wind,temp,min,max,humid,windDir,sky, state);
-		hour = time;
+		GregorianCalendar cal = new GregorianCalendar();
+		hour = cal.get(Calendar.HOUR_OF_DAY);
 	}
 /**
 * 
-* @return the current hour that the object is representing
+* @return the initial hour that the object is representing
 */
 	public int getHour()
 	{
 		return hour;
 	}
 /**
-* This method sets the current hour that the weather object is representing
+* This method sets the initial hour that the weather object is representing
 * @param hourly the hour to be set
 */
 	public void setHour(int hourly)

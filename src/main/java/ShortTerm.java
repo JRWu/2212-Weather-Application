@@ -1,7 +1,5 @@
 import java.io.*;
-
 import javax.swing.ImageIcon;
-
 import org.apache.commons.io.*;
 /**
 * March 23, 2014
@@ -50,7 +48,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 3 - 6 am
+*@return the next 3 hours
 */
 	public Hourly getHourly2()
 	{
@@ -58,7 +56,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 6 - 9 am
+*@return the next 3 hours
 */
 	public Hourly getHourly3()
 	{
@@ -66,7 +64,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 9am - 12 pm
+*@return the next 3 hours
 */
 	public Hourly getHourly4()
 	{
@@ -74,7 +72,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 12pm - 3 pm
+*@return the next 3 hours
 */
 	public Hourly getHourly5()
 	{
@@ -82,7 +80,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 3 pm - 6 pm
+*@return the next 3 hours
 */
 	public Hourly getHourly6()
 	{
@@ -90,7 +88,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 6 pm -9 pm
+*@return the next 3 hours
 */
 	public Hourly getHourly7()
 	{
@@ -98,7 +96,7 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object for 9pm - 12 am
+*@return the next 3 hours
 */
 	public Hourly getHourly8()
 	{
