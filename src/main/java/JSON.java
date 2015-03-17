@@ -38,12 +38,15 @@ public class JSON {
 	private final String ARRAY_JSON = "list";
 	private final String SUN_JSON = "sys";
 	
+	private final int TIMEOUT_TIME = 5000; //the time it'll take for connection to timeout
+	
 	private String query =  "?q="; 	//variable query, dependent on location and whether it will be current, short term, or long term
 	
 	private String location = ""; //String to contain location
 	private URL weatherURL,iconURL;	//URL Object, used to create connection
 	private double temp,temp_max,temp_min,windSpeed; //all the variables for CURRENT weather (forecast still needs to be figured out)
-	private int pressure, humidity, windDirectionDegree,time,sunrise,sunset; 
+	private int pressure, humidity, windDirectionDegree;
+	Calendar time,sunrise,sunset; 
 	private long sunrise1;
 	private String weatherDescription, skyState, windDirection; //This may change, need to test out how the currentWeatherSetVariables function is for a while
 	private JSONObject allWeatherData, shortTermData, longTermData; 
@@ -74,6 +77,7 @@ public class JSON {
 		try{
 			weatherURL = new URL(HOST + PATH_CURRENT + query);
 			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+			connect.setConnectTimeout(TIMEOUT_TIME);
 //			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
 			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) 
 				System.out.println("problem");
@@ -81,7 +85,8 @@ public class JSON {
 			String jsonString = IOUtils.toString(in);
 			JSONObject currentWeatherData = new JSONObject(jsonString);
 			allWeatherData = new JSONObject(jsonString);
-			time = currentWeatherData.getInt("dt");
+			time = Calendar.getInstance();
+			time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
 			
 			JSONObject main = currentWeatherData.getJSONObject(MAIN_JSON);
 			JSONArray weather = currentWeatherData.getJSONArray(WEATHER_JSON);
@@ -95,9 +100,13 @@ public class JSON {
 
 			return new Current(time,sunrise,sunset,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
 	
+		}catch (SocketTimeoutException e)
+		{
+			//throw NoConnectionException with timeout.
 		}catch (IOException e){
 			System.out.println(e.getMessage());
 		}
+		
 		return null;
 	}
 
@@ -169,6 +178,11 @@ public class JSON {
 		windDirection = direction[(int) (( windDirectionDegree/22.5)%16)];
 	}
 	
+	/**
+	 * method to set the variables for shortTerm wind
+	 * 
+	 * @param wind JSONObject that conatins all wind variables required. 
+	 */
 	private void shortTermWindSetVariables(JSONObject wind){
 		windDirectionDegree = wind.getInt("deg");
 		windSpeed = wind.getDouble("speed");
@@ -184,15 +198,13 @@ public class JSON {
 	 */
 	private void currentSunTime(JSONObject sun){
 		//TODO get Billy to change time, sunrise, and sunset fields in current to a calendar instead of int
-		Calendar cal = Calendar.getInstance();
-		//System.out.println(cal.getTime().toString());
-		cal.setTimeInMillis((long) 1000*sun.getInt("sunrise"));
-		sunrise =  (int) cal.getTimeInMillis();
-		sunset = sun.getInt("sunset");
-		//System.out.println(cal.getTime().toString());
-		//System.out.println(new Time( cal.getTimeInMillis() + TimeZone.getDefault().getRawOffset()));
-		//System.out.println(new Time(sunset));
-		sunset = sun.getInt("sunset");
+		sunrise= Calendar.getInstance();
+		sunset = Calendar.getInstance();
+		
+		
+		sunrise.setTimeInMillis(1000 *sun.getLong("sunrise"));
+		sunset.setTimeInMillis(1000 * sun.getLong("sunset"));
+		System.out.println(sunrise.getTime());
 	}
 	
 	public static void main (String [] args){
@@ -204,20 +216,24 @@ public class JSON {
 	
 	/**
 	 * Method to return short term data, comes as 3 hour increments spanning 24 hours
-	 * @return a Hourly array of size 8
+	 * @return a ShortTerm object 
 	 */
 //	public hourly [] updateShortTermData() throws NoConnectionException {
 	public ShortTerm updateShortTermData(){
 		Hourly [] shortTermHourlies = new Hourly[8];
 		try{
+		//creates the weather URL 
 		weatherURL = new URL(HOST + PATH_FORECAST + query);
 		
 		HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+		connect.setConnectTimeout(TIMEOUT_TIME);//sets timeout
 //		if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+		
+		//Gets input stream and converts it to string to be handled by JSONObject
 		InputStream in = connect.getInputStream();
 		String jsonString = IOUtils.toString(in);
-		shortTermData = new JSONObject(jsonString);
-		JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);
+		shortTermData = new JSONObject(jsonString); 
+		JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
 		
 		//loop to get the 8 hourly objects
 		for (int i =0; i <8; i++){
@@ -226,18 +242,20 @@ public class JSON {
 			shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
 			shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
 			shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
-			time = hour.getInt("dt");
+			time = Calendar.getInstance();
+			time.setTimeInMillis(1000 * hour.getLong("dt"));
 			
-			shortTermHourlies[i] = new Hourly(time,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
+			shortTermHourlies[i] = new Hourly(time.get(Calendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
 		}
 		
 		
 		
 		}catch(MalformedURLException e){
 			System.out.println("BAD URL");
-		}catch(Exception e){
-			System.out.println("shortTermThing");
-			System.out.println(e.getMessage());
+		}catch(SocketTimeoutException e){
+			//throw e;
+		}catch(IOException e){
+			//throw new NoConnectionException ("No connection established");
 		}
 		return new ShortTerm(shortTermHourlies);
 	}
