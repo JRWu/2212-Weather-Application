@@ -1,7 +1,5 @@
 import java.io.*;
-
 import javax.swing.ImageIcon;
-
 import org.apache.commons.io.*;
 /**
 * March 23, 2014
@@ -42,45 +40,45 @@ public class LongTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object representing monday
+*@return the object representing the first day
 */
-	public Daily getMonday()
+	public Daily getDay1()
 	{
 		return longTerm[0];
 	}
-
 /**
 *
-*@return the object representing tuesday
+*@return the object representing the second day
 */
-	public Daily getTuesday()
+	public Daily getDay2()
 	{
 		return longTerm[1];
 	}
 /**
 *
-*@return the object representing wednesday
+*@return the object representing the third day
 */
-	public Daily getWednesday()
+	public Daily getDay3()
 	{
 		return longTerm[2];
 	}
 /**
 *
-*@return the object representing thursday
+*@return the object representing the fourth day
 */
-	public Daily getThursday()
+	public Daily getDay4()
 	{
 		return longTerm[3];
 	}
-
 /**
 *
-*@return the object representing friday
+*@return the object representing the fifth day
+
 */
-	public Daily getFriday()
+	public Daily getDay5()
 	{
 		return longTerm[4];
 	}
+
 
 }
