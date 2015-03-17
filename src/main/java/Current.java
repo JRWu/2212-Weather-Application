@@ -1,6 +1,5 @@
 import java.io.*;
 import javax.swing.ImageIcon;
-import java.util.GregorianCalendar;
 import java.util.Calendar;
 /**
 * March 8, 2015
@@ -13,12 +12,9 @@ public class Current extends ADO implements java.io.Serializable
 /**
 * Instance variables
 */
-	private int hour;
-	private int minute;
-	private int second;
-	private int milli; 
-	private int sunrise;
-	private int sunset;
+	private Calendar time;
+	private Calendar sunrise;
+	private Calendar sunset;
 /**
 * Constructor for the current weather object
 * @param now the current time for the current weather object
@@ -34,14 +30,10 @@ public class Current extends ADO implements java.io.Serializable
 * @param set the projected sunset time for the current weather object
 * @param state the image that goes along with the associated sky condition
 */
-	public Current (int rise, int set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
+	public Current (Calendar timing, Calendar rise, Calendar set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
 	{
 		super (air,wind,temp,min,max,humid,windDir,sky,state);
-		GregorianCalendar cal = new GregorianCalendar();
-		hour = cal.get(Calendar.HOUR_OF_DAY);
-		minute = cal.get(Calendar.MINUTE);
-	    	second = cal.get(Calendar.SECOND);
-		milli = cal.get(Calendar.MILLISECOND);
+		time = timing;
 		sunrise = rise;
 		sunset = set;
 	}
@@ -49,71 +41,12 @@ public class Current extends ADO implements java.io.Serializable
 * 
 * @return the hour of the current weather object
 */
-	public int getHour()
-	{
-		return hour;
-	}
-/**
-* This method sets the hour for the current weather object
-* @param hourly the hour to be set
-*/
-	public void setHour(int hourly)
-	{
-		hour = hourly;
-	}
-/**
- * 
- * @return The minute of the current weather object
- */
-	public int getMinute()
-	{
-		return minute;
-	}
-/**
- * This method sets the minute for the current weather object
- * @param minutes the minute of the current weather object to be 
- */
-	public void setMinute(int minutes)
-	{
-		minute = minutes;
-	}
-/**
- * 	
- * @return The second of the current weather object
- */
-	public int getSecond()
-	{
-		return second;
-	}
-/**
- * This method sets the second for the current weather object
- * @param seconds the second to be set
- */
-	public void setSecond(int seconds)
-	{
-		second = seconds;
-	}
-/**
- * 
- * @return The milliseconds of the current weather object
- */
-	public int getMilli()
-	{
-		return milli;
-	}
-/**
- * This method sets the current milliseconds in the current weather object
- * @param milli the current milliseconds to be set
- */
-	public void setMilli(int millis)
-	{
-		milli = millis;
-	}
+
 /**
 *
 * @return the projected time of the sunrise for the current weather object
 */
-	public int getSunRise()
+	public Calendar getSunRise()
 	{
 		return sunrise;
 	}
@@ -121,7 +54,7 @@ public class Current extends ADO implements java.io.Serializable
 * This method sets the projected sunrise time for the current weather object
 * @param the time of the sunrise to be set
 */
-	public void setSunRise(int rise)
+	public void setSunRise(Calendar rise)
 	{
 		sunrise = rise;
 	}
@@ -129,7 +62,7 @@ public class Current extends ADO implements java.io.Serializable
 *
 * @return the projected time of the sunset for the current weather object
 */
-	public int getSunSet()
+	public Calendar getSunSet()
 	{
 		return sunset;
 	}
@@ -137,7 +70,7 @@ public class Current extends ADO implements java.io.Serializable
 * This method sets the projected sunset time for the current weather object
 * @param the time of the sunset to be set
 */
-	public void setSunSet (int set)
+	public void setSunSet (Calendar set)
 	{
 		sunset = set;
 	}
