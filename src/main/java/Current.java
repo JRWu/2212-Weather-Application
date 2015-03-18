@@ -41,7 +41,19 @@ public class Current extends ADO implements java.io.Serializable
 * 
 * @return the hour of the current weather object
 */
+	public Calendar getTime()
+	{
+		return time;
+	}
+/**
+* This method sets the current time for the current weather object
+* @param timing the time to be set
+*/	
 
+	public void setTime(Calendar timing)
+	{
+		time = timing;
+	}
 /**
 *
 * @return the projected time of the sunrise for the current weather object
