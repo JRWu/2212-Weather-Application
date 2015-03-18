@@ -40,66 +40,10 @@ public class ShortTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the first 3 hours 
+*@return the correct set of hours from short term forecast based off of what is in the short term forecast array (number between 0 and 7 will be entered)
 */
-	public Hourly getHourly1()
+	public Hourly getHourly(int i)
 	{
-		return shortTerm[0];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly2()
-	{
-		return shortTerm[1];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly3()
-	{
-		return shortTerm[2];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly4()
-	{
-		return shortTerm[3];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly5()
-	{
-		return shortTerm[4];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly6()
-	{
-		return shortTerm[5];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly7()
-	{
-		return shortTerm[6];
-	}
-/**
-*
-*@return the next 3 hours
-*/
-	public Hourly getHourly8()
-	{
-		return shortTerm[7];
+		return shortTerm[i];
 	}
 }

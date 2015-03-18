@@ -40,45 +40,10 @@ public class LongTerm implements java.io.Serializable
 	}
 /**
 *
-*@return the object representing the first day
+*@return the object representing the correct day based off an integer input (number between 0 and 4 is entered
 */
-	public Daily getDay1()
+	public Daily getDaily(int i)
 	{
-		return longTerm[0];
-	}
-/**
-*
-*@return the object representing the second day
-*/
-	public Daily getDay2()
-	{
-		return longTerm[1];
-	}
-/**
-*
-*@return the object representing the third day
-*/
-	public Daily getDay3()
-	{
-		return longTerm[2];
-	}
-/**
-*
-*@return the object representing the fourth day
-*/
-	public Daily getDay4()
-	{
-		return longTerm[3];
-	}
-/**
-*
-*@return the object representing the fifth day
-
-*/
-	public Daily getDay5()
-	{
-		return longTerm[4];
-	}
-
-
+		return longTerm[i];
+	}	
 }
