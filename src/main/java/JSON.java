@@ -9,7 +9,7 @@ import java.util.TimeZone;
 
 import javax.swing.ImageIcon;
 
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.apache.commons.io.*;
 import org.json.JSONObject;
@@ -46,7 +46,7 @@ public class JSON {
 	private URL weatherURL,iconURL;	//URL Object, used to create connection
 	private double temp,temp_max,temp_min,windSpeed; //all the variables for CURRENT weather (forecast still needs to be figured out)
 	private int pressure, humidity, windDirectionDegree;
-	Calendar time,sunrise,sunset; 
+	GregorianCalendar time,sunrise,sunset; 
 	private long sunrise1;
 	private String weatherDescription, skyState, windDirection; //This may change, need to test out how the currentWeatherSetVariables function is for a while
 	private JSONObject allWeatherData, shortTermData, longTermData; 
@@ -85,7 +85,7 @@ public class JSON {
 			String jsonString = IOUtils.toString(in);
 			JSONObject currentWeatherData = new JSONObject(jsonString);
 			allWeatherData = new JSONObject(jsonString);
-			time = Calendar.getInstance();
+			time = (GregorianCalendar) GregorianCalendar.getInstance();
 			time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
 			
 			JSONObject main = currentWeatherData.getJSONObject(MAIN_JSON);
@@ -198,13 +198,13 @@ public class JSON {
 	 */
 	private void currentSunTime(JSONObject sun){
 		//TODO get Billy to change time, sunrise, and sunset fields in current to a calendar instead of int
-		sunrise= Calendar.getInstance();
-		sunset = Calendar.getInstance();
+		sunrise= (GregorianCalendar) GregorianCalendar.getInstance();
+		sunset = (GregorianCalendar) GregorianCalendar.getInstance();
 		
 		
 		sunrise.setTimeInMillis(1000 *sun.getLong("sunrise"));
 		sunset.setTimeInMillis(1000 * sun.getLong("sunset"));
-		System.out.println(sunrise.getTime());
+		
 	}
 	
 	public static void main (String [] args){
@@ -242,10 +242,10 @@ public class JSON {
 			shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
 			shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
 			shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
-			time = Calendar.getInstance();
+			time = (GregorianCalendar) GregorianCalendar.getInstance();
 			time.setTimeInMillis(1000 * hour.getLong("dt"));
 			
-			shortTermHourlies[i] = new Hourly(time.get(Calendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
+			shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
 		}
 		
 		
