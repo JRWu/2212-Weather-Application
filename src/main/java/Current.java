@@ -1,6 +1,6 @@
 import java.io.*;
 import javax.swing.ImageIcon;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
 * March 8, 2015
 * CS 2212
@@ -12,9 +12,9 @@ public class Current extends ADO implements java.io.Serializable
 /**
 * Instance variables
 */
-	private Calendar time;
-	private Calendar sunrise;
-	private Calendar sunset;
+	private GregorianCalendar time;
+	private GregorianCalendar sunrise;
+	private GregorianCalendar sunset;
 /**
 * Constructor for the current weather object
 * @param now the current time for the current weather object
@@ -30,7 +30,7 @@ public class Current extends ADO implements java.io.Serializable
 * @param set the projected sunset time for the current weather object
 * @param state the image that goes along with the associated sky condition
 */
-	public Current (Calendar timing, Calendar rise, Calendar set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
+	public Current (GregorianCalendar timing, GregorianCalendar rise, GregorianCalendar set, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
 	{
 		super (air,wind,temp,min,max,humid,windDir,sky,state);
 		time = timing;
@@ -41,7 +41,7 @@ public class Current extends ADO implements java.io.Serializable
 * 
 * @return the hour of the current weather object
 */
-	public Calendar getTime()
+	public GregorianCalendar getTime()
 	{
 		return time;
 	}
@@ -50,7 +50,7 @@ public class Current extends ADO implements java.io.Serializable
 * @param timing the time to be set
 */	
 
-	public void setTime(Calendar timing)
+	public void setTime(GregorianCalendar timing)
 	{
 		time = timing;
 	}
@@ -58,7 +58,7 @@ public class Current extends ADO implements java.io.Serializable
 *
 * @return the projected time of the sunrise for the current weather object
 */
-	public Calendar getSunRise()
+	public GregorianCalendar getSunRise()
 	{
 		return sunrise;
 	}
@@ -66,7 +66,7 @@ public class Current extends ADO implements java.io.Serializable
 * This method sets the projected sunrise time for the current weather object
 * @param the time of the sunrise to be set
 */
-	public void setSunRise(Calendar rise)
+	public void setSunRise(GregorianCalendar rise)
 	{
 		sunrise = rise;
 	}
@@ -74,7 +74,7 @@ public class Current extends ADO implements java.io.Serializable
 *
 * @return the projected time of the sunset for the current weather object
 */
-	public Calendar getSunSet()
+	public GregorianCalendar getSunSet()
 	{
 		return sunset;
 	}
@@ -82,7 +82,7 @@ public class Current extends ADO implements java.io.Serializable
 * This method sets the projected sunset time for the current weather object
 * @param the time of the sunset to be set
 */
-	public void setSunSet (Calendar set)
+	public void setSunSet (GregorianCalendar set)
 	{
 		sunset = set;
 	}
