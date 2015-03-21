@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import javax.swing.ImageIcon;
+import javax.swing.text.html.MinimalHTMLWriter;
 
 import java.util.GregorianCalendar;
 
@@ -30,7 +31,7 @@ public class JSON {
 //	private String url = "http://api.openweathermap.org/data/2.5/forecast?q=london,ca&cnt=7";
 	private final String HOST = "http://api.openweathermap.org"; //host and protocol 
 	private final String PATH_CURRENT = "/data/2.5/weather";	//where we'll be getting the current weather from
-	private final String PATH_FORECAST = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
+	private final String PATH_FORECAST_SHORTTERM = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
 	private final String PATH_ICON = "/img/w";
 	private final String MAIN_JSON = "main";
 	private final String WEATHER_JSON = "weather";
@@ -111,6 +112,152 @@ public class JSON {
 	}
 
 	
+	/**
+		 * Method to return short term data, comes as 3 hour increments spanning 24 hours
+		 * @return a ShortTerm object 
+		 */
+	//	public hourly [] updateShortTermData() throws NoConnectionException {
+		public ShortTerm updateShortTermData(){
+			Hourly [] shortTermHourlies = new Hourly[8];
+			try{
+			//creates the weather URL 
+			weatherURL = new URL(HOST + PATH_FORECAST_SHORTTERM + query);
+			
+			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+			connect.setConnectTimeout(TIMEOUT_TIME);//sets timeout
+	//		if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+			
+			//Gets input stream and converts it to string to be handled by JSONObject
+			InputStream in = connect.getInputStream();
+			String jsonString = IOUtils.toString(in);
+			shortTermData = new JSONObject(jsonString); 
+			JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
+			
+			//loop to get the 8 hourly objects
+			for (int i =0; i <8; i++){
+				JSONObject hour = arrayData.getJSONObject(i);
+				
+				shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
+				shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
+				shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
+				time = (GregorianCalendar) GregorianCalendar.getInstance();
+				time.setTimeInMillis(1000 * hour.getLong("dt"));
+				
+				shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
+			}
+			
+			
+			
+			}catch(MalformedURLException e){
+				System.out.println("BAD URL");
+			}catch(SocketTimeoutException e){
+				//throw e;
+			}catch(IOException e){
+				//throw new NoConnectionException ("No connection established");
+			}
+			return new ShortTerm(shortTermHourlies);
+		}
+
+
+
+	public LongTerm updateLongTermData(){
+		
+		try{
+			weatherURL = new URL(HOST + PATH_CURRENT + query);
+			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+			connect.setConnectTimeout(TIMEOUT_TIME);
+//			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) 
+				System.out.println("problem");
+			InputStream in = connect.getInputStream();
+			String jsonString = IOUtils.toString(in);
+			JSONObject currentWeatherData = new JSONObject(jsonString);
+			longTermData = new JSONObject(jsonString);
+			time = (GregorianCalendar) GregorianCalendar.getInstance();
+			time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
+			
+						//return ADO_Object
+
+	
+		}catch (SocketTimeoutException e)
+		{
+			//throw NoConnectionException with timeout.
+		}catch (IOException e){
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+	
+	public Mars updateMarsData(){
+		try{
+			URL marsURL = new URL("http://marsweather.ingenology.com/v1/latest/?format=json");
+			HttpURLConnection connect = (HttpURLConnection) marsURL.openConnection();
+			connect.setConnectTimeout(TIMEOUT_TIME);
+			InputStream in = connect.getInputStream();
+			String jsonString = IOUtils.toString(in);
+			JSONObject marsWeatherData = new JSONObject(jsonString).getJSONObject("report");
+			
+			currentMarsSetVariables(marsWeatherData);
+			
+			
+			return new Mars(pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,null);
+			
+			
+		}catch(Exception e){
+			System.out.println("Problem");
+			System.out.println(e.getMessage());
+			
+		}
+		
+		return null;
+	}
+
+	private void currentMarsSetVariables(JSONObject mars){
+		
+		if(!mars.isNull("ls"))
+			temp = mars.getDouble("ls");
+		else
+			temp = -55.0;
+		
+		if(!mars.isNull("min_temp"))
+			temp_min = mars.getDouble("min_temp");
+		else
+			temp_min = -133.0;
+		
+		if(!mars.isNull("max_temp"))
+			temp_max = mars.getDouble("max_temp");
+		else
+			temp_max = 27.0;
+		
+		if(!mars.isNull("atmo_opacity"))
+			skyState = mars.getString("atmo_opacity");
+		else
+			skyState = "null";
+		
+		if (!mars.isNull("wind_speed"))
+			windSpeed = mars.getDouble("wind_speed");
+		else
+			windSpeed = 0.0;
+		
+		if (!mars.isNull("abs_humidity"))
+			humidity = mars.getInt("abs_humidity");
+		else
+			humidity = 0;
+		
+		if(!mars.isNull("wind_direction"))
+			windDirection = mars.getString("wind_direction");
+		else
+			windDirection = "null";
+		
+		if(!mars.isNull("pressure"))
+			pressure = mars.getInt("pressure");
+		else
+			pressure = 6;
+		
+		
+		//TODO get ICON
+	}
+
 	/**
 	 * Private method to set all temperature and humidity and pressure fields
 	 * 
@@ -209,55 +356,8 @@ public class JSON {
 	
 	public static void main (String [] args){
 		JSON asdf = new JSON("London,ca");
-		asdf.updateCurrentWeatherData();
-	}
-
-	
-	
-	/**
-	 * Method to return short term data, comes as 3 hour increments spanning 24 hours
-	 * @return a ShortTerm object 
-	 */
-//	public hourly [] updateShortTermData() throws NoConnectionException {
-	public ShortTerm updateShortTermData(){
-		Hourly [] shortTermHourlies = new Hourly[8];
-		try{
-		//creates the weather URL 
-		weatherURL = new URL(HOST + PATH_FORECAST + query);
+		asdf.updateMarsData();
 		
-		HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
-		connect.setConnectTimeout(TIMEOUT_TIME);//sets timeout
-//		if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
-		
-		//Gets input stream and converts it to string to be handled by JSONObject
-		InputStream in = connect.getInputStream();
-		String jsonString = IOUtils.toString(in);
-		shortTermData = new JSONObject(jsonString); 
-		JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
-		
-		//loop to get the 8 hourly objects
-		for (int i =0; i <8; i++){
-			JSONObject hour = arrayData.getJSONObject(i);
-			
-			shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
-			shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
-			shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
-			time = (GregorianCalendar) GregorianCalendar.getInstance();
-			time.setTimeInMillis(1000 * hour.getLong("dt"));
-			
-			shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
-		}
-		
-		
-		
-		}catch(MalformedURLException e){
-			System.out.println("BAD URL");
-		}catch(SocketTimeoutException e){
-			//throw e;
-		}catch(IOException e){
-			//throw new NoConnectionException ("No connection established");
-		}
-		return new ShortTerm(shortTermHourlies);
 	}
 	
 	
