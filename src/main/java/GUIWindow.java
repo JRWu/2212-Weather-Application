@@ -272,9 +272,9 @@ public class GUIWindow extends javax.swing.JFrame {
 
             minTempHeader.setText("Min(Low):");
             minTempHeader.setBorder(null);
-            minTempHeader.setMaximumSize(new java.awt.Dimension(150, 18));
-            minTempHeader.setMinimumSize(new java.awt.Dimension(130, 18));
-            minTempHeader.setPreferredSize(new java.awt.Dimension(130, 18));
+            minTempHeader.setMaximumSize(new java.awt.Dimension(200, 18));
+            minTempHeader.setMinimumSize(new java.awt.Dimension(200, 18));
+            minTempHeader.setPreferredSize(new java.awt.Dimension(200, 18));
 
             skyConditionField.setText("\"Condition\"");
             skyConditionField.setBorder(null);
@@ -294,9 +294,9 @@ public class GUIWindow extends javax.swing.JFrame {
 
             maxTempHeader.setText("Max(High):");
             maxTempHeader.setBorder(null);
-            maxTempHeader.setMaximumSize(new java.awt.Dimension(150, 18));
-            maxTempHeader.setMinimumSize(new java.awt.Dimension(130, 18));
-            maxTempHeader.setPreferredSize(new java.awt.Dimension(130, 18));
+            maxTempHeader.setMaximumSize(new java.awt.Dimension(200, 18));
+            maxTempHeader.setMinimumSize(new java.awt.Dimension(200, 18));
+            maxTempHeader.setPreferredSize(new java.awt.Dimension(200, 18));
 
             airPressureField.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
             airPressureField.setText("- kPa");
@@ -377,16 +377,11 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(skyStateIconC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(currentPanelLayout.createSequentialGroup()
-                                    .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(maxTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(minTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addGroup(currentPanelLayout.createSequentialGroup()
-                                    .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(temperatureHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lastUpdatedTimeLabel))
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(temperatureHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lastUpdatedTimeLabel)
+                                .addComponent(maxTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(minTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(currentPanelLayout.createSequentialGroup()
                             .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(currentPanelLayout.createSequentialGroup()
@@ -418,8 +413,7 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(currentPanelLayout.createSequentialGroup()
-                            .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(skyStateIconC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(currentPanelLayout.createSequentialGroup()
                                     .addComponent(lastUpdatedTimeLabel)
                                     .addGap(9, 9, 9)
@@ -427,7 +421,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(maxTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(minTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(minTempHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(skyStateIconC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(skyConditionField)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
