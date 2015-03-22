@@ -132,6 +132,36 @@ public class GUIWindow extends javax.swing.JFrame {
         temperatureLabelEight = new javax.swing.JLabel();
         longTermPanel = new javax.swing.JPanel();
         currentLocationLT = new javax.swing.JLabel();
+        longTermSeperatorFour = new javax.swing.JSeparator();
+        longTermSeperatorThree = new javax.swing.JSeparator();
+        longTermSeperatorTwo = new javax.swing.JSeparator();
+        longTermSeperatorOne = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         currentLocationLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
@@ -250,7 +280,7 @@ public class GUIWindow extends javax.swing.JFrame {
             currentPanel.setPreferredSize(new java.awt.Dimension(860, 472));
 
             currentLocation.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
-            currentLocation.setText("London, ON");
+            currentLocation.setText("London,Ca");
             currentLocation.setMaximumSize(new java.awt.Dimension(400, 52));
             currentLocation.setMinimumSize(new java.awt.Dimension(400, 52));
             currentLocation.setPreferredSize(new java.awt.Dimension(400, 52));
@@ -738,7 +768,112 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermPanel.setPreferredSize(new java.awt.Dimension(860, 472));
 
             currentLocationLT.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
-            currentLocationLT.setText("London, ON");
+            currentLocationLT.setText("London,Ca");
+
+            longTermSeperatorFour.setOrientation(javax.swing.SwingConstants.VERTICAL);
+            longTermSeperatorFour.setMaximumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorFour.setMinimumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorFour.setPreferredSize(new java.awt.Dimension(8, 350));
+
+            longTermSeperatorThree.setOrientation(javax.swing.SwingConstants.VERTICAL);
+            longTermSeperatorThree.setMaximumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorThree.setMinimumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorThree.setPreferredSize(new java.awt.Dimension(8, 350));
+
+            longTermSeperatorTwo.setOrientation(javax.swing.SwingConstants.VERTICAL);
+            longTermSeperatorTwo.setMaximumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorTwo.setMinimumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorTwo.setPreferredSize(new java.awt.Dimension(8, 350));
+
+            longTermSeperatorOne.setOrientation(javax.swing.SwingConstants.VERTICAL);
+            longTermSeperatorOne.setMaximumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorOne.setMinimumSize(new java.awt.Dimension(8, 350));
+            longTermSeperatorOne.setPreferredSize(new java.awt.Dimension(8, 350));
+
+            jLabel1.setText("Date");
+
+            jLabel2.setText("Date");
+
+            jLabel3.setText("Date");
+
+            jLabel4.setText("Date");
+
+            jLabel5.setText("Date");
+
+            jLabel6.setText("jLabel6");
+            jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            jLabel6.setMaximumSize(new java.awt.Dimension(140, 140));
+            jLabel6.setMinimumSize(new java.awt.Dimension(140, 140));
+            jLabel6.setPreferredSize(new java.awt.Dimension(140, 140));
+
+            jLabel7.setText("jLabel6");
+            jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            jLabel7.setMaximumSize(new java.awt.Dimension(140, 140));
+            jLabel7.setMinimumSize(new java.awt.Dimension(140, 140));
+            jLabel7.setPreferredSize(new java.awt.Dimension(140, 140));
+
+            jLabel8.setText("jLabel6");
+            jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            jLabel8.setMaximumSize(new java.awt.Dimension(140, 140));
+            jLabel8.setMinimumSize(new java.awt.Dimension(140, 140));
+            jLabel8.setPreferredSize(new java.awt.Dimension(140, 140));
+
+            jLabel9.setText("jLabel6");
+            jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            jLabel9.setMaximumSize(new java.awt.Dimension(140, 140));
+            jLabel9.setMinimumSize(new java.awt.Dimension(140, 140));
+            jLabel9.setPreferredSize(new java.awt.Dimension(140, 140));
+
+            jLabel10.setText("jLabel6");
+            jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            jLabel10.setMaximumSize(new java.awt.Dimension(140, 140));
+            jLabel10.setMinimumSize(new java.awt.Dimension(140, 140));
+            jLabel10.setPreferredSize(new java.awt.Dimension(140, 140));
+
+            jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            jLabel11.setText("Temp:");
+
+            jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            jLabel12.setText("Temp:");
+
+            jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            jLabel13.setText("Temp:");
+
+            jLabel14.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            jLabel14.setText("Temp:");
+
+            jLabel15.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            jLabel15.setText("Temp:");
+
+            jLabel16.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel16.setText("High:");
+
+            jLabel17.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel17.setText("Low");
+
+            jLabel18.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel18.setText("Low");
+
+            jLabel19.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel19.setText("High:");
+
+            jLabel20.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel20.setText("Low");
+
+            jLabel21.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel21.setText("High:");
+
+            jLabel22.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel22.setText("Low");
+
+            jLabel23.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel23.setText("High:");
+
+            jLabel24.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel24.setText("High:");
+
+            jLabel25.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            jLabel25.setText("Low");
 
             javax.swing.GroupLayout longTermPanelLayout = new javax.swing.GroupLayout(longTermPanel);
             longTermPanel.setLayout(longTermPanelLayout);
@@ -746,18 +881,132 @@ public class GUIWindow extends javax.swing.JFrame {
                 longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(longTermPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(546, Short.MAX_VALUE))
+                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, longTermPanelLayout.createSequentialGroup()
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11)
+                                .addComponent(jLabel16)
+                                .addComponent(jLabel17))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                            .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel18)
+                                .addComponent(jLabel19))
+                            .addGap(13, 13, 13)
+                            .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)
+                                .addComponent(jLabel20)
+                                .addComponent(jLabel21))
+                            .addGap(13, 13, 13)
+                            .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel22)
+                                .addComponent(jLabel23))
+                            .addGap(13, 13, 13)
+                            .addComponent(longTermSeperatorFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel15)
+                                .addComponent(jLabel24)
+                                .addComponent(jLabel25))
+                            .addGap(13, 13, 13))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE))))
             );
             longTermPanelLayout.setVerticalGroup(
                 longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(longTermPanelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addComponent(currentLocationLT)
-                    .addContainerGap(394, Short.MAX_VALUE))
+                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(longTermSeperatorFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(44, 44, 44)
+                                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(57, 57, 57)
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel16)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel17))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(57, 57, 57)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel12)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel19)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel18))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel21)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel20))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel14)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel23)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel22))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(56, 56, 56)
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel24)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel25)))
+                            .addGap(0, 0, Short.MAX_VALUE))))
             );
 
             guiTabbedPanels.addTab("Long Term", longTermPanel);
+            guiTabbedPanels.addTab("MARS", jTabbedPane1);
 
             currentLocationLabel.setForeground(new java.awt.Color(255, 255, 255));
             currentLocationLabel.setText("             ");
@@ -797,8 +1046,9 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addComponent(currentLocationLabel))
                     .addGap(0, 0, 0)
                     .addComponent(guiTabbedPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 15, Short.MAX_VALUE)
-                    .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
 
             refreshButton.getAccessibleContext().setAccessibleName("RefreshButton");
@@ -946,6 +1196,31 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane guiTabbedPanels;
     private javax.swing.JLabel humidityField;
     private javax.swing.JLabel humidityHeader;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -956,12 +1231,17 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lastUpdatedTimeLabel;
     private javax.swing.JTextField locationTextField;
     private javax.swing.JPanel longTermPanel;
+    private javax.swing.JSeparator longTermSeperatorFour;
+    private javax.swing.JSeparator longTermSeperatorOne;
+    private javax.swing.JSeparator longTermSeperatorThree;
+    private javax.swing.JSeparator longTermSeperatorTwo;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel minTempHeader;
     private javax.swing.JMenu preferencesMenu;
@@ -1109,6 +1389,14 @@ public class GUIWindow extends javax.swing.JFrame {
         JLabel longTermTab = new JLabel ("Long Term");
         longTermTab.setPreferredSize(new Dimension (80,40));
         guiTabbedPanels.setTabComponentAt(2,longTermTab);
+        
+        
+        
+        ImageIcon mars = new ImageIcon(GUIWindow.class.getResource("mars.png"));
+        JLabel marsTab = new JLabel ();
+        marsTab.setIcon(mars);
+        marsTab.setPreferredSize(new Dimension(80,80));
+        guiTabbedPanels.setTabComponentAt(3,marsTab);
     }
     
     // ADD NEW CODE HERE
