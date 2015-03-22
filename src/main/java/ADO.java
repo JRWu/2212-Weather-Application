@@ -28,6 +28,44 @@ public class ADO implements java.io.Serializable
 */
 	public ADO(){};
 /**
+ * This serves as a constructor to be implemented in Daily.java
+ * @param temp the temperature to be set
+ * @param min the minimum temperature
+ * @param max the maximum temperature
+ * @param sky the condition of the sky
+ * @param state an icon representing the sky state
+ */
+	public ADO(double temp, double min, double max, String sky, ImageIcon state)
+	{
+		deSerializePreferences();
+		temperature = convertTemp(temp,userPreferences);
+		minTemp = convertTemp(min, userPreferences);
+		maxTemp = convertTemp(max, userPreferences);
+		skyCondition = sky;
+		skyState = state;
+	}
+/**
+ * This serves as the constructor to be implemented in Mars.java	
+ * @param air the air pressure to be set
+ * @param wind the wind speed to be set
+ * @param temp the temperature to be set
+ * @param humid the humidity to be set
+ * @param windDir the wind direction to be set
+ * @param sky the current state of the sky
+ * @param state an image that represents the sky state
+ */
+	public ADO(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state)
+	{
+		deSerializePreferences();
+		airPressure = air;
+		windSpeed = wind;
+		temperature = convertTemp(temp,userPreferences);
+		humidity = humid;
+		windDirection = windDir;
+		skyCondition = sky;
+		skyState = state;
+	}
+/**
 * Constructor for the abstract data object that initializes instance variables and loads the user preferences for units from a text file
 * @param air the air pressure for the abstract data object
 * @param wind the wind speed for the abstract data object
@@ -53,6 +91,7 @@ public class ADO implements java.io.Serializable
 		skyState = state;
 	}
 /**
+ * 
 *
 * @return The air pressure of the abstract data object
 */
@@ -267,7 +306,6 @@ public class ADO implements java.io.Serializable
 		}catch (Exception e)
 		{
 			e.printStackTrace();
-		}
-		
+		}	
 	}
 }

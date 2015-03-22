@@ -18,7 +18,7 @@ public class Daily extends ADO implements java.io.Serializable
 * @param days the current day that the object with representing
 * @param air the air pressure for the daily weather object
 * @param wind the wind speed for the daily weather object
-* @param temp the current temperature for the we daily ather object
+* @param temp the current temperature for the we daily weather object
 * @param min the minimum temperature for the daily weather object
 * @param max the maximum temperature for the daily weather object
 * @param humid the humidity for the daily weather object
@@ -26,9 +26,9 @@ public class Daily extends ADO implements java.io.Serializable
 * @param sky the sky condition for daily the weather object
 * @param state the image that goes along with the associated sky condition
 */
-	public Daily(String days, int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
+	public Daily(String days, double temp, double min, double max, String sky, ImageIcon state)
 	{
-		super (air,wind,temp,min,max,humid,windDir,sky,state);
+		super (temp,min,max,sky,state);
 		day = days;
 	}
 
@@ -49,3 +49,4 @@ public class Daily extends ADO implements java.io.Serializable
 		day = days;
 	}
 }
+

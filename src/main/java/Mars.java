@@ -21,7 +21,7 @@ public class Mars extends ADO{
  */
 	public Mars(int air, double wind, double temp, double min, double max,int humid, String windDir, String sky, ImageIcon state)
 	{
-		super(air,wind,temp,min,max,humid,windDir,sky,state);
+		super(air,wind,temp,humid,windDir,sky,state);
 	}
 }
 
