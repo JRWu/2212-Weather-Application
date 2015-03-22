@@ -32,6 +32,7 @@ public class JSON {
 	private final String HOST = "http://api.openweathermap.org"; //host and protocol 
 	private final String PATH_CURRENT = "/data/2.5/weather";	//where we'll be getting the current weather from
 	private final String PATH_FORECAST_SHORTTERM = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
+	private final String PATH_FORECAST_LONGTERM = "/data/2.5/forecast/daily/";
 	private final String PATH_ICON = "/img/w/";
 	private final String MAIN_JSON = "main";
 	private final String WEATHER_JSON = "weather";
@@ -116,7 +117,7 @@ public class JSON {
 		 * Method to return short term data, comes as 3 hour increments spanning 24 hours
 		 * @return a ShortTerm object 
 		 */
-	//	public hourly [] updateShortTermData() throws NoConnectionException {
+	//	public ShortTerm updateShortTermData() throws NoConnectionException {
 		public ShortTerm updateShortTermData(){
 			Hourly [] shortTermHourlies = new Hourly[8];
 			try{
@@ -163,20 +164,31 @@ public class JSON {
 	public LongTerm updateLongTermData(){
 		
 		try{
-			weatherURL = new URL(HOST + PATH_CURRENT + query);
+			Daily [] days = new Daily[5];
+			weatherURL = new URL(HOST + PATH_FORECAST_LONGTERM + query);
 			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
 			connect.setConnectTimeout(TIMEOUT_TIME);
 //			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
-			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) 
-				System.out.println("problem");
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
-			JSONObject currentWeatherData = new JSONObject(jsonString);
+			JSONObject longTermWeatherData = new JSONObject(jsonString);
+			System.out.println(longTermWeatherData);
+			JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
+			String [] weekdays = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
 			longTermData = new JSONObject(jsonString);
-			time = (GregorianCalendar) GregorianCalendar.getInstance();
-			time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
-			
-						//return ADO_Object
+
+			for(int i = 0; i < 5; i++){
+				JSONObject daily = dailyArray.getJSONObject(i);
+				
+				longTermTempSetVariables(daily.getJSONObject("temp"));
+				longTermWeatherSetVariables(daily.getJSONArray("weather"));
+				time = (GregorianCalendar) GregorianCalendar.getInstance();
+				time.setTimeInMillis(1000 * daily.getLong("dt"));
+				days[i] = new Daily(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)],temp,temp_min,temp_max,skyState, icon);
+				
+				
+			}
+				return new LongTerm(days);		//return ADO_Object
 
 	
 		}catch (SocketTimeoutException e)
@@ -279,6 +291,12 @@ public class JSON {
 		temp = main.getDouble("temp");
 		}
 	
+	private void longTermTempSetVariables(JSONObject temperature){
+		temp = temperature.getDouble("day");
+		temp_max = temperature.getDouble("max");
+		temp_min = temperature.getDouble("min");
+	}
+	
 	
 	/**
 	 * Private method for weather variables. Gets sky state and weather description as well as ImageIcon for skystate
@@ -299,6 +317,20 @@ public class JSON {
 	}
 	
 	private void shortTermWeatherSetVariables(JSONArray weather){
+		
+		JSONObject weatherData= weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
+		weatherDescription = weatherData.getString("description");
+		skyState = weatherData.getString("main");
+		
+		//Uses a URL to grab an ImageIcon, to later be implemented in the data
+		try {
+			iconURL = new URL(HOST + PATH_ICON + weatherData.getString("icon") + ".png");
+			icon = new ImageIcon(iconURL);
+		}catch (Exception e){}
+		
+	}
+	
+	private void longTermWeatherSetVariables(JSONArray weather){
 		
 		JSONObject weatherData= weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
 		weatherDescription = weatherData.getString("description");
@@ -354,9 +386,11 @@ public class JSON {
 		
 	}
 	
+
+	
 	public static void main (String [] args){
 		JSON asdf = new JSON("London,ca");
-		asdf.updateMarsData();
+		asdf.updateLongTermData();
 		
 	}
 	
