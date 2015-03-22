@@ -161,7 +161,11 @@ public class GUIWindow extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        marsPanel = new javax.swing.JPanel();
+        currentLocationLT1 = new javax.swing.JLabel();
+        marsSkyStateIcon = new javax.swing.JLabel();
+        lastUpdatedTimeLabelMARS = new javax.swing.JLabel();
+        temperatureHeader1 = new javax.swing.JLabel();
         currentLocationLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
@@ -249,12 +253,13 @@ public class GUIWindow extends javax.swing.JFrame {
             CurrentlyViewingLocationLabel.setText("Currently Viewing Weather For:");
 
             refreshButton.setText("jButton1");
+            refreshButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 19, 1, 1));
             refreshButton.setContentAreaFilled(false);
             refreshButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             refreshButton.setMargin(new java.awt.Insets(2, 20, 2, 2));
-            refreshButton.setMaximumSize(new java.awt.Dimension(25, 25));
-            refreshButton.setMinimumSize(new java.awt.Dimension(25, 25));
-            refreshButton.setPreferredSize(new java.awt.Dimension(25, 25));
+            refreshButton.setMaximumSize(new java.awt.Dimension(24, 24));
+            refreshButton.setMinimumSize(new java.awt.Dimension(24, 24));
+            refreshButton.setPreferredSize(new java.awt.Dimension(24, 24));
             refreshButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/view_refresh_rotated.png"))); // NOI18N
             initRefreshButton();
             refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1006,7 +1011,61 @@ public class GUIWindow extends javax.swing.JFrame {
             );
 
             guiTabbedPanels.addTab("Long Term", longTermPanel);
-            guiTabbedPanels.addTab("MARS", jTabbedPane1);
+
+            marsPanel.setBackground(new java.awt.Color(236, 158, 1));
+            marsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+            currentLocationLT1.setFont(new java.awt.Font("gargi", 1, 45)); // NOI18N
+            currentLocationLT1.setText("MARS");
+
+            marsSkyStateIcon.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+            lastUpdatedTimeLabelMARS.setFont(new java.awt.Font("Ubuntu", 2, 10)); // NOI18N
+            lastUpdatedTimeLabelMARS.setForeground(new java.awt.Color(0, 0, 0));
+            lastUpdatedTimeLabelMARS.setText("Updated:   ");
+
+            temperatureHeader1.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
+            temperatureHeader1.setText("\"\"");
+            temperatureHeader1.setBorder(null);
+            temperatureHeader1.setMaximumSize(new java.awt.Dimension(176, 58));
+            temperatureHeader1.setMinimumSize(new java.awt.Dimension(176, 58));
+            temperatureHeader1.setPreferredSize(new java.awt.Dimension(176, 58));
+
+            javax.swing.GroupLayout marsPanelLayout = new javax.swing.GroupLayout(marsPanel);
+            marsPanel.setLayout(marsPanelLayout);
+            marsPanelLayout.setHorizontalGroup(
+                marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(marsPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(marsPanelLayout.createSequentialGroup()
+                            .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(marsPanelLayout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
+                                    .addComponent(lastUpdatedTimeLabelMARS))
+                                .addGroup(marsPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(temperatureHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addContainerGap(510, Short.MAX_VALUE))
+            );
+            marsPanelLayout.setVerticalGroup(
+                marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(marsPanelLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(marsPanelLayout.createSequentialGroup()
+                            .addComponent(lastUpdatedTimeLabelMARS)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(temperatureHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(240, Short.MAX_VALUE))
+            );
+
+            guiTabbedPanels.addTab("MARS", marsPanel);
 
             currentLocationLabel.setForeground(new java.awt.Color(255, 255, 255));
             currentLocationLabel.setText("             ");
@@ -1190,6 +1249,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel conditionLabelTwo;
     private javax.swing.JLabel currentLocation;
     private javax.swing.JLabel currentLocationLT;
+    private javax.swing.JLabel currentLocationLT1;
     private javax.swing.JLabel currentLocationLabel;
     private javax.swing.JLabel currentLocationST;
     private javax.swing.JPanel currentPanel;
@@ -1231,17 +1291,19 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lastUpdatedTimeLabel;
+    private javax.swing.JLabel lastUpdatedTimeLabelMARS;
     private javax.swing.JTextField locationTextField;
     private javax.swing.JPanel longTermPanel;
     private javax.swing.JSeparator longTermSeperatorFour;
     private javax.swing.JSeparator longTermSeperatorOne;
     private javax.swing.JSeparator longTermSeperatorThree;
     private javax.swing.JSeparator longTermSeperatorTwo;
+    private javax.swing.JPanel marsPanel;
+    private javax.swing.JLabel marsSkyStateIcon;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel minTempHeader;
     private javax.swing.JMenu preferencesMenu;
@@ -1263,6 +1325,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel sunsetField;
     private javax.swing.JLabel sunsetLabel;
     private javax.swing.JLabel temperatureHeader;
+    private javax.swing.JLabel temperatureHeader1;
     private javax.swing.JLabel temperatureLabelEight;
     private javax.swing.JLabel temperatureLabelFive;
     private javax.swing.JLabel temperatureLabelFour;
