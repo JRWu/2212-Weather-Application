@@ -32,7 +32,7 @@ public class JSON {
 	private final String HOST = "http://api.openweathermap.org"; //host and protocol 
 	private final String PATH_CURRENT = "/data/2.5/weather";	//where we'll be getting the current weather from
 	private final String PATH_FORECAST_SHORTTERM = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
-	private final String PATH_ICON = "/img/w";
+	private final String PATH_ICON = "/img/w/";
 	private final String MAIN_JSON = "main";
 	private final String WEATHER_JSON = "weather";
 	private final String WIND_JSON = "wind";
