@@ -42,7 +42,10 @@ public class GUIWindow extends javax.swing.JFrame {
     ShortTerm weatherST = jsonObj.updateShortTermData(); // Gets short term data
     
     
+    LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
     
+    
+    Mars mars = jsonObj.updateMarsData();
 
     
     /**
@@ -136,36 +139,46 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermSeperatorThree = new javax.swing.JSeparator();
         longTermSeperatorTwo = new javax.swing.JSeparator();
         longTermSeperatorOne = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        longTermDateOne = new javax.swing.JLabel();
+        longTermDateTwo = new javax.swing.JLabel();
+        longTermDateThree = new javax.swing.JLabel();
+        longTermDateFour = new javax.swing.JLabel();
+        longTermDateFive = new javax.swing.JLabel();
+        longTermSkyStateOne = new javax.swing.JLabel();
+        longTermSkyStateTwo = new javax.swing.JLabel();
+        longTermSkyStateThree = new javax.swing.JLabel();
+        longTermSkyStateFour = new javax.swing.JLabel();
+        longTermSkyStateFive = new javax.swing.JLabel();
+        longTermTempOne = new javax.swing.JLabel();
+        longTermTempTwo = new javax.swing.JLabel();
+        longTermTempThree = new javax.swing.JLabel();
+        longTermTempFour = new javax.swing.JLabel();
+        longTermTempFive = new javax.swing.JLabel();
+        longTermTempHighOne = new javax.swing.JLabel();
+        longTermTempLowOne = new javax.swing.JLabel();
+        longTermTempLowTwo = new javax.swing.JLabel();
+        longTermTempHighTwo = new javax.swing.JLabel();
+        longTermTempLowThree = new javax.swing.JLabel();
+        longTermTempHighThree = new javax.swing.JLabel();
+        longTermTempLowFour = new javax.swing.JLabel();
+        longTermTempHighFour = new javax.swing.JLabel();
+        longTermTempHighFive = new javax.swing.JLabel();
+        longTermTempLowFive = new javax.swing.JLabel();
         marsPanel = new javax.swing.JPanel();
         currentLocationLT1 = new javax.swing.JLabel();
         marsSkyStateIcon = new javax.swing.JLabel();
         lastUpdatedTimeLabelMARS = new javax.swing.JLabel();
-        temperatureHeader1 = new javax.swing.JLabel();
+        marsTempField = new javax.swing.JLabel();
+        windSpeedHeaderMARS = new javax.swing.JLabel();
+        windSpeedFieldMARS = new javax.swing.JLabel();
+        windDirectionFieldMARS = new javax.swing.JLabel();
+        airPressureHeaderMARS = new javax.swing.JLabel();
+        airPressureFieldMARS = new javax.swing.JLabel();
+        humidityHeaderMARS = new javax.swing.JLabel();
+        humidityFieldMARS = new javax.swing.JLabel();
+        marsRefreshButton = new javax.swing.JButton();
+        searchPrompt = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         currentLocationLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
@@ -795,90 +808,90 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermSeperatorOne.setMinimumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorOne.setPreferredSize(new java.awt.Dimension(8, 350));
 
-            jLabel1.setText("Date");
+            longTermDateOne.setText("Date");
 
-            jLabel2.setText("Date");
+            longTermDateTwo.setText("Date");
 
-            jLabel3.setText("Date");
+            longTermDateThree.setText("Date");
 
-            jLabel4.setText("Date");
+            longTermDateFour.setText("Date");
 
-            jLabel5.setText("Date");
+            longTermDateFive.setText("Date");
 
-            jLabel6.setText("jLabel6");
-            jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            jLabel6.setMaximumSize(new java.awt.Dimension(140, 140));
-            jLabel6.setMinimumSize(new java.awt.Dimension(140, 140));
-            jLabel6.setPreferredSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateOne.setText("jLabel6");
+            longTermSkyStateOne.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateOne.setMaximumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateOne.setMinimumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateOne.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            jLabel7.setText("jLabel6");
-            jLabel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            jLabel7.setMaximumSize(new java.awt.Dimension(140, 140));
-            jLabel7.setMinimumSize(new java.awt.Dimension(140, 140));
-            jLabel7.setPreferredSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateTwo.setText("jLabel6");
+            longTermSkyStateTwo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateTwo.setMaximumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateTwo.setMinimumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateTwo.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            jLabel8.setText("jLabel6");
-            jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            jLabel8.setMaximumSize(new java.awt.Dimension(140, 140));
-            jLabel8.setMinimumSize(new java.awt.Dimension(140, 140));
-            jLabel8.setPreferredSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateThree.setText("jLabel6");
+            longTermSkyStateThree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateThree.setMaximumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateThree.setMinimumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateThree.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            jLabel9.setText("jLabel6");
-            jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            jLabel9.setMaximumSize(new java.awt.Dimension(140, 140));
-            jLabel9.setMinimumSize(new java.awt.Dimension(140, 140));
-            jLabel9.setPreferredSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFour.setText("jLabel6");
+            longTermSkyStateFour.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateFour.setMaximumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFour.setMinimumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFour.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            jLabel10.setText("jLabel6");
-            jLabel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-            jLabel10.setMaximumSize(new java.awt.Dimension(140, 140));
-            jLabel10.setMinimumSize(new java.awt.Dimension(140, 140));
-            jLabel10.setPreferredSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFive.setText("jLabel6");
+            longTermSkyStateFive.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateFive.setMaximumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFive.setMinimumSize(new java.awt.Dimension(140, 140));
+            longTermSkyStateFive.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            jLabel11.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
-            jLabel11.setText("Temp:");
+            longTermTempOne.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            longTermTempOne.setText("Temp:");
 
-            jLabel12.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
-            jLabel12.setText("Temp:");
+            longTermTempTwo.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            longTermTempTwo.setText("Temp:");
 
-            jLabel13.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
-            jLabel13.setText("Temp:");
+            longTermTempThree.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            longTermTempThree.setText("Temp:");
 
-            jLabel14.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
-            jLabel14.setText("Temp:");
+            longTermTempFour.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            longTermTempFour.setText("Temp:");
 
-            jLabel15.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
-            jLabel15.setText("Temp:");
+            longTermTempFive.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            longTermTempFive.setText("Temp:");
 
-            jLabel16.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel16.setText("High:");
+            longTermTempHighOne.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempHighOne.setText("High:");
 
-            jLabel17.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel17.setText("Low");
+            longTermTempLowOne.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempLowOne.setText("Low");
 
-            jLabel18.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel18.setText("Low");
+            longTermTempLowTwo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempLowTwo.setText("Low");
 
-            jLabel19.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel19.setText("High:");
+            longTermTempHighTwo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempHighTwo.setText("High:");
 
-            jLabel20.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel20.setText("Low");
+            longTermTempLowThree.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempLowThree.setText("Low");
 
-            jLabel21.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel21.setText("High:");
+            longTermTempHighThree.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempHighThree.setText("High:");
 
-            jLabel22.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel22.setText("Low");
+            longTermTempLowFour.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempLowFour.setText("Low");
 
-            jLabel23.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel23.setText("High:");
+            longTermTempHighFour.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempHighFour.setText("High:");
 
-            jLabel24.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel24.setText("High:");
+            longTermTempHighFive.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempHighFive.setText("High:");
 
-            jLabel25.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            jLabel25.setText("Low");
+            longTermTempLowFive.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+            longTermTempLowFive.setText("Low");
 
             javax.swing.GroupLayout longTermPanelLayout = new javax.swing.GroupLayout(longTermPanel);
             longTermPanel.setLayout(longTermPanelLayout);
@@ -889,47 +902,47 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, longTermPanelLayout.createSequentialGroup()
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel16)
-                                .addComponent(jLabel17))
+                                .addComponent(longTermDateOne)
+                                .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermTempOne)
+                                .addComponent(longTermTempHighOne)
+                                .addComponent(longTermTempLowOne))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                             .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel18)
-                                .addComponent(jLabel19))
+                                .addComponent(longTermDateTwo)
+                                .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermTempTwo)
+                                .addComponent(longTermTempLowTwo)
+                                .addComponent(longTermTempHighTwo))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13)
-                                .addComponent(jLabel20)
-                                .addComponent(jLabel21))
+                                .addComponent(longTermDateThree)
+                                .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermTempThree)
+                                .addComponent(longTermTempLowThree)
+                                .addComponent(longTermTempHighThree))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel22)
-                                .addComponent(jLabel23))
+                                .addComponent(longTermDateFour)
+                                .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermTempFour)
+                                .addComponent(longTermTempLowFour)
+                                .addComponent(longTermTempHighFour))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel24)
-                                .addComponent(jLabel25))
+                                .addComponent(longTermDateFive)
+                                .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermTempFive)
+                                .addComponent(longTermTempHighFive)
+                                .addComponent(longTermTempLowFive))
                             .addGap(13, 13, 13))
                         .addGroup(longTermPanelLayout.createSequentialGroup()
                             .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -954,59 +967,59 @@ public class GUIWindow extends javax.swing.JFrame {
                                         .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(57, 57, 57)
-                                    .addComponent(jLabel1)
+                                    .addComponent(longTermDateOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel11)
+                                    .addComponent(longTermTempOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel16)
+                                    .addComponent(longTermTempHighOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel17))
+                                    .addComponent(longTermTempLowOne))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(57, 57, 57)
-                                    .addComponent(jLabel2)
+                                    .addComponent(longTermDateTwo)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel12)
+                                    .addComponent(longTermTempTwo)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel19)
+                                    .addComponent(longTermTempHighTwo)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel18))
+                                    .addComponent(longTermTempLowTwo))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(56, 56, 56)
-                                    .addComponent(jLabel3)
+                                    .addComponent(longTermDateThree)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel13)
+                                    .addComponent(longTermTempThree)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel21)
+                                    .addComponent(longTermTempHighThree)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel20))
+                                    .addComponent(longTermTempLowThree))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(56, 56, 56)
-                                    .addComponent(jLabel4)
+                                    .addComponent(longTermDateFour)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel14)
+                                    .addComponent(longTermTempFour)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel23)
+                                    .addComponent(longTermTempHighFour)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel22))
+                                    .addComponent(longTermTempLowFour))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(56, 56, 56)
-                                    .addComponent(jLabel5)
+                                    .addComponent(longTermDateFive)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel15)
+                                    .addComponent(longTermTempFive)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel24)
+                                    .addComponent(longTermTempHighFive)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel25)))
+                                    .addComponent(longTermTempLowFive)))
                             .addGap(0, 0, Short.MAX_VALUE))))
             );
 
@@ -1016,6 +1029,7 @@ public class GUIWindow extends javax.swing.JFrame {
             marsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
             currentLocationLT1.setFont(new java.awt.Font("gargi", 1, 45)); // NOI18N
+            currentLocationLT1.setForeground(new java.awt.Color(0, 0, 0));
             currentLocationLT1.setText("MARS");
 
             marsSkyStateIcon.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -1024,12 +1038,64 @@ public class GUIWindow extends javax.swing.JFrame {
             lastUpdatedTimeLabelMARS.setForeground(new java.awt.Color(0, 0, 0));
             lastUpdatedTimeLabelMARS.setText("Updated:   ");
 
-            temperatureHeader1.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
-            temperatureHeader1.setText("\"\"");
-            temperatureHeader1.setBorder(null);
-            temperatureHeader1.setMaximumSize(new java.awt.Dimension(176, 58));
-            temperatureHeader1.setMinimumSize(new java.awt.Dimension(176, 58));
-            temperatureHeader1.setPreferredSize(new java.awt.Dimension(176, 58));
+            marsTempField.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
+            marsTempField.setText("\"\"");
+            marsTempField.setBorder(null);
+            marsTempField.setMaximumSize(new java.awt.Dimension(176, 58));
+            marsTempField.setMinimumSize(new java.awt.Dimension(176, 58));
+            marsTempField.setPreferredSize(new java.awt.Dimension(176, 58));
+
+            windSpeedHeaderMARS.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            windSpeedHeaderMARS.setText("WindSpeed");
+
+            windSpeedFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+            windSpeedFieldMARS.setText("- m/s");
+
+            windDirectionFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+            windDirectionFieldMARS.setText("Direction");
+            windDirectionFieldMARS.setMaximumSize(new java.awt.Dimension(175, 24));
+            windDirectionFieldMARS.setMinimumSize(new java.awt.Dimension(150, 24));
+            windDirectionFieldMARS.setPreferredSize(new java.awt.Dimension(175, 24));
+
+            airPressureHeaderMARS.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            airPressureHeaderMARS.setText("Air Pressure");
+
+            airPressureFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+            airPressureFieldMARS.setText("- kPa");
+
+            humidityHeaderMARS.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
+            humidityHeaderMARS.setText("Humidity");
+
+            humidityFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
+            humidityFieldMARS.setText("- %");
+
+            marsRefreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
+            marsRefreshButton.setText("jButton1");
+            marsRefreshButton.setMargin(new java.awt.Insets(0, 20, 0, 0));
+            marsRefreshButton.setMaximumSize(new java.awt.Dimension(50, 50));
+            marsRefreshButton.setMinimumSize(new java.awt.Dimension(50, 50));
+            marsRefreshButton.setPreferredSize(new java.awt.Dimension(50, 50));
+            marsRefreshButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
+            marsRefreshButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
+            marsRefreshButton.setSelected(true);
+            marsRefreshButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
+            marsRefreshButton.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    marsRefreshButtonActionPerformed(evt);
+                }
+            });
+
+            searchPrompt.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            searchPrompt.setText("<--Search");
+
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+            jLabel1.setText("marsPIC");
+            jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+            jLabel1.setDoubleBuffered(true);
+            jLabel1.setFocusable(false);
+            jLabel1.setInheritsPopupMenu(false);
+            jLabel1.setRequestFocusEnabled(false);
+            jLabel1.setVerifyInputWhenFocusTarget(false);
 
             javax.swing.GroupLayout marsPanelLayout = new javax.swing.GroupLayout(marsPanel);
             marsPanel.setLayout(marsPanelLayout);
@@ -1038,31 +1104,77 @@ public class GUIWindow extends javax.swing.JFrame {
                 .addGroup(marsPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(marsPanelLayout.createSequentialGroup()
-                            .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(windSpeedHeaderMARS)
+                                .addGroup(marsPanelLayout.createSequentialGroup()
+                                    .addComponent(windSpeedFieldMARS, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(windDirectionFieldMARS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(70, 70, 70)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(airPressureHeaderMARS)
+                                .addComponent(airPressureFieldMARS))
+                            .addGap(90, 90, 90)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(humidityHeaderMARS)
+                                .addComponent(humidityFieldMARS)))
+                        .addGroup(marsPanelLayout.createSequentialGroup()
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(currentLocationLT1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                                .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(marsPanelLayout.createSequentialGroup()
-                                    .addGap(8, 8, 8)
-                                    .addComponent(lastUpdatedTimeLabelMARS))
-                                .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(temperatureHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addContainerGap(510, Short.MAX_VALUE))
+                                    .addComponent(marsTempField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(marsPanelLayout.createSequentialGroup()
+                                    .addGap(8, 8, 8)
+                                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(marsPanelLayout.createSequentialGroup()
+                                            .addComponent(marsRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(3, 3, 3)
+                                            .addComponent(searchPrompt))
+                                        .addComponent(lastUpdatedTimeLabelMARS))))))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(marsPanelLayout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE))
             );
             marsPanelLayout.setVerticalGroup(
                 marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(marsPanelLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marsPanelLayout.createSequentialGroup()
+                    .addComponent(jLabel1)
+                    .addGap(2, 2, 2)
+                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(marsRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(searchPrompt)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(marsPanelLayout.createSequentialGroup()
                             .addComponent(lastUpdatedTimeLabelMARS)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(temperatureHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(marsTempField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(240, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(marsPanelLayout.createSequentialGroup()
+                            .addComponent(windSpeedHeaderMARS)
+                            .addGap(18, 18, 18)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(windSpeedFieldMARS)
+                                .addComponent(windDirectionFieldMARS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(marsPanelLayout.createSequentialGroup()
+                                .addComponent(humidityHeaderMARS)
+                                .addGap(18, 18, 18)
+                                .addComponent(humidityFieldMARS))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marsPanelLayout.createSequentialGroup()
+                                .addComponent(airPressureHeaderMARS)
+                                .addGap(18, 18, 18)
+                                .addComponent(airPressureFieldMARS))))
+                    .addGap(75, 75, 75))
             );
 
             guiTabbedPanels.addTab("MARS", marsPanel);
@@ -1169,6 +1281,8 @@ public class GUIWindow extends javax.swing.JFrame {
             
             jsonObj = newJson;
             updateCurrentTab();
+            updateLongTermTab();
+
         }
         catch (Exception e)
         {
@@ -1191,9 +1305,19 @@ public class GUIWindow extends javax.swing.JFrame {
     currentTime = new Time(System.currentTimeMillis());
     clearCurrent();
     updateCurrentTab();
-        
-//        lastUpdatedTimeLabel.setText("Updated:" + currentTime.toString()); // Use this to update the text within the program body
+    updateLongTermTab();
+    updateMarsTab();
+    
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    /**
+     * Actionlistener to update MARS display data, and nullify the rest
+     */
+    private void marsRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marsRefreshButtonActionPerformed
+
+        updateMarsTab();
+        clearCurrent();
+    }//GEN-LAST:event_marsRefreshButtonActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1236,7 +1360,9 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel LiveTimeLabel;
     private javax.swing.JMenuBar MenuPreferences;
     private javax.swing.JLabel airPressureField;
+    private javax.swing.JLabel airPressureFieldMARS;
     private javax.swing.JLabel airPressureHeader;
+    private javax.swing.JLabel airPressureHeaderMARS;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel conditionLabelEight;
@@ -1255,32 +1381,10 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JPanel currentPanel;
     private javax.swing.JTabbedPane guiTabbedPanels;
     private javax.swing.JLabel humidityField;
+    private javax.swing.JLabel humidityFieldMARS;
     private javax.swing.JLabel humidityHeader;
+    private javax.swing.JLabel humidityHeaderMARS;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1297,17 +1401,45 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lastUpdatedTimeLabel;
     private javax.swing.JLabel lastUpdatedTimeLabelMARS;
     private javax.swing.JTextField locationTextField;
+    private javax.swing.JLabel longTermDateFive;
+    private javax.swing.JLabel longTermDateFour;
+    private javax.swing.JLabel longTermDateOne;
+    private javax.swing.JLabel longTermDateThree;
+    private javax.swing.JLabel longTermDateTwo;
     private javax.swing.JPanel longTermPanel;
     private javax.swing.JSeparator longTermSeperatorFour;
     private javax.swing.JSeparator longTermSeperatorOne;
     private javax.swing.JSeparator longTermSeperatorThree;
     private javax.swing.JSeparator longTermSeperatorTwo;
+    private javax.swing.JLabel longTermSkyStateFive;
+    private javax.swing.JLabel longTermSkyStateFour;
+    private javax.swing.JLabel longTermSkyStateOne;
+    private javax.swing.JLabel longTermSkyStateThree;
+    private javax.swing.JLabel longTermSkyStateTwo;
+    private javax.swing.JLabel longTermTempFive;
+    private javax.swing.JLabel longTermTempFour;
+    private javax.swing.JLabel longTermTempHighFive;
+    private javax.swing.JLabel longTermTempHighFour;
+    private javax.swing.JLabel longTermTempHighOne;
+    private javax.swing.JLabel longTermTempHighThree;
+    private javax.swing.JLabel longTermTempHighTwo;
+    private javax.swing.JLabel longTermTempLowFive;
+    private javax.swing.JLabel longTermTempLowFour;
+    private javax.swing.JLabel longTermTempLowOne;
+    private javax.swing.JLabel longTermTempLowThree;
+    private javax.swing.JLabel longTermTempLowTwo;
+    private javax.swing.JLabel longTermTempOne;
+    private javax.swing.JLabel longTermTempThree;
+    private javax.swing.JLabel longTermTempTwo;
     private javax.swing.JPanel marsPanel;
+    private javax.swing.JButton marsRefreshButton;
     private javax.swing.JLabel marsSkyStateIcon;
+    private javax.swing.JLabel marsTempField;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel minTempHeader;
     private javax.swing.JMenu preferencesMenu;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel searchPrompt;
     private javax.swing.JPanel shortTermPanel;
     private javax.swing.JLabel skyConditionField;
     private javax.swing.JLabel skyStateEight;
@@ -1325,7 +1457,6 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel sunsetField;
     private javax.swing.JLabel sunsetLabel;
     private javax.swing.JLabel temperatureHeader;
-    private javax.swing.JLabel temperatureHeader1;
     private javax.swing.JLabel temperatureLabelEight;
     private javax.swing.JLabel temperatureLabelFive;
     private javax.swing.JLabel temperatureLabelFour;
@@ -1335,8 +1466,11 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel temperatureLabelThree;
     private javax.swing.JLabel temperatureLabelTwo;
     private javax.swing.JLabel windDirectionField;
+    private javax.swing.JLabel windDirectionFieldMARS;
     private javax.swing.JLabel windSpeedField;
+    private javax.swing.JLabel windSpeedFieldMARS;
     private javax.swing.JLabel windSpeedHeader;
+    private javax.swing.JLabel windSpeedHeaderMARS;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -1395,21 +1529,6 @@ public class GUIWindow extends javax.swing.JFrame {
                 Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-
-            
-            
-            /*
-            Image buff = skyState.getImage();
-            BufferedImage skyStateBig = new BufferedImage(buff.getWidth(null), buff.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-            Graphics ssIcon = skyStateBig.createGraphics();
-            ssIcon.drawImage(buff, 0, 0, 100, 100, null);
-            
-            ImageIcon newIcon = new ImageIcon(skyStateBig);
-            
-            skyStateIconC.setIcon(newIcon);
-            */// FIX TO RESIZE IMAGE
-            
-            
             sunriseField.setText(String.valueOf(currentObj.getSunRise()));
             sunsetField.setText(String.valueOf(currentObj.getSunSet()));
             
@@ -1417,6 +1536,49 @@ public class GUIWindow extends javax.swing.JFrame {
         }
     }
     
+    
+    private void updateLongTermTab()
+    {
+//        weatherLT
+        /*
+        weatherLT.getDaily(0);
+        weatherLT.getDaily(1);
+        weatherLT.getDaily(2);
+        weatherLT.getDaily(3);
+        weatherLT.getDaily(4);
+        //longTermDate"x"
+        //longTermTempHigh
+        //longTermTempLow
+        //longTermSkyState"x"
+        //longTermTemp"x"
+        */
+        
+        /*
+        longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()));
+        longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()));
+        longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()));
+        longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()));
+        longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()));
+        */
+
+        
+        
+    }
+    
+    /**
+     *updateMarsTab refreshes the view on the MARS Rover panel, updating the data
+     */
+    private void updateMarsTab()
+    {
+        //marsTempField
+        marsTempField.setText(String.valueOf(mars.getTemperature()) + "K");
+        lastUpdatedTimeLabelMARS.setText("Updated: "+ String.valueOf(currentTime));
+        windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + "m/s");
+        windDirectionFieldMARS.setText(mars.getWindDirection());
+        humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
+        airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + " hPa");
+        searchPrompt.setText("");
+    }
     
     private void clearCurrent()
     {
@@ -1453,17 +1615,20 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermTab.setPreferredSize(new Dimension (80,40));
         guiTabbedPanels.setTabComponentAt(2,longTermTab);
         
-        
-        
         ImageIcon mars = new ImageIcon(GUIWindow.class.getResource("mars.png"));
         JLabel marsTab = new JLabel ();
         marsTab.setIcon(mars);
         marsTab.setPreferredSize(new Dimension(80,80));
         guiTabbedPanels.setTabComponentAt(3,marsTab);
+            
+        /*
+        ImageIcon marspic = new ImageIcon(GUIWindow.class.getResource("mars_bg.png"));
+        jLabel1.setIcon(marspic);
+        */
     }
     
     // ADD NEW CODE HERE
-    
+    // When an invalid is searched, set it so the refresh doesn't do anything***
     
     
     
