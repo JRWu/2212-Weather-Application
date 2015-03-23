@@ -21,5 +21,15 @@ public class Mars extends ADO{
 	{
 		super(air,wind,temp,humid,windDir,sky,state);
 	}
+
+	
+/**
+* @overrides the default mars constructor 
+*/
+public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state)
+	{
+		super (air, wind, temp, humid, windDir, sky, state);
+	}
+
 }
 

@@ -36,17 +36,14 @@ public class GUIWindow extends javax.swing.JFrame {
     private Current currentObj = jsonObj.updateCurrentWeatherData();
     Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
     String userPreferences = "";
-    
-    
+
     // Alex add new attributes here
     ShortTerm weatherST = jsonObj.updateShortTermData(); // Gets short term data
-    
-    
     LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
-    
-    
     Mars mars = jsonObj.updateMarsData();
-
+    
+    boolean isValid = false; // Represents if the query is valid or not
+    
     
     /**
      * Creates new form GUIWindow
@@ -164,6 +161,12 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermTempHighFour = new javax.swing.JLabel();
         longTermTempHighFive = new javax.swing.JLabel();
         longTermTempLowFive = new javax.swing.JLabel();
+        longTermConditionOne = new javax.swing.JLabel();
+        longTermConditionTwo = new javax.swing.JLabel();
+        longTermConditionThree = new javax.swing.JLabel();
+        longTermConditionFour = new javax.swing.JLabel();
+        longTermConditionFive = new javax.swing.JLabel();
+        lastUpdatedTimeLabelLT = new javax.swing.JLabel();
         marsPanel = new javax.swing.JPanel();
         currentLocationLT1 = new javax.swing.JLabel();
         marsSkyStateIcon = new javax.swing.JLabel();
@@ -788,21 +791,25 @@ public class GUIWindow extends javax.swing.JFrame {
             currentLocationLT.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
             currentLocationLT.setText("London,Ca");
 
+            longTermSeperatorFour.setForeground(new java.awt.Color(200, 200, 200));
             longTermSeperatorFour.setOrientation(javax.swing.SwingConstants.VERTICAL);
             longTermSeperatorFour.setMaximumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorFour.setMinimumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorFour.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            longTermSeperatorThree.setForeground(new java.awt.Color(200, 200, 200));
             longTermSeperatorThree.setOrientation(javax.swing.SwingConstants.VERTICAL);
             longTermSeperatorThree.setMaximumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorThree.setMinimumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorThree.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            longTermSeperatorTwo.setForeground(new java.awt.Color(200, 200, 200));
             longTermSeperatorTwo.setOrientation(javax.swing.SwingConstants.VERTICAL);
             longTermSeperatorTwo.setMaximumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorTwo.setMinimumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorTwo.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            longTermSeperatorOne.setForeground(new java.awt.Color(200, 200, 200));
             longTermSeperatorOne.setOrientation(javax.swing.SwingConstants.VERTICAL);
             longTermSeperatorOne.setMaximumSize(new java.awt.Dimension(8, 350));
             longTermSeperatorOne.setMinimumSize(new java.awt.Dimension(8, 350));
@@ -819,31 +826,31 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermDateFive.setText("Date");
 
             longTermSkyStateOne.setText("jLabel6");
-            longTermSkyStateOne.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateOne.setBorder(null);
             longTermSkyStateOne.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateOne.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateOne.setPreferredSize(new java.awt.Dimension(140, 140));
 
             longTermSkyStateTwo.setText("jLabel6");
-            longTermSkyStateTwo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateTwo.setBorder(null);
             longTermSkyStateTwo.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateTwo.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateTwo.setPreferredSize(new java.awt.Dimension(140, 140));
 
             longTermSkyStateThree.setText("jLabel6");
-            longTermSkyStateThree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateThree.setBorder(null);
             longTermSkyStateThree.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateThree.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateThree.setPreferredSize(new java.awt.Dimension(140, 140));
 
             longTermSkyStateFour.setText("jLabel6");
-            longTermSkyStateFour.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateFour.setBorder(null);
             longTermSkyStateFour.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFour.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFour.setPreferredSize(new java.awt.Dimension(140, 140));
 
             longTermSkyStateFive.setText("jLabel6");
-            longTermSkyStateFive.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            longTermSkyStateFive.setBorder(null);
             longTermSkyStateFive.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFive.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFive.setPreferredSize(new java.awt.Dimension(140, 140));
@@ -893,6 +900,20 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermTempLowFive.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             longTermTempLowFive.setText("Low");
 
+            longTermConditionOne.setText("Condition");
+
+            longTermConditionTwo.setText("Condition");
+
+            longTermConditionThree.setText("Conditoin");
+
+            longTermConditionFour.setText("Condition");
+
+            longTermConditionFive.setText("Condition");
+
+            lastUpdatedTimeLabelLT.setFont(new java.awt.Font("Ubuntu", 2, 10)); // NOI18N
+            lastUpdatedTimeLabelLT.setForeground(new java.awt.Color(0, 0, 0));
+            lastUpdatedTimeLabelLT.setText("Updated:   ");
+
             javax.swing.GroupLayout longTermPanelLayout = new javax.swing.GroupLayout(longTermPanel);
             longTermPanel.setLayout(longTermPanelLayout);
             longTermPanelLayout.setHorizontalGroup(
@@ -906,7 +927,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(longTermTempOne)
                                 .addComponent(longTermTempHighOne)
-                                .addComponent(longTermTempLowOne))
+                                .addComponent(longTermTempLowOne)
+                                .addComponent(longTermConditionOne))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                             .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -915,7 +937,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(longTermTempTwo)
                                 .addComponent(longTermTempLowTwo)
-                                .addComponent(longTermTempHighTwo))
+                                .addComponent(longTermTempHighTwo)
+                                .addComponent(longTermConditionTwo))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -924,7 +947,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(longTermTempThree)
                                 .addComponent(longTermTempLowThree)
-                                .addComponent(longTermTempHighThree))
+                                .addComponent(longTermTempHighThree)
+                                .addComponent(longTermConditionThree))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -933,7 +957,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(longTermTempFour)
                                 .addComponent(longTermTempLowFour)
-                                .addComponent(longTermTempHighFour))
+                                .addComponent(longTermTempHighFour)
+                                .addComponent(longTermConditionFour))
                             .addGap(13, 13, 13)
                             .addComponent(longTermSeperatorFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -942,10 +967,13 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(longTermTempFive)
                                 .addComponent(longTermTempHighFive)
-                                .addComponent(longTermTempLowFive))
+                                .addComponent(longTermTempLowFive)
+                                .addComponent(longTermConditionFive))
                             .addGap(13, 13, 13))
                         .addGroup(longTermPanelLayout.createSequentialGroup()
-                            .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lastUpdatedTimeLabelLT))
                             .addGap(0, 0, Short.MAX_VALUE))))
             );
             longTermPanelLayout.setVerticalGroup(
@@ -960,39 +988,28 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addGroup(longTermPanelLayout.createSequentialGroup()
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(44, 44, 44)
-                                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(57, 57, 57)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(lastUpdatedTimeLabelLT)
+                                    .addGap(38, 38, 38)
                                     .addComponent(longTermDateOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermConditionOne)
+                                    .addGap(2, 2, 2)
                                     .addComponent(longTermTempOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(longTermTempHighOne)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(longTermTempLowOne))
                                 .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(57, 57, 57)
-                                    .addComponent(longTermDateTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowTwo))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
                                     .addGap(56, 56, 56)
                                     .addComponent(longTermDateThree)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermConditionThree)
+                                    .addGap(2, 2, 2)
                                     .addComponent(longTermTempThree)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(longTermTempHighThree)
@@ -1004,6 +1021,8 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermConditionFour)
+                                    .addGap(2, 2, 2)
                                     .addComponent(longTermTempFour)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(longTermTempHighFour)
@@ -1015,11 +1034,32 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermConditionFive)
+                                    .addGap(2, 2, 2)
                                     .addComponent(longTermTempFive)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(longTermTempHighFive)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowFive)))
+                                    .addComponent(longTermTempLowFive))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(44, 44, 44)
+                                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(longTermPanelLayout.createSequentialGroup()
+                                    .addGap(57, 57, 57)
+                                    .addComponent(longTermDateTwo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermConditionTwo)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(longTermTempTwo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermTempHighTwo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(longTermTempLowTwo)))
                             .addGap(0, 0, Short.MAX_VALUE))))
             );
 
@@ -1201,9 +1241,11 @@ public class GUIWindow extends javax.swing.JFrame {
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GUIWindowPanelLayout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(guiTabbedPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(guiTabbedPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GUIWindowPanelLayout.createSequentialGroup()
+                                    .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(10, 10, 10)))
                             .addGap(35, 35, 35))))
             );
             GUIWindowPanelLayout.setVerticalGroup(
@@ -1219,7 +1261,7 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addComponent(guiTabbedPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(10, Short.MAX_VALUE))
             );
 
             refreshButton.getAccessibleContext().setAccessibleName("RefreshButton");
@@ -1276,17 +1318,18 @@ public class GUIWindow extends javax.swing.JFrame {
             location = locationTextField.getText();
             jsonObj = new JSON(location);
             JSON newJson = new JSON(location);
-                
-            // ONLY THING UPDATING IS THE MAIN TERMPERATURES** NEED TO FIX THIS BUG
             
+            // ONLY THING UPDATING IS THE MAIN TERMPERATURES** NEED TO FIX THIS BUG    
             jsonObj = newJson;
             updateCurrentTab();
             updateLongTermTab();
-
+            isValid = true;
         }
         catch (Exception e)
         {
             clearCurrent();
+            // SET FLAG TO PREVENT RESETTING HERE
+            isValid = false;
             GUIException exp = new GUIException();
             exp.setVisible(true);
         }
@@ -1302,16 +1345,23 @@ public class GUIWindow extends javax.swing.JFrame {
 
     // Action listener for when the refresh icon is clicked
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-    currentTime = new Time(System.currentTimeMillis());
-    clearCurrent();
-    updateCurrentTab();
-    updateLongTermTab();
-    updateMarsTab();
-    
+
+        if (isValid)    // Data is valid
+        {
+            currentTime = new Time(System.currentTimeMillis());
+            clearCurrent();
+            updateCurrentTab();
+            updateLongTermTab();
+            updateMarsTab();
+        }
+        else            // Data is invalid
+        {
+            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
+        }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
-     * Actionlistener to update MARS display data, and nullify the rest
+     * Actionlistener to update MARS display data, and nullify the rest by clearing
      */
     private void marsRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marsRefreshButtonActionPerformed
 
@@ -1399,8 +1449,14 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lastUpdatedTimeLabel;
+    private javax.swing.JLabel lastUpdatedTimeLabelLT;
     private javax.swing.JLabel lastUpdatedTimeLabelMARS;
     private javax.swing.JTextField locationTextField;
+    private javax.swing.JLabel longTermConditionFive;
+    private javax.swing.JLabel longTermConditionFour;
+    private javax.swing.JLabel longTermConditionOne;
+    private javax.swing.JLabel longTermConditionThree;
+    private javax.swing.JLabel longTermConditionTwo;
     private javax.swing.JLabel longTermDateFive;
     private javax.swing.JLabel longTermDateFour;
     private javax.swing.JLabel longTermDateOne;
@@ -1516,7 +1572,7 @@ public class GUIWindow extends javax.swing.JFrame {
             skyStateIconC.setIcon(currentObj.getCondition());
 
             System.out.println(currentObj.getCondition().toString());
-
+            
             try 
             {
                 URL url = new URL(currentObj.getCondition().toString());
@@ -1538,31 +1594,69 @@ public class GUIWindow extends javax.swing.JFrame {
     
     
     private void updateLongTermTab()
-    {
-//        weatherLT
-        /*
-        weatherLT.getDaily(0);
-        weatherLT.getDaily(1);
-        weatherLT.getDaily(2);
-        weatherLT.getDaily(3);
-        weatherLT.getDaily(4);
-        //longTermDate"x"
-        //longTermTempHigh
-        //longTermTempLow
-        //longTermSkyState"x"
-        //longTermTemp"x"
-        */
+    {        
+        // Main Temperature Updating
+        longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + "C");
+        longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature())+ "C");
+        longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature())+ "C");
+        longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature())+ "C");
+        longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature())+ "C");
         
-        /*
-        longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()));
-        longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()));
-        longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()));
-        longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()));
-        longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()));
-        */
+        // Sky State Condition
+        longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
+        longTermConditionTwo.setText(weatherLT.getDaily(1).getSkyCondition());
+        longTermConditionThree.setText(weatherLT.getDaily(2).getSkyCondition());
+        longTermConditionFour.setText(weatherLT.getDaily(3).getSkyCondition());
+        longTermConditionFive.setText(weatherLT.getDaily(4).getSkyCondition());
+        
+        // Icon resizing function
+         try 
+            {
+                URL url = new URL(weatherLT.getDaily(0).getCondition().toString());
+                Image img = ImageIO.read(url);
+                Image resizedSkyState = img.getScaledInstance(140, 140, 0);
+                longTermSkyStateOne.setIcon(new ImageIcon(resizedSkyState));
+                
+                url = new URL(weatherLT.getDaily(1).getCondition().toString());
+                img = ImageIO.read(url);
+                resizedSkyState = img.getScaledInstance(140,140,0);
+                longTermSkyStateTwo.setIcon (new ImageIcon(resizedSkyState));
+                
+                url = new URL(weatherLT.getDaily(2).getCondition().toString());
+                img = ImageIO.read(url);
+                resizedSkyState = img.getScaledInstance(140,140,0);
+                longTermSkyStateThree.setIcon (new ImageIcon(resizedSkyState));
+                
+                url = new URL(weatherLT.getDaily(3).getCondition().toString());
+                img = ImageIO.read(url);
+                resizedSkyState = img.getScaledInstance(140,140,0);
+                longTermSkyStateFour.setIcon (new ImageIcon(resizedSkyState));
+                
+                url = new URL(weatherLT.getDaily(4).getCondition().toString());
+                img = ImageIO.read(url);
+                resizedSkyState = img.getScaledInstance(140,140,0);
+                longTermSkyStateFive.setIcon (new ImageIcon(resizedSkyState)); 
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+        // Maximum Temp Updating
+        longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + "C");
+        longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + "C");
+        longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + "C");
+        longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + "C");
+        longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + "C");
+         
+        // Minimum Temp Updating
+        longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + "C");
+        longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + "C");
+        longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + "C");
+        longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + "C");
+        longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + "C");
 
-        
-        
+        lastUpdatedTimeLabelLT.setText("Updated: "+ String.valueOf(currentTime));
     }
     
     /**
@@ -1629,7 +1723,7 @@ public class GUIWindow extends javax.swing.JFrame {
     
     // ADD NEW CODE HERE
     // When an invalid is searched, set it so the refresh doesn't do anything***
-    
+    // MARS DATA COMES IN CELSIUS 
     
     
     
