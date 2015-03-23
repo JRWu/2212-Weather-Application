@@ -29,7 +29,6 @@ import static org.json.JSONObject.NULL;
 public class GUIWindow extends javax.swing.JFrame {
 
     SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
-    GUIPreferences preferences = new GUIPreferences(this, false);
     String location = "London,Ca";      // Default Location
     JSON jsonObj = new JSON(location);
     LinkedList<Current> currentList = new LinkedList(); 
@@ -71,6 +70,7 @@ public class GUIWindow extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        preferencesCheckboxGroup = new javax.swing.ButtonGroup();
         GUIWindowPanel = new javax.swing.JPanel();
         locationTextField = new javax.swing.JTextField();
         LiveTimeLabel = new javax.swing.JLabel();
@@ -179,12 +179,12 @@ public class GUIWindow extends javax.swing.JFrame {
         airPressureFieldMARS = new javax.swing.JLabel();
         humidityHeaderMARS = new javax.swing.JLabel();
         humidityFieldMARS = new javax.swing.JLabel();
-        marsRefreshButton = new javax.swing.JButton();
-        searchPrompt = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         currentLocationLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
+        preferencesCelsiusCheckbox = new javax.swing.JCheckBoxMenuItem();
+        preferencesFarenheitCheckbox = new javax.swing.JCheckBoxMenuItem();
+        preferencesKelvinCheckbox = new javax.swing.JCheckBoxMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -1109,34 +1109,6 @@ public class GUIWindow extends javax.swing.JFrame {
             humidityFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
             humidityFieldMARS.setText("- %");
 
-            marsRefreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
-            marsRefreshButton.setText("jButton1");
-            marsRefreshButton.setMargin(new java.awt.Insets(0, 20, 0, 0));
-            marsRefreshButton.setMaximumSize(new java.awt.Dimension(50, 50));
-            marsRefreshButton.setMinimumSize(new java.awt.Dimension(50, 50));
-            marsRefreshButton.setPreferredSize(new java.awt.Dimension(50, 50));
-            marsRefreshButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
-            marsRefreshButton.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
-            marsRefreshButton.setSelected(true);
-            marsRefreshButton.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/launch.png"))); // NOI18N
-            marsRefreshButton.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    marsRefreshButtonActionPerformed(evt);
-                }
-            });
-
-            searchPrompt.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
-            searchPrompt.setText("<--Search");
-
-            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-            jLabel1.setText("marsPIC");
-            jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-            jLabel1.setDoubleBuffered(true);
-            jLabel1.setFocusable(false);
-            jLabel1.setInheritsPopupMenu(false);
-            jLabel1.setRequestFocusEnabled(false);
-            jLabel1.setVerifyInputWhenFocusTarget(false);
-
             javax.swing.GroupLayout marsPanelLayout = new javax.swing.GroupLayout(marsPanel);
             marsPanel.setLayout(marsPanelLayout);
             marsPanelLayout.setHorizontalGroup(
@@ -1169,27 +1141,14 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addComponent(marsTempField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addGap(8, 8, 8)
-                                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(marsPanelLayout.createSequentialGroup()
-                                            .addComponent(marsRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(3, 3, 3)
-                                            .addComponent(searchPrompt))
-                                        .addComponent(lastUpdatedTimeLabelMARS))))))
+                                    .addComponent(lastUpdatedTimeLabelMARS)))))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(marsPanelLayout.createSequentialGroup()
-                    .addComponent(jLabel1)
-                    .addGap(0, 0, Short.MAX_VALUE))
             );
             marsPanelLayout.setVerticalGroup(
                 marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, marsPanelLayout.createSequentialGroup()
-                    .addComponent(jLabel1)
-                    .addGap(2, 2, 2)
-                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(marsRefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(searchPrompt)))
+                    .addGap(20, 20, 20)
+                    .addComponent(currentLocationLT1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(marsPanelLayout.createSequentialGroup()
@@ -1271,12 +1230,34 @@ public class GUIWindow extends javax.swing.JFrame {
             preferencesMenu.setText("Preferences");
             preferencesMenu.setContentAreaFilled(false);
             preferencesMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-            preferencesMenu.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-            preferencesMenu.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    preferencesMenuMouseClicked(evt);
+            preferencesMenu.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+
+            preferencesCelsiusCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0));
+            preferencesCheckboxGroup.add(preferencesCelsiusCheckbox);
+            preferencesCelsiusCheckbox.setSelected(true);
+            preferencesCelsiusCheckbox.setText("Celsius");
+            preferencesCelsiusCheckbox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    preferencesCelsiusCheckboxActionPerformed(evt);
                 }
             });
+            preferencesMenu.add(preferencesCelsiusCheckbox);
+
+            preferencesFarenheitCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, 0));
+            preferencesCheckboxGroup.add(preferencesFarenheitCheckbox);
+            preferencesFarenheitCheckbox.setText("Farenheit");
+            preferencesFarenheitCheckbox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    preferencesFarenheitCheckboxActionPerformed(evt);
+                }
+            });
+            preferencesMenu.add(preferencesFarenheitCheckbox);
+
+            preferencesKelvinCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, 0));
+            preferencesCheckboxGroup.add(preferencesKelvinCheckbox);
+            preferencesKelvinCheckbox.setText("Kelvin");
+            preferencesMenu.add(preferencesKelvinCheckbox);
+
             MenuPreferences.add(preferencesMenu);
 
             setJMenuBar(MenuPreferences);
@@ -1296,13 +1277,6 @@ public class GUIWindow extends javax.swing.JFrame {
 
             pack();
         }// </editor-fold>//GEN-END:initComponents
-
-    private void preferencesMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_preferencesMenuMouseClicked
-        // Preferences handler
-        System.out.println("Click Detected");
-        preferences.setLocationRelativeTo(null);    // Display in main 
-        preferences.setVisible(true);
-    }//GEN-LAST:event_preferencesMenuMouseClicked
 
     private void locationTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_locationTextFieldFocusGained
         // TODO add your handling code here:
@@ -1360,15 +1334,15 @@ public class GUIWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_refreshButtonActionPerformed
 
-    /**
-     * Actionlistener to update MARS display data, and nullify the rest by clearing
-     */
-    private void marsRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marsRefreshButtonActionPerformed
+    private void preferencesCelsiusCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesCelsiusCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_preferencesCelsiusCheckboxActionPerformed
 
-        updateMarsTab();
-        clearCurrent();
-    }//GEN-LAST:event_marsRefreshButtonActionPerformed
-    
+    private void preferencesFarenheitCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesFarenheitCheckboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_preferencesFarenheitCheckboxActionPerformed
+
+   
     /**
      * @param args the command line arguments
      */
@@ -1434,7 +1408,6 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel humidityFieldMARS;
     private javax.swing.JLabel humidityHeader;
     private javax.swing.JLabel humidityHeaderMARS;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1488,14 +1461,16 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel longTermTempThree;
     private javax.swing.JLabel longTermTempTwo;
     private javax.swing.JPanel marsPanel;
-    private javax.swing.JButton marsRefreshButton;
     private javax.swing.JLabel marsSkyStateIcon;
     private javax.swing.JLabel marsTempField;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel minTempHeader;
+    private javax.swing.JCheckBoxMenuItem preferencesCelsiusCheckbox;
+    private javax.swing.ButtonGroup preferencesCheckboxGroup;
+    private javax.swing.JCheckBoxMenuItem preferencesFarenheitCheckbox;
+    private javax.swing.JCheckBoxMenuItem preferencesKelvinCheckbox;
     private javax.swing.JMenu preferencesMenu;
     private javax.swing.JButton refreshButton;
-    private javax.swing.JLabel searchPrompt;
     private javax.swing.JPanel shortTermPanel;
     private javax.swing.JLabel skyConditionField;
     private javax.swing.JLabel skyStateEight;
@@ -1671,7 +1646,6 @@ public class GUIWindow extends javax.swing.JFrame {
         windDirectionFieldMARS.setText(mars.getWindDirection());
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + " hPa");
-        searchPrompt.setText("");
     }
     
     private void clearCurrent()
@@ -1689,6 +1663,11 @@ public class GUIWindow extends javax.swing.JFrame {
         minTempHeader.setText("Min(Low):  "+ "-- units");
         sunriseField.setText("-----");
         sunsetField.setText("-----");
+    }
+    
+    private void clearLongTerm()
+    {
+        
     }
     
 
