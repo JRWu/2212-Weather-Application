@@ -28,26 +28,39 @@ import static org.json.JSONObject.NULL;
  */
 public class GUIWindow extends javax.swing.JFrame {
 
-    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
-    String location = "London,Ca";      // Default Location
-    JSON jsonObj = new JSON(location);
-    LinkedList<Current> currentList = new LinkedList(); 
-    private Current currentObj = jsonObj.updateCurrentWeatherData();
-    Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
-    String userPreferences = "";
+    // Attributes
+    private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
+    private String location = "London,Ca";          // Default Location
+    private JSON jsonObj = new JSON(location);      // Current data for London,Ca
+    
+    private Current currentObj = jsonObj.updateCurrentWeatherData();    // Query Server
+    // NEED TRY CATCH HERE WHEN TONY IMPLEMENTS it
+    
+    private Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
+    private boolean isValid = true;         // Represents if the query is valid or not
+
+    // Attributes for the user preferences
+    // MAKE THE OBJECT SERIALIZE JUST ONE LETTER SO IT CAN BE PRINTED
+    private String userPreferences = "C";   // Default variable is in Celsius 
+    private String c = "C";
+    private String f = "F";
+    private String k = "K";
+    
+    
 
     // Alex add new attributes here
-    ShortTerm weatherST = jsonObj.updateShortTermData(); // Gets short term data
-    LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
-    Mars mars = jsonObj.updateMarsData();
+    private ShortTerm weatherST = jsonObj.updateShortTermData(); // Gets short term data
+    private LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
+    private Mars mars = jsonObj.updateMarsData();
     
-    boolean isValid = false; // Represents if the query is valid or not
-    
+    UserPreferences pa = new UserPreferences();
+
     
     /**
      * Creates new form GUIWindow
      */
     public GUIWindow() {
+        pa.setUserPreferences("S");
         initComponents();
         initTabs();         // Sets the default size for tabs
         initIcons();        // Sets the default sunrise/sunset icons
@@ -182,9 +195,9 @@ public class GUIWindow extends javax.swing.JFrame {
         currentLocationLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
-        preferencesCelsiusCheckbox = new javax.swing.JCheckBoxMenuItem();
-        preferencesFarenheitCheckbox = new javax.swing.JCheckBoxMenuItem();
-        preferencesKelvinCheckbox = new javax.swing.JCheckBoxMenuItem();
+        preferencesMetricCheckbox = new javax.swing.JCheckBoxMenuItem();
+        preferencesImperialCheckbox = new javax.swing.JCheckBoxMenuItem();
+        preferencesSICheckbox = new javax.swing.JCheckBoxMenuItem();
 
         jTextField1.setText("jTextField1");
 
@@ -435,26 +448,24 @@ public class GUIWindow extends javax.swing.JFrame {
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(currentPanelLayout.createSequentialGroup()
                             .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(windSpeedHeader)
+                                .addGroup(currentPanelLayout.createSequentialGroup()
+                                    .addComponent(windSpeedField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(windDirectionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(70, 70, 70)
+                            .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(currentPanelLayout.createSequentialGroup()
                                     .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(windSpeedHeader)
-                                        .addGroup(currentPanelLayout.createSequentialGroup()
-                                            .addComponent(windSpeedField, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(windDirectionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(70, 70, 70)
+                                        .addComponent(airPressureHeader)
+                                        .addComponent(airPressureField))
+                                    .addGap(90, 90, 90)
                                     .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(currentPanelLayout.createSequentialGroup()
-                                            .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(airPressureHeader)
-                                                .addComponent(airPressureField))
-                                            .addGap(90, 90, 90)
-                                            .addGroup(currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(humidityHeader)
-                                                .addComponent(humidityField)))
-                                        .addComponent(sunriseSunsetIconContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(currentLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(0, 113, Short.MAX_VALUE))))
+                                        .addComponent(humidityHeader)
+                                        .addComponent(humidityField)))
+                                .addComponent(sunriseSunsetIconContainerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 113, Short.MAX_VALUE))
+                        .addComponent(currentLocation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             );
             currentPanelLayout.setVerticalGroup(
                 currentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,36 +520,43 @@ public class GUIWindow extends javax.swing.JFrame {
             currentLocationST.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
             currentLocationST.setText("London, ON");
 
+            jSeparator1.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator1.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator1.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator1.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator2.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator2.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator2.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator2.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator3.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator3.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator3.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator3.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator4.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator4.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator4.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator4.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator5.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator5.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator5.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator5.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator5.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator6.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator6.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator6.setMinimumSize(new java.awt.Dimension(8, 350));
             jSeparator6.setPreferredSize(new java.awt.Dimension(8, 350));
 
+            jSeparator7.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
             jSeparator7.setMaximumSize(new java.awt.Dimension(8, 350));
             jSeparator7.setMinimumSize(new java.awt.Dimension(8, 350));
@@ -638,54 +656,48 @@ public class GUIWindow extends javax.swing.JFrame {
             shortTermPanelLayout.setHorizontalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
+                    .addGap(0, 20, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, shortTermPanelLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(temperatureLabelOne)
-                                .addComponent(conditionLabelOne))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(conditionLabelTwo)
-                                .addComponent(temperatureLabelTwo))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(conditionLabelThree)
-                                .addComponent(temperatureLabelThree))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(conditionLabelFour)
-                                .addComponent(temperatureLabelFour))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(conditionLabelFive)
-                                .addComponent(temperatureLabelFive))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(25, 25, 25)
-                            .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(skyStateSix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(conditionLabelSix)
-                                .addComponent(temperatureLabelSix))
-                            .addGap(25, 25, 25)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(shortTermPanelLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(currentLocationST, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(331, 331, 331)))
+                        .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(temperatureLabelOne)
+                        .addComponent(conditionLabelOne))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(skyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conditionLabelTwo)
+                        .addComponent(temperatureLabelTwo))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(skyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conditionLabelThree)
+                        .addComponent(temperatureLabelThree))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(skyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conditionLabelFour)
+                        .addComponent(temperatureLabelFour))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(skyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conditionLabelFive)
+                        .addComponent(temperatureLabelFive))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25)
+                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(skyStateSix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(conditionLabelSix)
+                        .addComponent(temperatureLabelSix))
+                    .addGap(25, 25, 25)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(27, 27, 27)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateSeven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -699,6 +711,9 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addComponent(conditionLabelEight)
                         .addComponent(temperatureLabelEight))
                     .addGap(32, 32, 32))
+                .addGroup(shortTermPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(currentLocationST, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             shortTermPanelLayout.setVerticalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -768,16 +783,15 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(conditionLabelSix)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelSix)))
+                                    .addComponent(temperatureLabelSix))
+                                .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                    .addGap(73, 73, 73)
+                                    .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(conditionLabelEight)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(temperatureLabelEight)))
                             .addGap(0, 0, Short.MAX_VALUE))))
-                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                    .addGap(145, 145, 145)
-                    .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(conditionLabelEight)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(temperatureLabelEight)
-                    .addGap(0, 0, Short.MAX_VALUE))
             );
 
             guiTabbedPanels.addTab("Short Term", shortTermPanel);
@@ -971,10 +985,9 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermConditionFive))
                             .addGap(13, 13, 13))
                         .addGroup(longTermPanelLayout.createSequentialGroup()
-                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(currentLocationLT, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lastUpdatedTimeLabelLT))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(lastUpdatedTimeLabelLT)
+                            .addGap(0, 801, Short.MAX_VALUE))
+                        .addComponent(currentLocationLT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             );
             longTermPanelLayout.setVerticalGroup(
                 longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -986,81 +999,79 @@ public class GUIWindow extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(longTermSeperatorFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(longTermPanelLayout.createSequentialGroup()
-                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(lastUpdatedTimeLabelLT)
-                                    .addGap(38, 38, 38)
-                                    .addComponent(longTermDateOne)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermConditionOne)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(longTermTempOne)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighOne)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowOne))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(56, 56, 56)
-                                    .addComponent(longTermDateThree)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermConditionThree)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(longTermTempThree)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighThree)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowThree))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(56, 56, 56)
-                                    .addComponent(longTermDateFour)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermConditionFour)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(longTermTempFour)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighFour)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowFour))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(56, 56, 56)
-                                    .addComponent(longTermDateFive)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermConditionFive)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(longTermTempFive)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighFive)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowFive))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(44, 44, 44)
-                                    .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(longTermPanelLayout.createSequentialGroup()
-                                    .addGap(57, 57, 57)
-                                    .addComponent(longTermDateTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermConditionTwo)
-                                    .addGap(2, 2, 2)
-                                    .addComponent(longTermTempTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempHighTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(longTermTempLowTwo)))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lastUpdatedTimeLabelLT)
+                            .addGap(38, 38, 38)
+                            .addComponent(longTermDateOne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(longTermSkyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermConditionOne)
+                            .addGap(2, 2, 2)
+                            .addComponent(longTermTempOne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempHighOne)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempLowOne))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGap(56, 56, 56)
+                            .addComponent(longTermDateThree)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(longTermSkyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermConditionThree)
+                            .addGap(2, 2, 2)
+                            .addComponent(longTermTempThree)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempHighThree)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempLowThree))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGap(56, 56, 56)
+                            .addComponent(longTermDateFour)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(longTermSkyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermConditionFour)
+                            .addGap(2, 2, 2)
+                            .addComponent(longTermTempFour)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempHighFour)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempLowFour))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGap(56, 56, 56)
+                            .addComponent(longTermDateFive)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(longTermSkyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermConditionFive)
+                            .addGap(2, 2, 2)
+                            .addComponent(longTermTempFive)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempHighFive)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempLowFive))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGap(44, 44, 44)
+                            .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(longTermSeperatorTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermSeperatorThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(longTermPanelLayout.createSequentialGroup()
+                            .addGap(57, 57, 57)
+                            .addComponent(longTermDateTwo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(longTermSkyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermConditionTwo)
+                            .addGap(2, 2, 2)
+                            .addComponent(longTermTempTwo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempHighTwo)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(longTermTempLowTwo)))
+                    .addGap(0, 0, Short.MAX_VALUE))
             );
 
             guiTabbedPanels.addTab("Long Term", longTermPanel);
@@ -1232,31 +1243,36 @@ public class GUIWindow extends javax.swing.JFrame {
             preferencesMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             preferencesMenu.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
 
-            preferencesCelsiusCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, 0));
-            preferencesCheckboxGroup.add(preferencesCelsiusCheckbox);
-            preferencesCelsiusCheckbox.setSelected(true);
-            preferencesCelsiusCheckbox.setText("Celsius");
-            preferencesCelsiusCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            preferencesMetricCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, 0));
+            preferencesCheckboxGroup.add(preferencesMetricCheckbox);
+            preferencesMetricCheckbox.setSelected(true);
+            preferencesMetricCheckbox.setText("Metric");
+            preferencesMetricCheckbox.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    preferencesCelsiusCheckboxActionPerformed(evt);
+                    preferencesMetricCheckboxActionPerformed(evt);
                 }
             });
-            preferencesMenu.add(preferencesCelsiusCheckbox);
+            preferencesMenu.add(preferencesMetricCheckbox);
 
-            preferencesFarenheitCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, 0));
-            preferencesCheckboxGroup.add(preferencesFarenheitCheckbox);
-            preferencesFarenheitCheckbox.setText("Farenheit");
-            preferencesFarenheitCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            preferencesImperialCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0));
+            preferencesCheckboxGroup.add(preferencesImperialCheckbox);
+            preferencesImperialCheckbox.setText("Imperial");
+            preferencesImperialCheckbox.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    preferencesFarenheitCheckboxActionPerformed(evt);
+                    preferencesImperialCheckboxActionPerformed(evt);
                 }
             });
-            preferencesMenu.add(preferencesFarenheitCheckbox);
+            preferencesMenu.add(preferencesImperialCheckbox);
 
-            preferencesKelvinCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_K, 0));
-            preferencesCheckboxGroup.add(preferencesKelvinCheckbox);
-            preferencesKelvinCheckbox.setText("Kelvin");
-            preferencesMenu.add(preferencesKelvinCheckbox);
+            preferencesSICheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
+            preferencesCheckboxGroup.add(preferencesSICheckbox);
+            preferencesSICheckbox.setText("S.I.");
+            preferencesSICheckbox.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    preferencesSICheckboxActionPerformed(evt);
+                }
+            });
+            preferencesMenu.add(preferencesSICheckbox);
 
             MenuPreferences.add(preferencesMenu);
 
@@ -1320,27 +1336,23 @@ public class GUIWindow extends javax.swing.JFrame {
     // Action listener for when the refresh icon is clicked
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
 
-        if (isValid)    // Data is valid
-        {
-            currentTime = new Time(System.currentTimeMillis());
-            clearCurrent();
-            updateCurrentTab();
-            updateLongTermTab();
-            updateMarsTab();
-        }
-        else            // Data is invalid
-        {
-            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
-        }
+        refreshApp();
     }//GEN-LAST:event_refreshButtonActionPerformed
-
-    private void preferencesCelsiusCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesCelsiusCheckboxActionPerformed
+    
+    private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_preferencesCelsiusCheckboxActionPerformed
+        
+    }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
 
-    private void preferencesFarenheitCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesFarenheitCheckboxActionPerformed
+    private void preferencesImperialCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesImperialCheckboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_preferencesFarenheitCheckboxActionPerformed
+        
+    }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
+
+    private void preferencesSICheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesSICheckboxActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_preferencesSICheckboxActionPerformed
 
    
     /**
@@ -1465,11 +1477,11 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel marsTempField;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel minTempHeader;
-    private javax.swing.JCheckBoxMenuItem preferencesCelsiusCheckbox;
     private javax.swing.ButtonGroup preferencesCheckboxGroup;
-    private javax.swing.JCheckBoxMenuItem preferencesFarenheitCheckbox;
-    private javax.swing.JCheckBoxMenuItem preferencesKelvinCheckbox;
+    private javax.swing.JCheckBoxMenuItem preferencesImperialCheckbox;
     private javax.swing.JMenu preferencesMenu;
+    private javax.swing.JCheckBoxMenuItem preferencesMetricCheckbox;
+    private javax.swing.JCheckBoxMenuItem preferencesSICheckbox;
     private javax.swing.JButton refreshButton;
     private javax.swing.JPanel shortTermPanel;
     private javax.swing.JLabel skyConditionField;
@@ -1570,6 +1582,8 @@ public class GUIWindow extends javax.swing.JFrame {
     
     private void updateLongTermTab()
     {        
+        currentLocationLT.setText(location);
+        
         // Main Temperature Updating
         longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + "C");
         longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature())+ "C");
@@ -1631,6 +1645,12 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + "C");
         longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + "C");
 
+        longTermDateOne.setText(weatherLT.getDaily(0).getDay());
+        longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
+        longTermDateThree.setText(weatherLT.getDaily(2).getDay());
+        longTermDateFour.setText(weatherLT.getDaily(3).getDay());
+        longTermDateFive.setText(weatherLT.getDaily(4).getDay());
+        
         lastUpdatedTimeLabelLT.setText("Updated: "+ String.valueOf(currentTime));
     }
     
@@ -1706,8 +1726,24 @@ public class GUIWindow extends javax.swing.JFrame {
     
     
     
-    
-    
+    /**
+     *  refreshApp will redraw ALL displays
+     *  utilizes a flag to indicate if query it's refreshing for is valid or not
+     */
+    private void refreshApp()
+    {
+        if (isValid)    // Data is valid
+        {
+            currentTime = new Time(System.currentTimeMillis());
+            updateCurrentTab();
+            updateLongTermTab();
+            updateMarsTab();
+        }
+        else            // Data is invalid
+        {
+            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
+        }
+    }
     
 
 }

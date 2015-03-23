@@ -162,9 +162,9 @@ public class JSON {
 
 
 	public LongTerm updateLongTermData(){
-		
+
 		try{
-			Daily [] days = new Daily[5];
+                        Daily [] days = new Daily[5];
 			weatherURL = new URL(HOST + PATH_FORECAST_LONGTERM + query);
 			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
 			connect.setConnectTimeout(TIMEOUT_TIME);
@@ -172,10 +172,10 @@ public class JSON {
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject longTermWeatherData = new JSONObject(jsonString);
-			System.out.println(longTermWeatherData);
+//			System.out.println(longTermWeatherData);
 			JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
-			String [] weekdays = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
-			longTermData = new JSONObject(jsonString);
+			String [] weekdays = {"","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};  // bug alert, out of bounds is occuring at 7
+			longTermData = new JSONObject(jsonString);  // weekdays 0 is never accessed, therefore putting a dummy data there will negate it
 
 			for(int i = 0; i < 5; i++){
 				JSONObject daily = dailyArray.getJSONObject(i);
@@ -184,9 +184,11 @@ public class JSON {
 				longTermWeatherSetVariables(daily.getJSONArray("weather"));
 				time = (GregorianCalendar) GregorianCalendar.getInstance();
 				time.setTimeInMillis(1000 * daily.getLong("dt"));
+                                
+                                System.out.println(time.get(GregorianCalendar.DAY_OF_WEEK));
+                                System.out.println(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)]);
+                                
 				days[i] = new Daily(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)],temp,temp_min,temp_max,skyState, icon);
-				
-				
 			}
 				return new LongTerm(days);		//return ADO_Object
 
@@ -196,7 +198,10 @@ public class JSON {
 			//throw NoConnectionException with timeout.
 		}catch (IOException e){
 			System.out.println(e.getMessage());
-		}
+		}/*catch (ArrayIndexOutOfBoundsException e)
+                {
+                    updateLongTermData();
+                }*/
 		return null;
 	}
 	
