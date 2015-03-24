@@ -172,10 +172,12 @@ public class JSON {
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject longTermWeatherData = new JSONObject(jsonString);
-//			System.out.println(longTermWeatherData);
-			JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
+
+                        JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
 			String [] weekdays = {"","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};  // bug alert, out of bounds is occuring at 7
-			longTermData = new JSONObject(jsonString);  // weekdays 0 is never accessed, therefore putting a dummy data there will negate it
+                        String [] months = {"","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"};
+
+                        longTermData = new JSONObject(jsonString);
 
 			for(int i = 0; i < 5; i++){
 				JSONObject daily = dailyArray.getJSONObject(i);
@@ -188,7 +190,10 @@ public class JSON {
                                 System.out.println(time.get(GregorianCalendar.DAY_OF_WEEK));
                                 System.out.println(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)]);
                                 
-				days[i] = new Daily(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)],temp,temp_min,temp_max,skyState, icon);
+                                int day = time.get(GregorianCalendar.DAY_OF_MONTH);
+                                int month = time.get(GregorianCalendar.MONTH);
+                                
+				days[i] = new Daily(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)] + " "+months[month] + " " + String.valueOf(day),temp,temp_min,temp_max,skyState, icon);
 			}
 				return new LongTerm(days);		//return ADO_Object
 
@@ -198,10 +203,10 @@ public class JSON {
 			//throw NoConnectionException with timeout.
 		}catch (IOException e){
 			System.out.println(e.getMessage());
-		}/*catch (ArrayIndexOutOfBoundsException e)
+		}catch (JSONException e)
                 {
-                    updateLongTermData();
-                }*/
+                    updateLongTermData(); // Most likely server error, re-fetch data
+                }
 		return null;
 	}
 	

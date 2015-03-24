@@ -1583,75 +1583,78 @@ public class GUIWindow extends javax.swing.JFrame {
     private void updateLongTermTab()
     {        
         currentLocationLT.setText(location);
+        weatherLT = jsonObj.updateLongTermData();
         
-        // Main Temperature Updating
-        longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + "C");
-        longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature())+ "C");
-        longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature())+ "C");
-        longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature())+ "C");
-        longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature())+ "C");
-        
-        // Sky State Condition
-        longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
-        longTermConditionTwo.setText(weatherLT.getDaily(1).getSkyCondition());
-        longTermConditionThree.setText(weatherLT.getDaily(2).getSkyCondition());
-        longTermConditionFour.setText(weatherLT.getDaily(3).getSkyCondition());
-        longTermConditionFive.setText(weatherLT.getDaily(4).getSkyCondition());
-        
-        // Icon resizing function
-         try 
-            {
+        if (weatherLT != NULL)
+        {
+            // Main Temperature Updating
+            longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + "C");
+            longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + "C");
+            longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()) + "C");
+            longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()) + "C");
+            longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()) + "C");
+
+            // Sky State Condition
+            longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
+            longTermConditionTwo.setText(weatherLT.getDaily(1).getSkyCondition());
+            longTermConditionThree.setText(weatherLT.getDaily(2).getSkyCondition());
+            longTermConditionFour.setText(weatherLT.getDaily(3).getSkyCondition());
+            longTermConditionFive.setText(weatherLT.getDaily(4).getSkyCondition());
+
+            // Icon resizing function
+            try {
                 URL url = new URL(weatherLT.getDaily(0).getCondition().toString());
                 Image img = ImageIO.read(url);
                 Image resizedSkyState = img.getScaledInstance(140, 140, 0);
                 longTermSkyStateOne.setIcon(new ImageIcon(resizedSkyState));
-                
+
                 url = new URL(weatherLT.getDaily(1).getCondition().toString());
                 img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140,140,0);
-                longTermSkyStateTwo.setIcon (new ImageIcon(resizedSkyState));
-                
+                resizedSkyState = img.getScaledInstance(140, 140, 0);
+                longTermSkyStateTwo.setIcon(new ImageIcon(resizedSkyState));
+
                 url = new URL(weatherLT.getDaily(2).getCondition().toString());
                 img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140,140,0);
-                longTermSkyStateThree.setIcon (new ImageIcon(resizedSkyState));
-                
+                resizedSkyState = img.getScaledInstance(140, 140, 0);
+                longTermSkyStateThree.setIcon(new ImageIcon(resizedSkyState));
+
                 url = new URL(weatherLT.getDaily(3).getCondition().toString());
                 img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140,140,0);
-                longTermSkyStateFour.setIcon (new ImageIcon(resizedSkyState));
-                
+                resizedSkyState = img.getScaledInstance(140, 140, 0);
+                longTermSkyStateFour.setIcon(new ImageIcon(resizedSkyState));
+
                 url = new URL(weatherLT.getDaily(4).getCondition().toString());
                 img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140,140,0);
-                longTermSkyStateFive.setIcon (new ImageIcon(resizedSkyState)); 
+                resizedSkyState = img.getScaledInstance(140, 140, 0);
+                longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
             } catch (MalformedURLException ex) {
                 Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
-        // Maximum Temp Updating
-        longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + "C");
-        longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + "C");
-        longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + "C");
-        longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + "C");
-        longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + "C");
-         
-        // Minimum Temp Updating
-        longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + "C");
-        longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + "C");
-        longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + "C");
-        longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + "C");
-        longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + "C");
 
-        longTermDateOne.setText(weatherLT.getDaily(0).getDay());
-        longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
-        longTermDateThree.setText(weatherLT.getDaily(2).getDay());
-        longTermDateFour.setText(weatherLT.getDaily(3).getDay());
-        longTermDateFive.setText(weatherLT.getDaily(4).getDay());
-        
-        lastUpdatedTimeLabelLT.setText("Updated: "+ String.valueOf(currentTime));
+            // Maximum Temp Updating
+            longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + "C");
+            longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + "C");
+            longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + "C");
+            longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + "C");
+            longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + "C");
+
+            // Minimum Temp Updating
+            longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + "C");
+            longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + "C");
+            longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + "C");
+            longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + "C");
+            longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + "C");
+
+            longTermDateOne.setText(weatherLT.getDaily(0).getDay());
+            longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
+            longTermDateThree.setText(weatherLT.getDaily(2).getDay());
+            longTermDateFour.setText(weatherLT.getDaily(3).getDay());
+            longTermDateFive.setText(weatherLT.getDaily(4).getDay());
+
+            lastUpdatedTimeLabelLT.setText("Updated: " + String.valueOf(currentTime));
+        }
     }
     
     /**
