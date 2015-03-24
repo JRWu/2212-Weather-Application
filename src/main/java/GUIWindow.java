@@ -1580,14 +1580,14 @@ public class GUIWindow extends javax.swing.JFrame {
         {
             Current currentObj = jsonObj.updateCurrentWeatherData();            
             currentLocation.setText(location);
-            temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + "C");            
-            windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + " m/s");
+            temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());            
+            windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + preferences.getSpeedUni());
             windDirectionField.setText(currentObj.getWindDirection());
-            airPressureField.setText(String.valueOf(currentObj.getAirPressure()) + " hPa");
+            airPressureField.setText(String.valueOf(currentObj.getAirPressure()) + preferences.getPressureUnit());
             humidityField.setText(String.valueOf(currentObj.getHumidity()) + "%");
             skyConditionField.setText(currentObj.getSkyCondition());
-            maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + "C");
-            minTempHeader.setText(String.valueOf("Min(Low):  "+ currentObj.getMinTemp()) + "C");            
+            maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + preferences.getTemperatureUnit());
+            minTempHeader.setText(String.valueOf("Min(Low):  "+ currentObj.getMinTemp()) + preferences.getTemperatureUnit());            
 
             ImageIcon skyState = currentObj.getCondition();
             skyStateIconC.setIcon(currentObj.getCondition());
@@ -1622,11 +1622,11 @@ public class GUIWindow extends javax.swing.JFrame {
         if (weatherLT != NULL)
         {
             // Main Temperature Updating
-            longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + "C");
-            longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + "C");
-            longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()) + "C");
-            longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()) + "C");
-            longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()) + "C");
+            longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
+            longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
+            longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()) + preferences.getTemperatureUnit());
+            longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()) + preferences.getTemperatureUnit());
+            longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()) + preferences.getTemperatureUnit());
 
             // Sky State Condition
             longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
@@ -1668,18 +1668,18 @@ public class GUIWindow extends javax.swing.JFrame {
             }
 
             // Maximum Temp Updating
-            longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + "C");
-            longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + "C");
-            longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + "C");
-            longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + "C");
-            longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + "C");
+            longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + preferences.getTemperatureUnit());
 
             // Minimum Temp Updating
-            longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + "C");
-            longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + "C");
-            longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + "C");
-            longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + "C");
-            longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + "C");
+            longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + preferences.getTemperatureUnit());
 
             longTermDateOne.setText(weatherLT.getDaily(0).getDay());
             longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
@@ -1697,12 +1697,12 @@ public class GUIWindow extends javax.swing.JFrame {
     private void updateMarsTab()
     {
         //marsTempField
-        marsTempField.setText(String.valueOf(mars.getTemperature()) + "K");
+        marsTempField.setText(String.valueOf(mars.getTemperature()) + preferences.getTemperatureUnit());
         lastUpdatedTimeLabelMARS.setText("Updated: "+ String.valueOf(currentTime));
-        windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + "m/s");
+        windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
         windDirectionFieldMARS.setText(mars.getWindDirection());
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
-        airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + " hPa");
+        airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
     }
     
     private void clearCurrent()
@@ -1713,11 +1713,11 @@ public class GUIWindow extends javax.swing.JFrame {
         skyStateIconC.setIcon(null);
         windSpeedField.setText("-----");
         windDirectionField.setText("N/E/S/W       ");
-        airPressureField.setText("-----" + "hPa");
+        airPressureField.setText("-----" + preferences.getPressureUnit());
         humidityField.setText("-----" + "%");
         skyConditionField.setText(" -----");
-        maxTempHeader.setText("Max(High): "+ "-- units");
-        minTempHeader.setText("Min(Low):  "+ "-- units");
+        maxTempHeader.setText("Max(High): "+ "--" + preferences.getTemperatureUnit());
+        minTempHeader.setText("Min(Low):  "+ "--" + preferences.getTemperatureUnit());
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }

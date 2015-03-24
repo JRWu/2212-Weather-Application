@@ -78,23 +78,23 @@ public class UserPreferences {
     // Private Helper Functions to Set units
     private void setMetric()
     {
-        temperatureUnit = "C";
-        speedUnit = "m/s";
-        pressureUnit = "hPa";
+        temperatureUnit = " C";
+        speedUnit = " m/s";
+        pressureUnit = " hPa";
     }
     
     private void setImperial()
     {
-        temperatureUnit = "F";
-        speedUnit = "mi/s";
-        pressureUnit = "hPa";
+        temperatureUnit = " F";
+        speedUnit = " mi/s";
+        pressureUnit = " hPa";
     }
     
     private void setSI()
     {
-        temperatureUnit = "K";
-        speedUnit = "mi/s";
-        pressureUnit = "hPa";
+        temperatureUnit = " K";
+        speedUnit = " mi/s";
+        pressureUnit = " hPa";
     }
 
 }
