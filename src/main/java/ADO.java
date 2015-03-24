@@ -21,7 +21,7 @@ public class ADO implements java.io.Serializable
 	private int humidity;
 	private String windDirection;
 	private String skyCondition;
-	private String userPreferences = "";
+	private String userPreferences = "M";
 	private ImageIcon skyState;
 /**
 * This serves as a general constructor for the abstract data object with no parameters
@@ -253,11 +253,11 @@ public class ADO implements java.io.Serializable
 	private double convertTemp(double temp, String preferences)
 	{
         double temperature;
-		if (preferences.equals("fahrenheit"))
+		if (preferences.equals("I"))
 		{
                     temperature = ((temp -273.15)*1.8) + 32;
 		}
-        else if (preferences.equals("celsius"))
+        else if (preferences.equals("M"))
 		{
                     temperature = temp - 273.15;
 		} else {

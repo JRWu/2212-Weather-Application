@@ -31,7 +31,7 @@ public class Daily extends ADO implements java.io.Serializable
 		super (temp,min,max,sky,state);
 		day = days;
 	}
-
+        //new Daily(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)],   temp,    temp_min,    temp_max,    skyState,    icon);
 /**
 * 
 * @return the current day that the object is representing
