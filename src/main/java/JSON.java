@@ -205,7 +205,7 @@ public class JSON {
 			System.out.println(e.getMessage());
 		}catch (JSONException e)
                 {
-                    updateLongTermData(); // Most likely server error, re-fetch data
+                    //updateLongTermData(); // Most likely server error, re-fetch data
                 }
 		return null;
 	}
