@@ -1,4 +1,4 @@
-
+package main.java;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -1781,6 +1781,10 @@ public class GUIWindow extends javax.swing.JFrame {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
         }
     }
+
+	public static void main(String[] args) {
+		package main.java;
+	}
     
 
 }

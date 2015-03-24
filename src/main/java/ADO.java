@@ -1,6 +1,6 @@
 import java.io.*;
 import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
+//import org.apache.commons.io.*;
 /**
 * March 8, 2015
 * CS 2212
@@ -21,7 +21,7 @@ public class ADO implements java.io.Serializable
 	private int humidity;
 	private String windDirection;
 	private String skyCondition;
-	private String userPreferences = "M";
+	protected String userPreferences = "M";
 	private ImageIcon skyState;
 /**
 * This serves as a general constructor for the abstract data object with no parameters
@@ -274,7 +274,7 @@ public class ADO implements java.io.Serializable
 	{
 		try 
 		{
-			FileOutputStream fout = new FileOutputStream("preferences.ser");
+			FileOutputStream fout = new FileOutputStream("/tmp/preferences.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fout);
 			oos.writeObject(preferences);
 			oos.close();
@@ -293,7 +293,7 @@ public class ADO implements java.io.Serializable
 			userPreferences = "";
 			try
 		{
-			FileInputStream fin = new FileInputStream("preferences.ser");
+			FileInputStream fin = new FileInputStream("/tmp/preferences.ser");
 			ObjectInputStream in = new ObjectInputStream (fin);
 			userPreferences = (String)in.readObject();
 			if (userPreferences == null)
@@ -307,5 +307,11 @@ public class ADO implements java.io.Serializable
 		{
 			e.printStackTrace();
 		}	
+	}
+	public static void main(String[]args)
+	{
+		ADO ad = new ADO();
+		ad.deSerializePreferences();
+		System.out.println(ad.userPreferences);		
 	}
 }
