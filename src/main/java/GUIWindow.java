@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,7 +38,7 @@ public class GUIWindow extends javax.swing.JFrame {
     // NEED TRY CATCH HERE WHEN TONY IMPLEMENTS it
     
     private Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
-    private boolean isValid = true;         // Represents if the query is valid or not
+    private boolean isValid = false;         // Represents if the query is valid or not
 
     // Attributes for the user preferences
     // MAKE THE OBJECT SERIALIZE JUST ONE LETTER SO IT CAN BE PRINTED
@@ -53,18 +54,32 @@ public class GUIWindow extends javax.swing.JFrame {
     private LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
     private Mars mars = jsonObj.updateMarsData();
     
-    UserPreferences pa = new UserPreferences();
+    private UserPreferences preferences = new UserPreferences();
 
     
     /**
      * Creates new form GUIWindow
      */
     public GUIWindow() {
-        pa.setUserPreferences("S");
+//        checkPreviousState();
+//        preferences.setUserPreferences("M");
         initComponents();
         initTabs();         // Sets the default size for tabs
         initIcons();        // Sets the default sunrise/sunset icons
     }
+    /*
+    private void checkPreviousState()
+    {
+        File fIn = new File("preferences.ser");
+        if (fIn.exists())
+        {
+            System.out.println ("Yes");
+        }
+        else
+        {
+            System.out.println("No");
+        }
+    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1341,17 +1356,32 @@ public class GUIWindow extends javax.swing.JFrame {
     
     private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
         // TODO add your handling code here:
-        
+        preferences.setUserPreferences("M");
+        currentObj.serializePreferences("M");
+        if (isValid)
+        {
+            refreshApp();
+        }
     }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
 
     private void preferencesImperialCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesImperialCheckboxActionPerformed
         // TODO add your handling code here:
-        
+        preferences.setUserPreferences("I");
+        currentObj.serializePreferences("I");
+        if (isValid)
+        {
+            refreshApp();
+        }
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
 
     private void preferencesSICheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesSICheckboxActionPerformed
         // TODO add your handling code here:
-        
+        preferences.setUserPreferences("S");
+        currentObj.serializePreferences("S");
+        if (isValid)
+        {
+            refreshApp();
+        }
     }//GEN-LAST:event_preferencesSICheckboxActionPerformed
 
    
@@ -1526,6 +1556,10 @@ public class GUIWindow extends javax.swing.JFrame {
         refreshButton.setIcon(icon);
     }
     
+    
+    /**
+    * initIcons draws the sunrise and sunset icons 
+    */
     private void initIcons()
     {
         ImageIcon sunrise = new ImageIcon(GUIWindow.class.getResource("sunriseW.png"));
