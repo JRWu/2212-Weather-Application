@@ -39,6 +39,7 @@ public class JSON {
 	private final String WIND_JSON = "wind";
 	private final String ARRAY_JSON = "list";
 	private final String SUN_JSON = "sys";
+	public final String TIMEOUT_MESSAGE = "Timeout";
 	
 	private final int TIMEOUT_TIME = 5000; //the time it'll take for connection to timeout
 	
@@ -70,25 +71,37 @@ public class JSON {
 	
 	
 	/**
-	 * Method to obtain current weather data; in the future it will throw an error if it cannot connect. 
 	 * 
-	 * @return a Current object with all fields filled for the current weather data. 
+	 * Method to initialize and update all current data as specified in the 
+	 * project specifications from the OpenWeatherMap API
+	 * 
+	 * 
+	 * @return A Current Object with all required fields thrown
+	 * 
+	 * @throws NoConnectionException Throws this exception whenever the server returns anything 
+	 * 					other than a 200 (HTTP OK) or 500 (Internal Server Error) Response code, specified timeout message on timeout exception
+	 * @throws InternalServerError Throws this exception whenever the server returns a 500 response code
 	 */
-//	public Current updateCurrentWeatherData() throws NoConnectionException {
-	public Current updateCurrentWeatherData(){ 
+	public Current updateCurrentWeatherData() throws NoConnectionException, InternalServerError {
+		Current curr = null;
 		try{
 			weatherURL = new URL(HOST + PATH_CURRENT + query);
 			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
 			connect.setConnectTimeout(TIMEOUT_TIME);
-//			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
-			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) 
-				System.out.println("problem");
+			
+			if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode())
+				throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
+			else if(HttpURLConnection.HTTP_OK != connect.getResponseCode())
+				throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
+
+			
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject currentWeatherData = new JSONObject(jsonString);
 			allWeatherData = new JSONObject(jsonString);
 			time = (GregorianCalendar) GregorianCalendar.getInstance();
 			time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
+			
 			
 			JSONObject main = currentWeatherData.getJSONObject(MAIN_JSON);
 			JSONArray weather = currentWeatherData.getJSONArray(WEATHER_JSON);
@@ -100,80 +113,103 @@ public class JSON {
 			currentSunTime(sun);
 			//return ADO_Object
 
-			return new Current(time,sunrise,sunset,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
+			curr = new Current(time,sunrise,sunset,pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
 	
-		}catch (SocketTimeoutException e)
-		{
-			//throw NoConnectionException with timeout.
+		}catch (SocketTimeoutException e){
+			throw new NoConnectionException(TIMEOUT_MESSAGE);
 		}catch (IOException e){
-			System.out.println(e.getMessage());
+			throw new NoConnectionException("No Connection");
 		}
 		
-		return null;
+		return curr;
 	}
 
-	
+
 	/**
-		 * Method to return short term data, comes as 3 hour increments spanning 24 hours
-		 * @return a ShortTerm object 
-		 */
-	//	public ShortTerm updateShortTermData() throws NoConnectionException {
-		public ShortTerm updateShortTermData(){
-			Hourly [] shortTermHourlies = new Hourly[8];
-			try{
-			//creates the weather URL 
-			weatherURL = new URL(HOST + PATH_FORECAST_SHORTTERM + query);
+	 * Get the ShortTerm Data from the OpenWeatherMap API. Returns all fields specified by project specifications.
+	 * 
+	 * @return ShortTerm object initialized with array of 8 hourly objects
+	 * 	 
+	 * @throws NoConnectionException Throws this exception whenever the server returns anything 
+	 * 									other than a 200 (HTTP OK) or 500 (Internal Server Error) Response code, specified timeout message on timeout exception
+	 * @throws InternalServerError Throws this exception whenever the server returns a 500 response code
+	 */
+	public ShortTerm updateShortTermData() throws NoConnectionException, InternalServerError {
+//	public ShortTerm updateShortTermData(){
+		Hourly [] shortTermHourlies = new Hourly[8];
+		try{
+		//creates the weather URL 
+		weatherURL = new URL(HOST + PATH_FORECAST_SHORTTERM + query);
+		
+		HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+		connect.setConnectTimeout(TIMEOUT_TIME);//sets timeout
+		
+		if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode())
+			throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
+		else if(HttpURLConnection.HTTP_OK != connect.getResponseCode())
+			throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
+		
+		//Gets input stream and converts it to string to be handled by JSONObject
+		InputStream in = connect.getInputStream();
+		String jsonString = IOUtils.toString(in);
+		shortTermData = new JSONObject(jsonString); 
+		JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
+		
+		//loop to get the 8 hourly objects
+		for (int i =0; i <8; i++){
+			JSONObject hour = arrayData.getJSONObject(i);
 			
-			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
-			connect.setConnectTimeout(TIMEOUT_TIME);//sets timeout
-	//		if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+			shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
+			shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
+			shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
+			time = (GregorianCalendar) GregorianCalendar.getInstance();
+			time.setTimeInMillis(1000 * hour.getLong("dt"));
 			
-			//Gets input stream and converts it to string to be handled by JSONObject
-			InputStream in = connect.getInputStream();
-			String jsonString = IOUtils.toString(in);
-			shortTermData = new JSONObject(jsonString); 
-			JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
-			
-			//loop to get the 8 hourly objects
-			for (int i =0; i <8; i++){
-				JSONObject hour = arrayData.getJSONObject(i);
-				
-				shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
-				shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
-				shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
-				time = (GregorianCalendar) GregorianCalendar.getInstance();
-				time.setTimeInMillis(1000 * hour.getLong("dt"));
-				
-				shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
-			}
-			
-			
-			
-			}catch(MalformedURLException e){
-				System.out.println("BAD URL");
-			}catch(SocketTimeoutException e){
-				//throw e;
-			}catch(IOException e){
-				//throw new NoConnectionException ("No connection established");
-			}
-			return new ShortTerm(shortTermHourlies);
+			shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY),pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,icon);
 		}
+		
+		
+		
+		}catch (SocketTimeoutException e){
+			throw new NoConnectionException(TIMEOUT_MESSAGE);
+		}catch (IOException e){
+			throw new NoConnectionException("No Connection");
+		}
+		return new ShortTerm(shortTermHourlies);
+	}
 
-
-
-	public LongTerm updateLongTermData(){
+	/**
+	 * 
+	 * Get the Long Term Data from the OpenWeatherMap (OWM) API. Returns all fields specified by project specifications.
+	 * Returns temperature as the "day" field returned from the OWM API
+	 * 
+	 * @return LongTerm object initialized with 5 Daily objects
+	 * 
+	 * @throws NoConnectionException Throws this exception whenever the server returns anything 
+	 * 									other than a 200 (HTTP OK) or 500 (Internal Server Error) Response code, specified timeout message on timeout exception
+	 * @throws InternalServerError Throws this exception whenever the server returns a 500 response code
+	 */
+	public LongTerm updateLongTermData() throws NoConnectionException, InternalServerError{
+//	public LongTerm updateLongTermData(){
 
 		try{
-                        Daily [] days = new Daily[5];
-			weatherURL = new URL(HOST + PATH_FORECAST_LONGTERM + query);
+			
+			Daily [] days = new Daily[5];
+			weatherURL = new URL(HOST + PATH_FORECAST_LONGTERM + query + "&cnt=5");
 			HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+			
 			connect.setConnectTimeout(TIMEOUT_TIME);
-//			if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) throw new NoConnectionException(connect.getResponseMessage());
+			if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode())
+				throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
+			else if(HttpURLConnection.HTTP_OK != connect.getResponseCode())
+				throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
+			
+			
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject longTermWeatherData = new JSONObject(jsonString);
-
-                        JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
+			System.out.println(longTermWeatherData);
+			JSONArray dailyArray = longTermWeatherData.getJSONArray("list");	
 			String [] weekdays = {"","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};  // bug alert, out of bounds is occuring at 7
                         String [] months = {"","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sept","Oct","Nov","Dec"};
 
@@ -198,23 +234,39 @@ public class JSON {
 				return new LongTerm(days);		//return ADO_Object
 
 	
-		}catch (SocketTimeoutException e)
-		{
-			//throw NoConnectionException with timeout.
+		}catch (SocketTimeoutException e){
+			throw new NoConnectionException(TIMEOUT_MESSAGE);
 		}catch (IOException e){
-			System.out.println(e.getMessage());
-		}catch (JSONException e)
-                {
+			throw new NoConnectionException("No Connection");
+
+		}catch (JSONException e){
                     //updateLongTermData(); // Most likely server error, re-fetch data
                 }
 		return null;
 	}
 	
-	public Mars updateMarsData(){
+	/**
+	 * Get the Mars Data from the Mars Weather (marsweather.ingenology.com) API. Returns all fields specified by project specifications.
+	 * 
+	 * @return Mars object containing initialized parameters from the Mars weather API. Returns average values if Mars weather API returns null values
+	 * 
+	 * @throws NoConnectionException Throws this exception whenever the server returns anything 
+	 * other than a 200 (HTTP OK) or 500 (Internal Server Error) Response code, specified timeout message on timeout exception
+	 * @throws InternalServerError Throws this exception whenever the server returns a 500 response code
+	 */
+	public Mars updateMarsData() throws InternalServerError, NoConnectionException{
 		try{
 			URL marsURL = new URL("http://marsweather.ingenology.com/v1/latest/?format=json");
 			HttpURLConnection connect = (HttpURLConnection) marsURL.openConnection();
 			connect.setConnectTimeout(TIMEOUT_TIME);
+			
+			
+			if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode())
+				throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
+			else if(HttpURLConnection.HTTP_OK != connect.getResponseCode())
+				throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
+
+			
 			InputStream in = connect.getInputStream();
 			String jsonString = IOUtils.toString(in);
 			JSONObject marsWeatherData = new JSONObject(jsonString).getJSONObject("report");
@@ -225,15 +277,22 @@ public class JSON {
 			return new Mars(pressure,windSpeed,temp,temp_min,temp_max,humidity,windDirection,skyState,null);
 			
 			
-		}catch(Exception e){
-			System.out.println("Problem");
-			System.out.println(e.getMessage());
-			
-		}
+		}catch (SocketTimeoutException e){
+			throw new NoConnectionException(TIMEOUT_MESSAGE);
+		}catch (IOException e){
+			throw new NoConnectionException("No Connection");
+		}catch (JSONException e){
+                    //updateLongTermData(); // Most likely server error, re-fetch data
+                }
 		
 		return null;
 	}
 
+	/**
+	 * Method to set temperature, sky state, humidity, windDirection, and pressure fields for the Mars Object
+	 * 
+	 * @param mars JSONObject that contains required information
+	 */
 	private void currentMarsSetVariables(JSONObject mars){
 		
 		if(!mars.isNull("ls"))
@@ -281,7 +340,7 @@ public class JSON {
 	}
 
 	/**
-	 * Private method to set all temperature and humidity and pressure fields
+	 * Private method to set all temperature, humidity, and pressure fields for current objects
 	 * 
 	 * @param main JSONObject containing these fields.
 	 */
@@ -293,6 +352,11 @@ public class JSON {
 		temp = main.getDouble("temp");
 		}
 	
+	/**
+	 * Private method to set all temperature, humidity, and pressure fields for ShortTerm objects
+	 * 
+	 * @param main JSONObject containing these fields
+	 */
 	private void shortTermMainSetVariables(JSONObject main){
 		humidity = main.getInt("humidity");
 		pressure = main.getInt("pressure");
@@ -301,6 +365,11 @@ public class JSON {
 		temp = main.getDouble("temp");
 		}
 	
+	/**
+	 * Private method to set all temperature fields for LongTerm Object
+	 * 
+	 * @param temperature JSONObject containing temperature data
+	 */
 	private void longTermTempSetVariables(JSONObject temperature){
 		temp = temperature.getDouble("day");
 		temp_max = temperature.getDouble("max");
@@ -400,7 +469,14 @@ public class JSON {
 	
 	public static void main (String [] args){
 		JSON asdf = new JSON("London,ca");
+		try {
 		asdf.updateLongTermData();
+		}
+		catch(InternalServerError e){
+			System.out.println(e.getMessage());
+		} catch (NoConnectionException e) {
+			System.out.println(e.getMessage());
+		}
 		
 	}
 	
