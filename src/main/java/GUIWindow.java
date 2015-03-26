@@ -304,14 +304,14 @@ public class GUIWindow extends javax.swing.JFrame {
             currentPanel.setPreferredSize(new java.awt.Dimension(860, 472));
 
             currentLocation.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
-            currentLocation.setText("London,Ca");
+            currentLocation.setText("Location");
             currentLocation.setMaximumSize(new java.awt.Dimension(400, 52));
             currentLocation.setMinimumSize(new java.awt.Dimension(400, 52));
             currentLocation.setPreferredSize(new java.awt.Dimension(400, 52));
 
             skyStateIconC.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
             skyStateIconC.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-            skyStateIconC.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+            skyStateIconC.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateIconC.setDoubleBuffered(true);
             skyStateIconC.setMaximumSize(new java.awt.Dimension(140, 140));
             skyStateIconC.setMinimumSize(new java.awt.Dimension(140, 140));
@@ -508,7 +508,7 @@ public class GUIWindow extends javax.swing.JFrame {
             shortTermPanel.setPreferredSize(new java.awt.Dimension(860, 472));
 
             currentLocationST.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
-            currentLocationST.setText("London, ON");
+            currentLocationST.setText("Location");
 
             jSeparator1.setForeground(new java.awt.Color(200, 200, 200));
             jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -554,53 +554,54 @@ public class GUIWindow extends javax.swing.JFrame {
             jSeparator7.setPreferredSize(new java.awt.Dimension(8, 350));
 
             skyStateOne.setText("Img1");
-            skyStateOne.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateOne.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateOne.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateOne.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateTwo.setText("Img1");
-            skyStateTwo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateTwo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateTwo.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateTwo.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateTwo.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateThree.setText("Img1");
-            skyStateThree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateThree.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateThree.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateThree.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateThree.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateFour.setText("Img1");
-            skyStateFour.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateFour.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateFour.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateFour.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateFour.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateFive.setText("Img1");
-            skyStateFive.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateFive.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateFive.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateFive.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateSix.setText("Img1");
-            skyStateSix.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateSix.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateSix.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateSix.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateSix.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateSeven.setText("Img1");
-            skyStateSeven.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateSeven.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateSeven.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateSeven.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateSeven.setPreferredSize(new java.awt.Dimension(50, 50));
 
             skyStateEight.setText("Img1");
-            skyStateEight.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            skyStateEight.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateEight.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateEight.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateEight.setPreferredSize(new java.awt.Dimension(50, 50));
 
+            temperatureLabelOne.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelOne.setText("T:");
 
             conditionLabelOne.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
@@ -627,18 +628,25 @@ public class GUIWindow extends javax.swing.JFrame {
             conditionLabelEight.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             conditionLabelEight.setText("Con");
 
+            temperatureLabelTwo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelTwo.setText("T:");
 
+            temperatureLabelThree.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelThree.setText("T:");
 
+            temperatureLabelFour.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelFour.setText("T:");
 
+            temperatureLabelFive.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelFive.setText("T:");
 
+            temperatureLabelSix.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelSix.setText("T:");
 
+            temperatureLabelSeven.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelSeven.setText("T:");
 
+            temperatureLabelEight.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelEight.setText("T:");
 
             javax.swing.GroupLayout shortTermPanelLayout = new javax.swing.GroupLayout(shortTermPanel);
@@ -646,12 +654,12 @@ public class GUIWindow extends javax.swing.JFrame {
             shortTermPanelLayout.setHorizontalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
-                    .addGap(0, 18, Short.MAX_VALUE)
+                    .addGap(0, 23, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(temperatureLabelOne)
                         .addComponent(conditionLabelOne))
-                    .addGap(25, 25, 25)
+                    .addGap(20, 20, 20)
                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(25, 25, 25)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -793,7 +801,7 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermPanel.setPreferredSize(new java.awt.Dimension(860, 472));
 
             currentLocationLT.setFont(new java.awt.Font("Ubuntu", 0, 45)); // NOI18N
-            currentLocationLT.setText("London,Ca");
+            currentLocationLT.setText("Location");
 
             longTermSeperatorFour.setForeground(new java.awt.Color(200, 200, 200));
             longTermSeperatorFour.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -829,32 +837,27 @@ public class GUIWindow extends javax.swing.JFrame {
 
             longTermDateFive.setText("Date");
 
-            longTermSkyStateOne.setText("jLabel6");
-            longTermSkyStateOne.setBorder(null);
+            longTermSkyStateOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             longTermSkyStateOne.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateOne.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateOne.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            longTermSkyStateTwo.setText("jLabel6");
-            longTermSkyStateTwo.setBorder(null);
+            longTermSkyStateTwo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             longTermSkyStateTwo.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateTwo.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateTwo.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            longTermSkyStateThree.setText("jLabel6");
-            longTermSkyStateThree.setBorder(null);
+            longTermSkyStateThree.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             longTermSkyStateThree.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateThree.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateThree.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            longTermSkyStateFour.setText("jLabel6");
-            longTermSkyStateFour.setBorder(null);
+            longTermSkyStateFour.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             longTermSkyStateFour.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFour.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFour.setPreferredSize(new java.awt.Dimension(140, 140));
 
-            longTermSkyStateFive.setText("jLabel6");
-            longTermSkyStateFive.setBorder(null);
+            longTermSkyStateFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             longTermSkyStateFive.setMaximumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFive.setMinimumSize(new java.awt.Dimension(140, 140));
             longTermSkyStateFive.setPreferredSize(new java.awt.Dimension(140, 140));
@@ -878,22 +881,22 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermTempHighOne.setText("High:");
 
             longTermTempLowOne.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            longTermTempLowOne.setText("Low");
+            longTermTempLowOne.setText("Low:");
 
             longTermTempLowTwo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            longTermTempLowTwo.setText("Low");
+            longTermTempLowTwo.setText("Low:");
 
             longTermTempHighTwo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             longTermTempHighTwo.setText("High:");
 
             longTermTempLowThree.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            longTermTempLowThree.setText("Low");
+            longTermTempLowThree.setText("Low:");
 
             longTermTempHighThree.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             longTermTempHighThree.setText("High:");
 
             longTermTempLowFour.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-            longTermTempLowFour.setText("Low");
+            longTermTempLowFour.setText("Low:");
 
             longTermTempHighFour.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             longTermTempHighFour.setText("High:");
@@ -908,7 +911,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
             longTermConditionTwo.setText("Condition");
 
-            longTermConditionThree.setText("Conditoin");
+            longTermConditionThree.setText("Condition");
 
             longTermConditionFour.setText("Condition");
 
@@ -933,7 +936,7 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermTempHighOne)
                                 .addComponent(longTermTempLowOne)
                                 .addComponent(longTermConditionOne))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(longTermSeperatorOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(longTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -973,10 +976,10 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addComponent(longTermTempHighFive)
                                 .addComponent(longTermTempLowFive)
                                 .addComponent(longTermConditionFive))
-                            .addGap(13, 13, 13))
+                            .addGap(15, 15, 15))
                         .addGroup(longTermPanelLayout.createSequentialGroup()
                             .addComponent(lastUpdatedTimeLabelLT)
-                            .addGap(0, 801, Short.MAX_VALUE))
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addComponent(currentLocationLT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             );
             longTermPanelLayout.setVerticalGroup(
@@ -1304,17 +1307,22 @@ public class GUIWindow extends javax.swing.JFrame {
             preferences.setUserPreferences(currentObj.getPreferences());
 
             updateCurrentTab();
-            //updateShortTermTab();
+            updateShortTermTab();
             updateLongTermTab();
 
             isValid = true;                             // Refresh flag is enabled- query is valid
-        } catch (InternalServerError ex) {
+        } 
+        catch (InternalServerError ex){
             System.out.println(ex);
             ex.printStackTrace();
+        }
+        catch(NoConnectionException ex) {
+//            System.out.println(ex);   // REMOVE
+//            ex.printStackTrace();     // REMOVE
+            
+            isValid = false; 
+            promptQueryAgain();
 
-        } catch (NoConnectionException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
         } catch (Exception ex) {
             System.out.println(ex);
             ex.printStackTrace();
@@ -1325,10 +1333,10 @@ public class GUIWindow extends javax.swing.JFrame {
             MalformedQueryException exp = new MalformedQueryException();
             exp.setVisible(true);
         }
-
-
     }//GEN-LAST:event_locationTextFieldActionPerformed
 
+    
+    
     /*
      * actionListener to select the text in the query bar
      */
@@ -1386,19 +1394,28 @@ public class GUIWindow extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
+        } 
+        catch (ClassNotFoundException ex){
             System.out.println(ex);
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
+            ex.printStackTrace();            
+        }
+        catch (InstantiationException ex){
             System.out.println(ex);
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();            
+        }
+        catch(IllegalAccessException ex){
             System.out.println(ex);
-            ex.printStackTrace();
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();               
+        }
+        catch(javax.swing.UnsupportedLookAndFeelException ex) 
+        {
             System.out.println(ex);
             ex.printStackTrace();
         }
+
+        
+        //</editor-fold>
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -1583,30 +1600,66 @@ public class GUIWindow extends javax.swing.JFrame {
             humidityField.setText(String.valueOf(currentObj.getHumidity()) + "%");
             skyConditionField.setText(currentObj.getSkyCondition());
             maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + preferences.getTemperatureUnit());
-            minTempHeader.setText(String.valueOf("Min(Low):  " + currentObj.getMinTemp()) + preferences.getTemperatureUnit());
+            minTempHeader.setText(String.valueOf("Min(Low): " + currentObj.getMinTemp()) + preferences.getTemperatureUnit());
 
             ImageIcon skyState = currentObj.getCondition();
             skyStateIconC.setIcon(currentObj.getCondition());
 
-            System.out.println(currentObj.getCondition().toString());
-
+//            System.out.println(currentObj.getCondition().toString()); // REMOVE
             try {
                 URL url = new URL(currentObj.getCondition().toString());
                 Image img = ImageIO.read(url);
                 Image resizedSkyState = img.getScaledInstance(140, 140, 0);
                 skyStateIconC.setIcon(new ImageIcon(resizedSkyState));
             } catch (MalformedURLException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+                System.out.println(ex);
+                ex.printStackTrace();
             } catch (IOException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+                System.out.println(ex);
+                ex.printStackTrace();
             }
-
+            //getOfficialSunsetForDate(Calendar.getInstance());
             sunriseField.setText(String.valueOf(currentObj.getSunRise()));
             sunsetField.setText(String.valueOf(currentObj.getSunSet()));
-
+            System.out.println();
+            
+            
             lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
+        }
+    }
+
+    
+    private void updateShortTermTab() {
+
+        if (jsonObj != null) {
+            currentLocationST.setText(location);
+
+            conditionLabelEight.setText(weatherST.getHourly(7).getSkyCondition());
+            conditionLabelFive.setText(weatherST.getHourly(4).getSkyCondition());
+            conditionLabelFour.setText(weatherST.getHourly(3).getSkyCondition());
+            conditionLabelOne.setText(weatherST.getHourly(0).getSkyCondition());
+            conditionLabelSeven.setText(weatherST.getHourly(6).getSkyCondition());
+            conditionLabelSix.setText(weatherST.getHourly(5).getSkyCondition());
+            conditionLabelThree.setText(weatherST.getHourly(2).getSkyCondition());
+            conditionLabelTwo.setText(weatherST.getHourly(1).getSkyCondition());
+
+            skyStateEight.setIcon(weatherST.getHourly(7).getCondition());
+            skyStateFive.setIcon(weatherST.getHourly(4).getCondition());
+            skyStateFour.setIcon(weatherST.getHourly(3).getCondition());
+            skyStateOne.setIcon(weatherST.getHourly(0).getCondition());
+            skyStateSeven.setIcon(weatherST.getHourly(6).getCondition());
+            skyStateSix.setIcon(weatherST.getHourly(5).getCondition());
+            skyStateThree.setIcon(weatherST.getHourly(2).getCondition());
+            skyStateTwo.setIcon(weatherST.getHourly(1).getCondition());
+
+            temperatureLabelEight.setText("T: " + weatherST.getHourly(7).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelFive.setText("T: " + weatherST.getHourly(4).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelFour.setText("T: " + weatherST.getHourly(3).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelOne.setText("T: " + weatherST.getHourly(0).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelSeven.setText("T: " + weatherST.getHourly(6).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelSix.setText("T: " + weatherST.getHourly(5).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelThree.setText("T: " + weatherST.getHourly(2).getTemperature() + preferences.getTemperatureUnit());
+            temperatureLabelTwo.setText("T: " + weatherST.getHourly(1).getTemperature() + preferences.getTemperatureUnit());
         }
     }
 
@@ -1667,11 +1720,11 @@ public class GUIWindow extends javax.swing.JFrame {
                 resizedSkyState = img.getScaledInstance(140, 140, 0);
                 longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
             } catch (MalformedURLException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+                System.out.println(ex);
+                ex.printStackTrace();
             } catch (IOException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+                System.out.println(ex);
+                ex.printStackTrace();
             }
 
             // Maximum Temp Updating
@@ -1704,7 +1757,7 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void updateMarsTab() {
         //marsTempField
-        marsTempField.setText(String.valueOf(mars.getTemperature()) + "C"); // FIX THIS WHEN IT COMES TIME TO
+        marsTempField.setText(String.valueOf(mars.getTemperature()) + "C"); // FIX THIS WHEN IT COMES TIME TO UPDATE WEATHER
         lastUpdatedTimeLabelMARS.setText("Updated: " + String.valueOf(currentTime));
         windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
         windDirectionFieldMARS.setText(mars.getWindDirection());
@@ -1713,7 +1766,7 @@ public class GUIWindow extends javax.swing.JFrame {
     }
 
     private void clearCurrent() {
-        currentLocation.setText("--------");
+        currentLocation.setText("Location");
         temperatureHeader.setText("-----     ");
         lastUpdatedTimeLabel.setText("Updated: -----");
         skyStateIconC.setIcon(null);
@@ -1722,14 +1775,21 @@ public class GUIWindow extends javax.swing.JFrame {
         airPressureField.setText("-----" + preferences.getPressureUnit());
         humidityField.setText("-----" + "%");
         skyConditionField.setText(" -----");
-        maxTempHeader.setText("Max(High): " + "--" + preferences.getTemperatureUnit());
-        minTempHeader.setText("Min(Low):  " + "--" + preferences.getTemperatureUnit());
+        maxTempHeader.setText("Max(High): " + "--");
+        minTempHeader.setText("Min(Low):  " + "--");
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
 
     private void clearLongTerm() {
-
+        lastUpdatedTimeLabelLT.setText("Updated: -----");
+        longTermDateOne.setText("Date");
+        longTermDateTwo.setText("Date");
+        longTermDateThree.setText("Date");
+        longTermDateFour.setText("Date");
+        longTermDateFive.setText("Date");
+        
+        
     }
 
 
@@ -1766,12 +1826,20 @@ public class GUIWindow extends javax.swing.JFrame {
         {
             currentTime = new Time(System.currentTimeMillis());
             updateCurrentTab();
+            updateShortTermTab();
             updateLongTermTab();
             updateMarsTab();
         } else // Data is invalid
         {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
         }
+    }
+    
+    private void promptQueryAgain()
+    {
+        locationTextField.setText("Server Error 5xx, please re-enter location.");
+        clearCurrent();
+        
     }
 
 }

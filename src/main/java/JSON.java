@@ -116,6 +116,9 @@ public class JSON {
             throw new NoConnectionException(TIMEOUT_MESSAGE);
         } catch (IOException e) {
             throw new NoConnectionException("No Connection");
+        } catch (JSONException e)
+        {
+            
         }
 
         return curr;
@@ -207,7 +210,7 @@ public class JSON {
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
             JSONObject longTermWeatherData = new JSONObject(jsonString);
-            System.out.println(longTermWeatherData);
+//            System.out.println(longTermWeatherData);  // REMOVE
             JSONArray dailyArray = longTermWeatherData.getJSONArray("list");
             String[] weekdays = {"", "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
             String[] months = {"", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
@@ -222,8 +225,8 @@ public class JSON {
                 time = (GregorianCalendar) GregorianCalendar.getInstance();
                 time.setTimeInMillis(1000 * daily.getLong("dt"));
 
-                System.out.println(time.get(GregorianCalendar.DAY_OF_WEEK));
-                System.out.println(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)]);
+//                System.out.println(time.get(GregorianCalendar.DAY_OF_WEEK));  // REMOVE
+//                System.out.println(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)]);    // REMOVE
 
                 int day = time.get(GregorianCalendar.DAY_OF_MONTH);
                 int month = time.get(GregorianCalendar.MONTH);
@@ -477,7 +480,8 @@ public class JSON {
         sunset.setTimeInMillis(1000 * sun.getLong("sunset"));
 
     }
-
+    
+    /*
     public static void main(String[] args) {
         JSON asdf = new JSON("London,ca");
         try {
@@ -488,6 +492,6 @@ public class JSON {
             System.out.println(e.getMessage());
         }
 
-    }
+    }*/
 
 }
