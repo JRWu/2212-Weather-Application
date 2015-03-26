@@ -39,7 +39,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private boolean isValid = false;         // Represents if the query is valid or not
 
     // Data structures for each panel
-    private Current currentObj;// = jsonObj.updateCurrentWeatherData();    // Query Server
+    private Current currentObj = new Current();// = jsonObj.updateCurrentWeatherData();    // Query Server
     private ShortTerm weatherST;
     private LongTerm weatherLT;
     private Mars mars;

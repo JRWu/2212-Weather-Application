@@ -21,7 +21,7 @@ public class ADO implements java.io.Serializable
 	private int humidity;
 	private String windDirection;
 	private String skyCondition;
-	private String userPreferences = "M";
+	private String userPreferences = "K";
 	private ImageIcon skyState;
 /**
 * This serves as a general constructor for the abstract data object with no parameters
@@ -290,7 +290,7 @@ public class ADO implements java.io.Serializable
 */
 		public void deSerializePreferences()
 		{
-			userPreferences = "";
+			userPreferences = "S";
 			try
 		{
 			FileInputStream fin = new FileInputStream("preferences.ser");
