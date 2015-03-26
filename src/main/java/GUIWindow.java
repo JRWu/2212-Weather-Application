@@ -1200,20 +1200,20 @@ public class GUIWindow extends javax.swing.JFrame {
                     .addGap(29, 29, 29)
                     .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(GUIWindowPanelLayout.createSequentialGroup()
-                            .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(2, 2, 2)
-                            .addComponent(CurrentlyViewingLocationLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(currentLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GUIWindowPanelLayout.createSequentialGroup()
                             .addGap(0, 0, Short.MAX_VALUE)
                             .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(guiTabbedPanels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GUIWindowPanelLayout.createSequentialGroup()
                                     .addComponent(LiveTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)))
-                            .addGap(35, 35, 35))))
+                                    .addGap(10, 10, 10))))
+                        .addGroup(GUIWindowPanelLayout.createSequentialGroup()
+                            .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(2, 2, 2)
+                            .addComponent(CurrentlyViewingLocationLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(currentLocationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(35, 35, 35))
             );
             GUIWindowPanelLayout.setVerticalGroup(
                 GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1294,6 +1294,13 @@ public class GUIWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_locationTextFieldFocusGained
 
+    
+    /*
+    
+            ImageIcon mars = new ImageIcon(GUIWindow.class.getResource("mars.png"));
+        JLabel marsTab = new JLabel();
+        marsTab.setIcon(mars);*/
+    
     /**
      * locationFieldActionPerformed sends a new json query Contains catch
      * statements to account for server and malformed query errors Detects if
@@ -1302,17 +1309,16 @@ public class GUIWindow extends javax.swing.JFrame {
      * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
-
-        try // Check if location exists
+       try // Check if location exists
         {
             location = locationTextField.getText(); // Get query string
 
-            if (!location.contains(",")) {   // Primitive check to see if the location is valid.
+            if (!location.contains(",") | location.matches("[0-9]*\\d+.*")) {   // Primitive check to see if the location is valid.
                 throw new Exception("Not a valid location.");
             }
 
             jsonObj = new JSON(location);
-            jsonObj.updateCurrentWeatherData();
+            jsonObj.updateCurrentWeatherData(); // Fetch json object for the location
 
             currentObj = jsonObj.updateCurrentWeatherData();
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
@@ -1327,24 +1333,17 @@ public class GUIWindow extends javax.swing.JFrame {
 
             isValid = true;                             // Refresh flag is enabled- query is valid
             searchPromptLabel.setText("");
+
         } catch (InternalServerError ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
-
             promptQueryAgain();
+            
         } catch (NoConnectionException ex) {
-//            System.out.println(ex);   // REMOVE
-//            ex.printStackTrace();     // REMOVE
-
             notifyNoConnection();
-
+            
         } catch (Exception ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
-
             clearCurrent();
-//           clearShortTermTab();
-//            clearLongTermTab();
+            clearShortTerm();
+            clearLongTerm();
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
 
             isValid = false;                            // Refresh flag is disabled- query not valid
@@ -1863,6 +1862,41 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermDateFour.setText("Date");
         longTermDateFive.setText("Date");
 
+        // Main Temperature Updating
+        longTermTempOne.setText("T:--");
+        longTermTempTwo.setText("T:--");
+        longTermTempThree.setText("T:--");
+        longTermTempFour.setText("T:--");
+        longTermTempFive.setText("T:--");
+            
+        // Maximum Temp Updating
+        longTermTempHighOne.setText("H: -- ");
+        longTermTempHighTwo.setText("H: -- ");
+        longTermTempHighThree.setText("H: --");
+        longTermTempHighFour.setText("H: --");
+        longTermTempHighFive.setText("H: --");
+
+        // Minimum Temp Updating
+        longTermTempLowOne.setText("L: --");
+        longTermTempLowTwo.setText("L: --");
+        longTermTempLowThree.setText("L: --");
+        longTermTempLowFour.setText("L: --");
+        longTermTempLowFive.setText("L: --");
+
+        longTermSkyStateOne.setIcon(null);
+        longTermSkyStateTwo.setIcon(null);
+        longTermSkyStateThree.setIcon(null);
+        longTermSkyStateFour.setIcon(null);
+        longTermSkyStateFive.setIcon(null);
+        
+        // Sky State Condition
+        longTermConditionOne.setText("------");
+        longTermConditionTwo.setText("------");
+        longTermConditionThree.setText("------");
+        longTermConditionFour.setText("------");
+        longTermConditionFive.setText("------");
+        
+        currentLocationLT.setText("Location");
     }
 
     /**
@@ -1881,6 +1915,8 @@ public class GUIWindow extends javax.swing.JFrame {
      * @return void
      */
     private void initTabs() {
+//        loadingGif.setVisible(false);
+        
         JLabel currentTab = new JLabel("Current");
         currentTab.setPreferredSize(new Dimension(80, 40));
         guiTabbedPanels.setTabComponentAt(0, currentTab);
