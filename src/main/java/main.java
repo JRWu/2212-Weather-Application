@@ -1,7 +1,6 @@
 
 /**
- *
- * @author Jia
+ * This class runs the program.
  */
 public class main {
 

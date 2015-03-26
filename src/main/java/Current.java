@@ -4,9 +4,9 @@ import javax.swing.ImageIcon;
 import java.util.GregorianCalendar;
 
 /**
- * March 8, 2015 CS 2212
- *
- * @author Team 6 This class represents the current weather for the application
+ * This class stores all information about the current weather. In addition to
+ * all variables from the super class, it stores the date and time it was
+ * created, as well as the time of sunrise and sunset of the day.
  */
 public class Current extends ADO implements java.io.Serializable {
 
@@ -18,13 +18,13 @@ public class Current extends ADO implements java.io.Serializable {
     private GregorianCalendar sunset;
 
     /**
-     * Default constructor for the current object
-     * Creates an empty object with default preferences SI
+     * Default constructor for the current object Creates an empty object with
+     * default preferences SI
      */
-    public Current(){
+    public Current() {
         this.serializePreferences("S");
     }
-    
+
     /**
      * Constructor for the current weather object
      *
@@ -49,6 +49,7 @@ public class Current extends ADO implements java.io.Serializable {
     }
 
     /**
+     * Returns the date and time the object was created.
      *
      * @return the hour of the current weather object
      */
@@ -57,16 +58,16 @@ public class Current extends ADO implements java.io.Serializable {
     }
 
     /**
-     * This method sets the current time for the current weather object
+     * Sets the current time for the current weather object
      *
      * @param timing the time to be set
      */
-
     public void setTime(GregorianCalendar timing) {
         time = timing;
     }
 
     /**
+     * Returns the projected time of day the sun rises
      *
      * @return the projected time of the sunrise for the current weather object
      */
@@ -75,16 +76,16 @@ public class Current extends ADO implements java.io.Serializable {
     }
 
     /**
-     * This method sets the projected sunrise time for the current weather
-     * object
+     * Sets the projected sunrise time for the current weather object
      *
-     * @param the time of the sunrise to be set
+     * @param rise time of the sunrise to be set
      */
     public void setSunRise(GregorianCalendar rise) {
         sunrise = rise;
     }
 
     /**
+     * Returns the projected time of sunset for the day
      *
      * @return the projected time of the sunset for the current weather object
      */
@@ -93,9 +94,9 @@ public class Current extends ADO implements java.io.Serializable {
     }
 
     /**
-     * This method sets the projected sunset time for the current weather object
+     * Sets the projected sunset time for the current weather object
      *
-     * @param the time of the sunset to be set
+     * @param set time of the sunset to be set
      */
     public void setSunSet(GregorianCalendar set) {
         sunset = set;

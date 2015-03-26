@@ -116,9 +116,8 @@ public class JSON {
             throw new NoConnectionException(TIMEOUT_MESSAGE);
         } catch (IOException e) {
             throw new NoConnectionException("No Connection");
-        } catch (JSONException e)
-        {
-            
+        } catch (JSONException e) {
+
         }
 
         return curr;
@@ -227,7 +226,6 @@ public class JSON {
 
 //                System.out.println(time.get(GregorianCalendar.DAY_OF_WEEK));  // REMOVE
 //                System.out.println(weekdays[time.get(GregorianCalendar.DAY_OF_WEEK)]);    // REMOVE
-
                 int day = time.get(GregorianCalendar.DAY_OF_MONTH);
                 int month = time.get(GregorianCalendar.MONTH);
 
@@ -480,18 +478,17 @@ public class JSON {
         sunset.setTimeInMillis(1000 * sun.getLong("sunset"));
 
     }
-    
+
     /*
-    public static void main(String[] args) {
-        JSON asdf = new JSON("London,ca");
-        try {
-            asdf.updateLongTermData();
-        } catch (InternalServerError e) {
-            System.out.println(e.getMessage());
-        } catch (NoConnectionException e) {
-            System.out.println(e.getMessage());
-        }
+     public static void main(String[] args) {
+     JSON asdf = new JSON("London,ca");
+     try {
+     asdf.updateLongTermData();
+     } catch (InternalServerError e) {
+     System.out.println(e.getMessage());
+     } catch (NoConnectionException e) {
+     System.out.println(e.getMessage());
+     }
 
-    }*/
-
+     }*/
 }

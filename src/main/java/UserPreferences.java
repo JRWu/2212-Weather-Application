@@ -13,7 +13,7 @@ public class UserPreferences {
     
 // Default Constructor
     UserPreferences (){
-        setSI();    // Default units are Metric
+        setSI();    // Default units are SI
     }    
     
     /*******************************
@@ -22,7 +22,7 @@ public class UserPreferences {
     /*
     * setUserPreferences will configure display units based on a serialized object
     * @preferences represents the preference string saved
-    * default units are assumed to be metric
+    * default units are assumed to be SI
     */
     public void setUserPreferences(String preferences)
     {
@@ -31,9 +31,9 @@ public class UserPreferences {
         {
         c = preferences.charAt(0); // Get the character stored inpreferences
         }
-            catch (StringIndexOutOfBoundsException ex)
+            catch (StringIndexOutOfBoundsException ex)  // If the string preferences is an empty string
         {
-            c = 'K';
+            c = 'S';    // Set default units to SI
         }
         
         switch (c)  // Switch to determine the serialized object
