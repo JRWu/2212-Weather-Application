@@ -1,4 +1,3 @@
-
 import java.io.*;
 import javax.swing.ImageIcon;
 import org.apache.commons.io.*;
@@ -21,7 +20,7 @@ public class ADO implements java.io.Serializable {
     private int humidity;
     private String windDirection;
     private String skyCondition;
-    private String userPreferences = "K";
+    protected String userPreferences = "K";
     private ImageIcon skyState;
 
     /**
@@ -55,17 +54,15 @@ public class ADO implements java.io.Serializable {
      *
      * @param air the air pressure to be set
      * @param wind the wind speed to be set
-     * @param temp the temperature to be set
      * @param humid the humidity to be set
      * @param windDir the wind direction to be set
      * @param sky the current state of the sky
      * @param state an image that represents the sky state
      */
-    public ADO(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state) {
+    public ADO(int air, double wind,int humid, String windDir, String sky, ImageIcon state) {
         deSerializePreferences();
         airPressure = air;
-        windSpeed = wind;
-        temperature = convertTemp(temp, userPreferences);
+        windSpeed = convertWind(wind,userPreferences);
         humidity = humid;
         windDirection = windDir;
         skyCondition = sky;
@@ -89,7 +86,7 @@ public class ADO implements java.io.Serializable {
     public ADO(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         deSerializePreferences();
         airPressure = air;
-        windSpeed = wind;
+        windSpeed = convertWind(wind,userPreferences);
         temperature = convertTemp(temp, userPreferences);
         minTemp = convertTemp(min, userPreferences);
         maxTemp = convertTemp(max, userPreferences);
@@ -132,7 +129,7 @@ public class ADO implements java.io.Serializable {
      * @param wind the wind speed value to be set
      */
     public void setWindSpeed(double wind) {
-        windSpeed = wind;
+        windSpeed = convertWind(wind,userPreferences);
     }
 
     /**
@@ -292,6 +289,24 @@ public class ADO implements java.io.Serializable {
         return temperature;
     }
 
+    private double convertWind(double wind, String preferences)
+    {
+    	double windy;
+    	if (preferences.equals("M")|| preferences.equals("K"))
+    	{
+    		windy = (wind * 1000)/3600;
+    	}
+    	else if (preferences.equals("I"))
+    	{
+    		windy = wind * 2.23694;
+    	}
+    	else
+    	{
+    		windy = wind;
+    	}
+    		windy = Math.round(windy*100)/100D;
+    		return windy;
+    }
     /**
      * This method saves the user preferences to an external text file
      *
