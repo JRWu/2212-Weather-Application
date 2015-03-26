@@ -212,7 +212,7 @@ public class JSON {
 //            System.out.println(longTermWeatherData);  // REMOVE
             JSONArray dailyArray = longTermWeatherData.getJSONArray("list");
             String[] weekdays = {"", "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
-            String[] months = {"", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+            String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
 
             longTermData = new JSONObject(jsonString);
 

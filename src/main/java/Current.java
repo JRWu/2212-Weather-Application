@@ -22,7 +22,7 @@ public class Current extends ADO implements java.io.Serializable {
      * default preferences SI
      */
     public Current() {
-        this.serializePreferences("S");
+        super();
     }
 
     /**

@@ -12,11 +12,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 import java.sql.Time;
+import java.util.GregorianCalendar;
 import javax.imageio.ImageIO;
 import static org.json.JSONObject.NULL;
 
 /**
- *
+ * CS2212
  * @author team6
  */
 public class GUIWindow extends javax.swing.JFrame {
@@ -39,7 +40,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private UserPreferences preferences = new UserPreferences();
 
     /**
-     * Creates new form GUIWindow
+     * Creates new form GUIWindow that represents the container for information
      */
     public GUIWindow() {
         initComponents();   // Sets the default fields for each weather panel
@@ -1272,8 +1273,10 @@ public class GUIWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_locationTextFieldFocusGained
 
-    /*
+    /**
      * locationFieldActionPerformed sends a new json query
+     * Contains catch statements to account for server and malformed query errors
+     * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
 
@@ -1537,7 +1540,7 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * initRefreshButton() updates the refresh icon with a new icon used for
      * animation of refresh icon
-     *
+     * @return void
      */
     private void initRefreshButton() {
         ImageIcon icon = new ImageIcon(GUIWindow.class.getResource("view_refresh.png"));
@@ -1546,6 +1549,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
     /**
      * initIcons draws the sunrise and sunset icons
+     * @return void
      */
     private void initIcons() {
         ImageIcon sunrise = new ImageIcon(GUIWindow.class.getResource("sunriseW.png"));
@@ -1556,9 +1560,10 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
-    /*
+    /**
      * updateCurrentTab is called by an action-listener and upates the current
      * weather view's information
+     * @return void
      */
     private void updateCurrentTab() {
         if (jsonObj != NULL) // In case the data hasn't been refreshed yet
@@ -1600,13 +1605,28 @@ public class GUIWindow extends javax.swing.JFrame {
                 ex.printStackTrace();
             }
             //getOfficialSunsetForDate(Calendar.getInstance());
-            sunriseField.setText(String.valueOf(currentObj.getSunRise()));
-            sunsetField.setText(String.valueOf(currentObj.getSunSet()));
+            // FIX FOR BREVEITY 
+            GregorianCalendar cal = currentObj.getSunRise();
+            int h = cal.get(GregorianCalendar.HOUR);
+            int m = cal.get(GregorianCalendar.MINUTE);
+            int amPm = cal.get(GregorianCalendar.AM_PM);
+            String[] amP = {"AM", "PM"};
+            sunriseField.setText(String.valueOf(h) +":" + String.valueOf(m) + amP[amPm]);
+
+            cal = currentObj.getSunSet();
+            h = cal.get(GregorianCalendar.HOUR);
+            m = cal.get(GregorianCalendar.MINUTE);
+            amPm = cal.get(GregorianCalendar.AM_PM);
+            sunsetField.setText(String.valueOf(h) +":" + String.valueOf(m) + amP[amPm]);
 
             lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
         }
     }
 
+    /**
+     * updateShortTermTab refreshes the weather data in the Short Term Tab
+     * @return void
+     */
     private void updateShortTermTab() {
 
         if (jsonObj != null) {
@@ -1640,7 +1660,11 @@ public class GUIWindow extends javax.swing.JFrame {
             temperatureLabelTwo.setText("T: " + weatherST.getHourly(1).getTemperature() + preferences.getTemperatureUnit());
         }
     }
-
+    
+    /**
+     * updateLongTermTab refreshes the weather information in the Long Term Tab
+     * @return void
+     */
     private void updateLongTermTab() {
 
         try {
@@ -1732,6 +1756,7 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * updateMarsTab refreshes the view on the MARS Rover panel, updating the
      * data
+     * @return void
      */
     private void updateMarsTab() {
         //marsTempField
@@ -1743,6 +1768,10 @@ public class GUIWindow extends javax.swing.JFrame {
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
     }
 
+    /**
+     * clearCurrent takes the data on the Current tab and sets it to a neutral text if errors occur
+     * @return void
+     */
     private void clearCurrent() {
         currentLocation.setText("Location");
         temperatureHeader.setText("-----     ");
@@ -1758,7 +1787,11 @@ public class GUIWindow extends javax.swing.JFrame {
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
-
+    
+    /**
+     * clearLongTerm takes the data on the Long Term tab and sets it to a neutral text if errors occur
+     * @return void
+     */
     private void clearLongTerm() {
         lastUpdatedTimeLabelLT.setText("Updated: -----");
         longTermDateOne.setText("Date");
@@ -1769,13 +1802,18 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * clearShortTerm takes the data on the Short Term tab and sets it to a neutral text if errors occur
+     * @return void
+     */    
     private void clearShortTerm() {
 
     }
 
 
-    /*
+    /**
      * initTabs sets the default labels and size of the tab options in the GUI
+     * @return void
      */
     private void initTabs() {
         JLabel currentTab = new JLabel("Current");

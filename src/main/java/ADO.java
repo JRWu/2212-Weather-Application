@@ -29,6 +29,7 @@ public class ADO implements java.io.Serializable {
      * parameters
      */
     public ADO() {
+        deSerializePreferences();
     }
 
     /**
