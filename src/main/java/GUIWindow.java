@@ -553,49 +553,41 @@ public class GUIWindow extends javax.swing.JFrame {
             jSeparator7.setName(""); // NOI18N
             jSeparator7.setPreferredSize(new java.awt.Dimension(8, 350));
 
-            skyStateOne.setText("Img1");
             skyStateOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateOne.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateOne.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateOne.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateTwo.setText("Img1");
             skyStateTwo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateTwo.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateTwo.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateTwo.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateThree.setText("Img1");
             skyStateThree.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateThree.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateThree.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateThree.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateFour.setText("Img1");
             skyStateFour.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateFour.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateFour.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateFour.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateFive.setText("Img1");
             skyStateFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateFive.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateFive.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateFive.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateSix.setText("Img1");
             skyStateSix.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateSix.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateSix.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateSix.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateSeven.setText("Img1");
             skyStateSeven.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateSeven.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateSeven.setMinimumSize(new java.awt.Dimension(50, 50));
             skyStateSeven.setPreferredSize(new java.awt.Dimension(50, 50));
 
-            skyStateEight.setText("Img1");
             skyStateEight.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
             skyStateEight.setMaximumSize(new java.awt.Dimension(50, 50));
             skyStateEight.setMinimumSize(new java.awt.Dimension(50, 50));
@@ -1311,16 +1303,17 @@ public class GUIWindow extends javax.swing.JFrame {
             updateLongTermTab();
 
             isValid = true;                             // Refresh flag is enabled- query is valid
-        } 
-        catch (InternalServerError ex){
+        } catch (InternalServerError ex) {
             System.out.println(ex);
             ex.printStackTrace();
-        }
-        catch(NoConnectionException ex) {
+
+            isValid = false;
+            promptQueryAgain();
+        } catch (NoConnectionException ex) {
 //            System.out.println(ex);   // REMOVE
 //            ex.printStackTrace();     // REMOVE
-            
-            isValid = false; 
+
+            isValid = false;
             promptQueryAgain();
 
         } catch (Exception ex) {
@@ -1335,8 +1328,6 @@ public class GUIWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_locationTextFieldActionPerformed
 
-    
-    
     /*
      * actionListener to select the text in the query bar
      */
@@ -1394,28 +1385,21 @@ public class GUIWindow extends javax.swing.JFrame {
                     break;
                 }
             }
-        } 
-        catch (ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             System.out.println(ex);
-            ex.printStackTrace();            
-        }
-        catch (InstantiationException ex){
+            ex.printStackTrace();
+        } catch (InstantiationException ex) {
             System.out.println(ex);
-            ex.printStackTrace();            
-        }
-        catch(IllegalAccessException ex){
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
             System.out.println(ex);
-            ex.printStackTrace();               
-        }
-        catch(javax.swing.UnsupportedLookAndFeelException ex) 
-        {
+            ex.printStackTrace();
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             System.out.println(ex);
             ex.printStackTrace();
         }
 
-        
         //</editor-fold>
-
         //</editor-fold>
 
         /* Create and display the form */
@@ -1622,13 +1606,11 @@ public class GUIWindow extends javax.swing.JFrame {
             sunriseField.setText(String.valueOf(currentObj.getSunRise()));
             sunsetField.setText(String.valueOf(currentObj.getSunSet()));
             System.out.println();
-            
-            
+
             lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
         }
     }
 
-    
     private void updateShortTermTab() {
 
         if (jsonObj != null) {
@@ -1788,8 +1770,7 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermDateThree.setText("Date");
         longTermDateFour.setText("Date");
         longTermDateFive.setText("Date");
-        
-        
+
     }
 
 
@@ -1834,12 +1815,11 @@ public class GUIWindow extends javax.swing.JFrame {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
         }
     }
-    
-    private void promptQueryAgain()
-    {
+
+    private void promptQueryAgain() {
         locationTextField.setText("Server Error 5xx, please re-enter location.");
         clearCurrent();
-        
+
     }
 
 }
