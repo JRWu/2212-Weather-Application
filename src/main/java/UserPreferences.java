@@ -87,21 +87,21 @@ public class UserPreferences {
     private void setMetric()
     {
         temperatureUnit = " C";
-        speedUnit = " m/s";
+        speedUnit = " km/h";
         pressureUnit = " hPa";
     }
     
     private void setImperial()
     {
         temperatureUnit = " F";
-        speedUnit = " mi/s";
+        speedUnit = " mi/h";
         pressureUnit = " hPa";
     }
     
     private void setSI()
     {
         temperatureUnit = " K";
-        speedUnit = " mi/s";
+        speedUnit = " km/h";
         pressureUnit = " hPa";
     }
 
