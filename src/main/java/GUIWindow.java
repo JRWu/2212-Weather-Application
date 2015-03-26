@@ -1,13 +1,8 @@
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,10 +11,7 @@ import java.util.Calendar;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.Timer;
-import java.util.*;
 import java.sql.Time;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import static org.json.JSONObject.NULL;
 
@@ -1284,15 +1276,15 @@ public class GUIWindow extends javax.swing.JFrame {
      * locationFieldActionPerformed sends a new json query
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
-        System.out.println("Enter detected");
+
         try // Check if location exists
         {
             location = locationTextField.getText(); // Get query string
 
-            if (!location.contains(",")){   // Primitive check to see if the location is valid.
-                  throw new Exception ("Not a valid location.");      
+            if (!location.contains(",")) {   // Primitive check to see if the location is valid.
+                throw new Exception("Not a valid location.");
             }
-           
+
             jsonObj = new JSON(location);
             jsonObj.updateCurrentWeatherData();
 
@@ -1309,8 +1301,8 @@ public class GUIWindow extends javax.swing.JFrame {
 
             isValid = true;                             // Refresh flag is enabled- query is valid
         } catch (InternalServerError ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+//            System.out.println(ex);
+//            ex.printStackTrace();
 
             isValid = false;
             promptQueryAgain();
@@ -1326,10 +1318,11 @@ public class GUIWindow extends javax.swing.JFrame {
             ex.printStackTrace();
 
             clearCurrent();
+            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
 
             isValid = false;                            // Refresh flag is disabled- query not valid
-            MalformedQueryException exp = new MalformedQueryException();
-            exp.setVisible(true);
+            //MalformedQueryException exp = new MalformedQueryException();
+            //exp.setVisible(true);
         }
     }//GEN-LAST:event_locationTextFieldActionPerformed
 
@@ -1338,7 +1331,7 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void locationTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_locationTextFieldMouseClicked
         locationTextField.requestFocusInWindow();
-        locationTextField.selectAll();      // Highlight text in LocationField
+        locationTextField.selectAll();      // Highlight ALL text in LocationField
     }//GEN-LAST:event_locationTextFieldMouseClicked
 
     // Action listener for when the refresh icon is clicked
@@ -1348,7 +1341,7 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
-        // TODO add your handling code here:
+
         preferences.setUserPreferences("M");
         currentObj.serializePreferences("M");
         if (isValid) {
@@ -1357,7 +1350,7 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
 
     private void preferencesImperialCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesImperialCheckboxActionPerformed
-        // TODO add your handling code here:
+
         preferences.setUserPreferences("I");
         currentObj.serializePreferences("I");
         if (isValid) {
@@ -1366,7 +1359,7 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
 
     private void preferencesSICheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesSICheckboxActionPerformed
-        // TODO add your handling code here:
+
         preferences.setUserPreferences("S");
         currentObj.serializePreferences("S");
         if (isValid) {
@@ -1594,7 +1587,6 @@ public class GUIWindow extends javax.swing.JFrame {
             ImageIcon skyState = currentObj.getCondition();
             skyStateIconC.setIcon(currentObj.getCondition());
 
-//            System.out.println(currentObj.getCondition().toString()); // REMOVE
             try {
                 URL url = new URL(currentObj.getCondition().toString());
                 Image img = ImageIO.read(url);
@@ -1610,7 +1602,6 @@ public class GUIWindow extends javax.swing.JFrame {
             //getOfficialSunsetForDate(Calendar.getInstance());
             sunriseField.setText(String.valueOf(currentObj.getSunRise()));
             sunsetField.setText(String.valueOf(currentObj.getSunSet()));
-            System.out.println();
 
             lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
         }
@@ -1751,7 +1742,7 @@ public class GUIWindow extends javax.swing.JFrame {
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
     }
-    
+
     private void clearCurrent() {
         currentLocation.setText("Location");
         temperatureHeader.setText("-----     ");
@@ -1767,7 +1758,7 @@ public class GUIWindow extends javax.swing.JFrame {
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
-    
+
     private void clearLongTerm() {
         lastUpdatedTimeLabelLT.setText("Updated: -----");
         longTermDateOne.setText("Date");
@@ -1775,13 +1766,11 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermDateThree.setText("Date");
         longTermDateFour.setText("Date");
         longTermDateFive.setText("Date");
-        
-        
 
     }
-    
-    private void clearShortTerm(){
-        
+
+    private void clearShortTerm() {
+
     }
 
 
