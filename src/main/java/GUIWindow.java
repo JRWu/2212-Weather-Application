@@ -34,7 +34,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private String location = "London,Ca";          // Default Location
     private JSON jsonObj = new JSON(location);      // Current data for London,Ca
     
-    private Current currentObj = jsonObj.updateCurrentWeatherData();    // Query Server
+    private Current currentObj;// = jsonObj.updateCurrentWeatherData();    // Query Server
     // NEED TRY CATCH HERE WHEN TONY IMPLEMENTS it
     
     private Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
@@ -50,9 +50,16 @@ public class GUIWindow extends javax.swing.JFrame {
     
 
     // Alex add new attributes here
-    private ShortTerm weatherST = jsonObj.updateShortTermData(); // Gets short term data
-    private LongTerm weatherLT = jsonObj.updateLongTermData(); // FIX Later
-    private Mars mars = jsonObj.updateMarsData();
+
+    private ShortTerm weatherST;
+    
+     // Gets short term data
+    private LongTerm weatherLT;
+    private Mars mars;
+    
+   
+   
+    
     
     private UserPreferences preferences = new UserPreferences();
 
@@ -1319,25 +1326,35 @@ public class GUIWindow extends javax.swing.JFrame {
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
         System.out.println("Enter detected");
         try // Check if location exists
-        {
-            location = locationTextField.getText();
+        {    
+            location = locationTextField.getText(); // Get query string
             jsonObj = new JSON(location);
-            JSON newJson = new JSON(location);
             
-            // ONLY THING UPDATING IS THE MAIN TERMPERATURES** NEED TO FIX THIS BUG    
-            jsonObj = newJson;
+            weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
+            weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
+            mars = jsonObj.updateMarsData();            // Fetch mars-data
+            
             updateCurrentTab();
+            //updateShortTermTab();
             updateLongTermTab();
-            isValid = true;
+            
+            isValid = true;                             // Refresh flag is enabled- query is valid
         }
-        catch (Exception e)
+        catch (InternalServerError ex)
         {
             clearCurrent();
-            // SET FLAG TO PREVENT RESETTING HERE
-            isValid = false;
+            
+            isValid = false;                            // Refresh flag is disabled- query not valid
             GUIException exp = new GUIException();
             exp.setVisible(true);
         }
+        catch (NoConnectionException ex)
+        {
+            
+        }
+        
+        
+        
     }//GEN-LAST:event_locationTextFieldActionPerformed
 
     /*
@@ -1578,7 +1595,19 @@ public class GUIWindow extends javax.swing.JFrame {
     {
         if (jsonObj != NULL) // In case the data hasn't been refreshed yet
         {
-            Current currentObj = jsonObj.updateCurrentWeatherData();            
+
+            try
+            {
+                Current currentObj = jsonObj.updateCurrentWeatherData();  
+            } catch (NoConnectionException ex) {
+//                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
+            } catch (InternalServerError ex) {
+//                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
+            }
+            
+            
             currentLocation.setText(location);
             temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());            
             windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + preferences.getSpeedUni());
@@ -1616,8 +1645,22 @@ public class GUIWindow extends javax.swing.JFrame {
     
     private void updateLongTermTab()
     {        
-        currentLocationLT.setText(location);
-        weatherLT = jsonObj.updateLongTermData();
+        currentLocationLT.setText(location);    // Change the location display text
+        
+        try
+        {
+            weatherLT = jsonObj.updateLongTermData();
+        }
+        catch (NoConnectionException e)
+        {
+            // ADD INFORMATIVE DISPLAY MESSAGE
+            System.out.println(e);
+            
+        } catch (InternalServerError ex) {
+//            Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+        
         
         if (weatherLT != NULL)
         {
