@@ -1,7 +1,10 @@
 *.class
+*.ser
+*.form
+*.java~
+
 /bin/
 /GUI/
-*.ser
 /nbproject/private/
 /build/
 /target/
