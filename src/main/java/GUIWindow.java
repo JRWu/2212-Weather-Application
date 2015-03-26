@@ -1288,6 +1288,11 @@ public class GUIWindow extends javax.swing.JFrame {
         try // Check if location exists
         {
             location = locationTextField.getText(); // Get query string
+
+            if (!location.contains(",")){   // Primitive check to see if the location is valid.
+                  throw new Exception ("Not a valid location.");      
+            }
+           
             jsonObj = new JSON(location);
             jsonObj.updateCurrentWeatherData();
 
@@ -1746,7 +1751,7 @@ public class GUIWindow extends javax.swing.JFrame {
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
     }
-
+    
     private void clearCurrent() {
         currentLocation.setText("Location");
         temperatureHeader.setText("-----     ");
@@ -1762,7 +1767,7 @@ public class GUIWindow extends javax.swing.JFrame {
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
-
+    
     private void clearLongTerm() {
         lastUpdatedTimeLabelLT.setText("Updated: -----");
         longTermDateOne.setText("Date");
@@ -1770,7 +1775,13 @@ public class GUIWindow extends javax.swing.JFrame {
         longTermDateThree.setText("Date");
         longTermDateFour.setText("Date");
         longTermDateFive.setText("Date");
+        
+        
 
+    }
+    
+    private void clearShortTerm(){
+        
     }
 
 
@@ -1797,7 +1808,6 @@ public class GUIWindow extends javax.swing.JFrame {
         guiTabbedPanels.setTabComponentAt(3, marsTab);
     }
 
-    // When an invalid is searched, set it so the refresh doesn't do anything***
     /**
      * refreshApp will redraw ALL displays utilizes a flag to indicate if query
      * it's refreshing for is valid or not
@@ -1816,10 +1826,15 @@ public class GUIWindow extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * promptQueryAgain will ask the user to re-input data because the server
+     * was unable to process the request
+     */
     private void promptQueryAgain() {
         locationTextField.setText("Server Error 5xx, please re-enter location.");
         clearCurrent();
-
+        clearShortTerm();
+        clearLongTerm();
     }
 
 }
