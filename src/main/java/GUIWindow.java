@@ -1629,6 +1629,16 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void updateShortTermTab() {
 
+        try {
+            weatherST = jsonObj.updateShortTermData();
+        } catch (NoConnectionException ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+
+        } catch (InternalServerError ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+        }
         if (jsonObj != null) {
             currentLocationST.setText(location);
 
