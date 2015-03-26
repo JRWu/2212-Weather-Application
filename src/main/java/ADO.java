@@ -20,7 +20,7 @@ public class ADO implements java.io.Serializable {
     private int humidity;
     private String windDirection;
     private String skyCondition;
-    protected String userPreferences = "K";
+    private String userPreferences = "K";
     private ImageIcon skyState;
 
     /**
@@ -289,10 +289,18 @@ public class ADO implements java.io.Serializable {
         return temperature;
     }
 
+
+/**
+ * This method converts the wind speed from m/s to km/h by default and when preferences are set to metric
+ * The wind speed is converted to miles per hour when preferences are set to imperial
+ * @param wind the wind value to be set
+ * @param preferences the user preferences specifying the units to be converted to
+ * @return the converted wind value
+ */
     private double convertWind(double wind, String preferences)
     {
     	double windy;
-    	if (preferences.equals("M")|| preferences.equals("K"))
+    	if (preferences.equals("M"))
     	{
     		windy = (wind * 1000)/3600;
     	}
@@ -300,12 +308,12 @@ public class ADO implements java.io.Serializable {
     	{
     		windy = wind * 2.23694;
     	}
-    	else
-    	{
-    		windy = wind;
-    	}
-    		windy = Math.round(windy*100)/100D;
-    		return windy;
+	else
+	{
+		windy = (wind *1000)/3600;
+	}
+    	windy = Math.round(windy*100)/100D;
+    	return windy;
     }
     /**
      * This method saves the user preferences to an external text file
