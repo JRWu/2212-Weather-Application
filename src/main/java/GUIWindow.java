@@ -33,60 +33,28 @@ public class GUIWindow extends javax.swing.JFrame {
     private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
     private String location = "London,Ca";          // Default Location
     private JSON jsonObj = new JSON(location);      // Current data for London,Ca
-    
-    private Current currentObj;// = jsonObj.updateCurrentWeatherData();    // Query Server
+
     // NEED TRY CATCH HERE WHEN TONY IMPLEMENTS it
-    
     private Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
     private boolean isValid = false;         // Represents if the query is valid or not
 
-    // Attributes for the user preferences
-    // MAKE THE OBJECT SERIALIZE JUST ONE LETTER SO IT CAN BE PRINTED
-    private String userPreferences = "C";   // Default variable is in Celsius 
-    private String c = "C";
-    private String f = "F";
-    private String k = "K";
-    
-    
-
-    // Alex add new attributes here
-
+    // Data structures for each panel
+    private Current currentObj;// = jsonObj.updateCurrentWeatherData();    // Query Server
     private ShortTerm weatherST;
-    
-     // Gets short term data
     private LongTerm weatherLT;
     private Mars mars;
-    
-   
-   
-    
-    
+
     private UserPreferences preferences = new UserPreferences();
 
-    
     /**
      * Creates new form GUIWindow
      */
     public GUIWindow() {
-//        checkPreviousState();
-//        preferences.setUserPreferences("M");
-        initComponents();
-        initTabs();         // Sets the default size for tabs
+        initComponents();   // Sets the default fields for each weather panel
+        clearCurrent();
+        initTabs();         // Sets the default size for tabs for Current, ST, LT, and Mars
         initIcons();        // Sets the default sunrise/sunset icons
     }
-    /*
-    private void checkPreviousState()
-    {
-        File fIn = new File("preferences.ser");
-        if (fIn.exists())
-        {
-            System.out.println ("Yes");
-        }
-        else
-        {
-            System.out.println("No");
-        }
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -248,10 +216,10 @@ public class GUIWindow extends javax.swing.JFrame {
         setTitle("6_TheWeather");
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMaximumSize(new java.awt.Dimension(1024, 600));
-        setMinimumSize(new java.awt.Dimension(1024, 600));
+        setMaximumSize(new java.awt.Dimension(1024, 640));
+        setMinimumSize(new java.awt.Dimension(1024, 640));
         setName("guiFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(1024, 600));
+        setPreferredSize(new java.awt.Dimension(1024, 640));
         setResizable(false);
 
         GUIWindowPanel.setBackground(new java.awt.Color(32, 32, 32));
@@ -678,7 +646,7 @@ public class GUIWindow extends javax.swing.JFrame {
             shortTermPanelLayout.setHorizontalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
-                    .addGap(0, 20, Short.MAX_VALUE)
+                    .addGap(0, 18, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(temperatureLabelOne)
@@ -725,9 +693,9 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addComponent(skyStateSeven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelSeven)
                         .addComponent(temperatureLabelSeven))
-                    .addGap(30, 30, 30)
+                    .addGap(25, 25, 25)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addGap(25, 25, 25)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelEight)
@@ -1265,7 +1233,6 @@ public class GUIWindow extends javax.swing.JFrame {
             preferencesMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
             preferencesMenu.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
 
-            preferencesMetricCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_M, 0));
             preferencesCheckboxGroup.add(preferencesMetricCheckbox);
             preferencesMetricCheckbox.setSelected(true);
             preferencesMetricCheckbox.setText("Metric");
@@ -1276,7 +1243,6 @@ public class GUIWindow extends javax.swing.JFrame {
             });
             preferencesMenu.add(preferencesMetricCheckbox);
 
-            preferencesImperialCheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, 0));
             preferencesCheckboxGroup.add(preferencesImperialCheckbox);
             preferencesImperialCheckbox.setText("Imperial");
             preferencesImperialCheckbox.addActionListener(new java.awt.event.ActionListener() {
@@ -1286,7 +1252,6 @@ public class GUIWindow extends javax.swing.JFrame {
             });
             preferencesMenu.add(preferencesImperialCheckbox);
 
-            preferencesSICheckbox.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, 0));
             preferencesCheckboxGroup.add(preferencesSICheckbox);
             preferencesSICheckbox.setText("S.I.");
             preferencesSICheckbox.addActionListener(new java.awt.event.ActionListener() {
@@ -1321,45 +1286,52 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_locationTextFieldFocusGained
 
     /*
-    * locationFieldActionPerformed sends a new json query
-    */
+     * locationFieldActionPerformed sends a new json query
+     */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
         System.out.println("Enter detected");
         try // Check if location exists
-        {    
+        {
             location = locationTextField.getText(); // Get query string
             jsonObj = new JSON(location);
-            
+            jsonObj.updateCurrentWeatherData();
+
+            currentObj = jsonObj.updateCurrentWeatherData();
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
             weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
             mars = jsonObj.updateMarsData();            // Fetch mars-data
-            
+
+            preferences.setUserPreferences(currentObj.getPreferences());
+
             updateCurrentTab();
             //updateShortTermTab();
             updateLongTermTab();
-            
+
             isValid = true;                             // Refresh flag is enabled- query is valid
-        }
-        catch (InternalServerError ex)
-        {
+        } catch (InternalServerError ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+
+        } catch (NoConnectionException ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
+
             clearCurrent();
-            
+
             isValid = false;                            // Refresh flag is disabled- query not valid
-            GUIException exp = new GUIException();
+            MalformedQueryException exp = new MalformedQueryException();
             exp.setVisible(true);
         }
-        catch (NoConnectionException ex)
-        {
-            
-        }
-        
-        
-        
+
+
     }//GEN-LAST:event_locationTextFieldActionPerformed
 
     /*
-    * actionListener to select the text in the query bar
-    */
+     * actionListener to select the text in the query bar
+     */
     private void locationTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_locationTextFieldMouseClicked
         locationTextField.requestFocusInWindow();
         locationTextField.selectAll();      // Highlight text in LocationField
@@ -1370,13 +1342,12 @@ public class GUIWindow extends javax.swing.JFrame {
 
         refreshApp();
     }//GEN-LAST:event_refreshButtonActionPerformed
-    
+
     private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
         // TODO add your handling code here:
         preferences.setUserPreferences("M");
         currentObj.serializePreferences("M");
-        if (isValid)
-        {
+        if (isValid) {
             refreshApp();
         }
     }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
@@ -1385,8 +1356,7 @@ public class GUIWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         preferences.setUserPreferences("I");
         currentObj.serializePreferences("I");
-        if (isValid)
-        {
+        if (isValid) {
             refreshApp();
         }
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
@@ -1395,13 +1365,11 @@ public class GUIWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         preferences.setUserPreferences("S");
         currentObj.serializePreferences("S");
-        if (isValid)
-        {
+        if (isValid) {
             refreshApp();
         }
     }//GEN-LAST:event_preferencesSICheckboxActionPerformed
 
-   
     /**
      * @param args the command line arguments
      */
@@ -1419,13 +1387,17 @@ public class GUIWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
         }
         //</editor-fold>
 
@@ -1564,106 +1536,96 @@ public class GUIWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     * initRefreshButton() updates the refresh icon with a new icon
-     * used for animation of refresh icon
-     **/
-    private void initRefreshButton()
-    {
+     * initRefreshButton() updates the refresh icon with a new icon used for
+     * animation of refresh icon
+     *
+     */
+    private void initRefreshButton() {
         ImageIcon icon = new ImageIcon(GUIWindow.class.getResource("view_refresh.png"));
         refreshButton.setIcon(icon);
     }
-    
-    
+
     /**
-    * initIcons draws the sunrise and sunset icons 
-    */
-    private void initIcons()
-    {
+     * initIcons draws the sunrise and sunset icons
+     */
+    private void initIcons() {
         ImageIcon sunrise = new ImageIcon(GUIWindow.class.getResource("sunriseW.png"));
         sunriseLabel.setIcon(sunrise);
-        
+
         ImageIcon sunset = new ImageIcon(GUIWindow.class.getResource("sunset.png"));
         sunsetLabel.setIcon(sunset);
 
     }
-    
+
     /*
      * updateCurrentTab is called by an action-listener and upates the current
      * weather view's information
      */
-    private void updateCurrentTab()
-    {
+    private void updateCurrentTab() {
         if (jsonObj != NULL) // In case the data hasn't been refreshed yet
         {
 
-            try
-            {
-                Current currentObj = jsonObj.updateCurrentWeatherData();  
+            try {
+                currentObj = jsonObj.updateCurrentWeatherData();
             } catch (NoConnectionException ex) {
-//                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println(ex);
+                ex.printStackTrace();
             } catch (InternalServerError ex) {
-//                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println(ex);
+                ex.printStackTrace();
             }
-            
-            
+
             currentLocation.setText(location);
-            temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());            
+            temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());
             windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + preferences.getSpeedUni());
             windDirectionField.setText(currentObj.getWindDirection());
             airPressureField.setText(String.valueOf(currentObj.getAirPressure()) + preferences.getPressureUnit());
             humidityField.setText(String.valueOf(currentObj.getHumidity()) + "%");
             skyConditionField.setText(currentObj.getSkyCondition());
             maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + preferences.getTemperatureUnit());
-            minTempHeader.setText(String.valueOf("Min(Low):  "+ currentObj.getMinTemp()) + preferences.getTemperatureUnit());            
+            minTempHeader.setText(String.valueOf("Min(Low):  " + currentObj.getMinTemp()) + preferences.getTemperatureUnit());
 
             ImageIcon skyState = currentObj.getCondition();
             skyStateIconC.setIcon(currentObj.getCondition());
 
             System.out.println(currentObj.getCondition().toString());
-            
-            try 
-            {
+
+            try {
                 URL url = new URL(currentObj.getCondition().toString());
                 Image img = ImageIO.read(url);
                 Image resizedSkyState = img.getScaledInstance(140, 140, 0);
                 skyStateIconC.setIcon(new ImageIcon(resizedSkyState));
             } catch (MalformedURLException ex) {
-                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
             } catch (IOException ex) {
-                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
             }
-            
+
             sunriseField.setText(String.valueOf(currentObj.getSunRise()));
             sunsetField.setText(String.valueOf(currentObj.getSunSet()));
-            
-            lastUpdatedTimeLabel.setText("Updated: "+ String.valueOf(currentTime));
+
+            lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
         }
     }
-    
-    
-    private void updateLongTermTab()
-    {        
-        currentLocationLT.setText(location);    // Change the location display text
-        
-        try
-        {
+
+    private void updateLongTermTab() {
+
+        try {
             weatherLT = jsonObj.updateLongTermData();
-        }
-        catch (NoConnectionException e)
-        {
-            // ADD INFORMATIVE DISPLAY MESSAGE
-            System.out.println(e);
-            
-        } catch (InternalServerError ex) {
-//            Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoConnectionException ex) {
             System.out.println(ex);
+            ex.printStackTrace();
+
+        } catch (InternalServerError ex) {
+            System.out.println(ex);
+            ex.printStackTrace();
         }
-        
-        
-        if (weatherLT != NULL)
-        {
+
+        if (weatherLT != NULL) {
+            currentLocationLT.setText(location);    // Change the location display text
+
             // Main Temperature Updating
             longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
             longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
@@ -1705,24 +1667,26 @@ public class GUIWindow extends javax.swing.JFrame {
                 resizedSkyState = img.getScaledInstance(140, 140, 0);
                 longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
             } catch (MalformedURLException ex) {
-                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
             } catch (IOException ex) {
-                Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+            ex.printStackTrace();
             }
 
             // Maximum Temp Updating
-            longTermTempHighOne.setText(String.valueOf(weatherLT.getDaily(0).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighTwo.setText(String.valueOf(weatherLT.getDaily(1).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighThree.setText(String.valueOf(weatherLT.getDaily(2).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighFour.setText(String.valueOf(weatherLT.getDaily(3).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighFive.setText(String.valueOf(weatherLT.getDaily(4).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighOne.setText(String.valueOf("H: " + weatherLT.getDaily(0).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighTwo.setText(String.valueOf("H: " + weatherLT.getDaily(1).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighThree.setText(String.valueOf("H: " + weatherLT.getDaily(2).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighFour.setText(String.valueOf("H: " + weatherLT.getDaily(3).getMaxTemp()) + preferences.getTemperatureUnit());
+            longTermTempHighFive.setText(String.valueOf("H: " + weatherLT.getDaily(4).getMaxTemp()) + preferences.getTemperatureUnit());
 
             // Minimum Temp Updating
-            longTermTempLowOne.setText(String.valueOf(weatherLT.getDaily(0).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowTwo.setText(String.valueOf(weatherLT.getDaily(1).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowThree.setText(String.valueOf(weatherLT.getDaily(2).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowFour.setText(String.valueOf(weatherLT.getDaily(3).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowFive.setText(String.valueOf(weatherLT.getDaily(4).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowOne.setText(String.valueOf("L: " + weatherLT.getDaily(0).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowTwo.setText(String.valueOf("L: " + weatherLT.getDaily(1).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowThree.setText(String.valueOf("L: " + weatherLT.getDaily(2).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowFour.setText(String.valueOf("L: " + weatherLT.getDaily(3).getMinTemp()) + preferences.getTemperatureUnit());
+            longTermTempLowFive.setText(String.valueOf("L: " + weatherLT.getDaily(4).getMinTemp()) + preferences.getTemperatureUnit());
 
             longTermDateOne.setText(weatherLT.getDaily(0).getDay());
             longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
@@ -1733,23 +1697,22 @@ public class GUIWindow extends javax.swing.JFrame {
             lastUpdatedTimeLabelLT.setText("Updated: " + String.valueOf(currentTime));
         }
     }
-    
+
     /**
-     *updateMarsTab refreshes the view on the MARS Rover panel, updating the data
+     * updateMarsTab refreshes the view on the MARS Rover panel, updating the
+     * data
      */
-    private void updateMarsTab()
-    {
+    private void updateMarsTab() {
         //marsTempField
-        marsTempField.setText(String.valueOf(mars.getTemperature()) + preferences.getTemperatureUnit());
-        lastUpdatedTimeLabelMARS.setText("Updated: "+ String.valueOf(currentTime));
+        marsTempField.setText(String.valueOf(mars.getTemperature()) + "C"); // FIX THIS WHEN IT COMES TIME TO
+        lastUpdatedTimeLabelMARS.setText("Updated: " + String.valueOf(currentTime));
         windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
         windDirectionFieldMARS.setText(mars.getWindDirection());
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
     }
-    
-    private void clearCurrent()
-    {
+
+    private void clearCurrent() {
         currentLocation.setText("--------");
         temperatureHeader.setText("-----     ");
         lastUpdatedTimeLabel.setText("Updated: -----");
@@ -1759,71 +1722,56 @@ public class GUIWindow extends javax.swing.JFrame {
         airPressureField.setText("-----" + preferences.getPressureUnit());
         humidityField.setText("-----" + "%");
         skyConditionField.setText(" -----");
-        maxTempHeader.setText("Max(High): "+ "--" + preferences.getTemperatureUnit());
-        minTempHeader.setText("Min(Low):  "+ "--" + preferences.getTemperatureUnit());
+        maxTempHeader.setText("Max(High): " + "--" + preferences.getTemperatureUnit());
+        minTempHeader.setText("Min(Low):  " + "--" + preferences.getTemperatureUnit());
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
-    
-    private void clearLongTerm()
-    {
-        
+
+    private void clearLongTerm() {
+
     }
-    
+
 
     /*
      * initTabs sets the default labels and size of the tab options in the GUI
      */
-    private void initTabs()
-    {
-        JLabel currentTab = new JLabel ("Current");
-        currentTab.setPreferredSize(new Dimension (80,40));
-        guiTabbedPanels.setTabComponentAt(0,currentTab);
-        
-        JLabel shortTermTab = new JLabel ("Short Term");
-        shortTermTab.setPreferredSize(new Dimension (80,40));
-        guiTabbedPanels.setTabComponentAt(1,shortTermTab);
-        
-        JLabel longTermTab = new JLabel ("Long Term");
-        longTermTab.setPreferredSize(new Dimension (80,40));
-        guiTabbedPanels.setTabComponentAt(2,longTermTab);
-        
+    private void initTabs() {
+        JLabel currentTab = new JLabel("Current");
+        currentTab.setPreferredSize(new Dimension(80, 40));
+        guiTabbedPanels.setTabComponentAt(0, currentTab);
+
+        JLabel shortTermTab = new JLabel("Short Term");
+        shortTermTab.setPreferredSize(new Dimension(80, 40));
+        guiTabbedPanels.setTabComponentAt(1, shortTermTab);
+
+        JLabel longTermTab = new JLabel("Long Term");
+        longTermTab.setPreferredSize(new Dimension(80, 40));
+        guiTabbedPanels.setTabComponentAt(2, longTermTab);
+
         ImageIcon mars = new ImageIcon(GUIWindow.class.getResource("mars.png"));
-        JLabel marsTab = new JLabel ();
+        JLabel marsTab = new JLabel();
         marsTab.setIcon(mars);
-        marsTab.setPreferredSize(new Dimension(80,80));
-        guiTabbedPanels.setTabComponentAt(3,marsTab);
-            
-        /*
-        ImageIcon marspic = new ImageIcon(GUIWindow.class.getResource("mars_bg.png"));
-        jLabel1.setIcon(marspic);
-        */
+        marsTab.setPreferredSize(new Dimension(80, 80));
+        guiTabbedPanels.setTabComponentAt(3, marsTab);
     }
-    
-    // ADD NEW CODE HERE
+
     // When an invalid is searched, set it so the refresh doesn't do anything***
-    // MARS DATA COMES IN CELSIUS 
-    
-    
-    
     /**
-     *  refreshApp will redraw ALL displays
-     *  utilizes a flag to indicate if query it's refreshing for is valid or not
+     * refreshApp will redraw ALL displays utilizes a flag to indicate if query
+     * it's refreshing for is valid or not
      */
-    private void refreshApp()
-    {
-        if (isValid)    // Data is valid
+    private void refreshApp() {
+        if (isValid) // Data is valid
         {
             currentTime = new Time(System.currentTimeMillis());
             updateCurrentTab();
             updateLongTermTab();
             updateMarsTab();
-        }
-        else            // Data is invalid
+        } else // Data is invalid
         {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
         }
     }
-    
 
 }

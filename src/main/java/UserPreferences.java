@@ -13,7 +13,7 @@ public class UserPreferences {
     
 // Default Constructor
     UserPreferences (){
-        setMetric();    // Default units are Metric
+        setSI();    // Default units are Metric
     }    
     
     /*******************************
@@ -26,7 +26,15 @@ public class UserPreferences {
     */
     public void setUserPreferences(String preferences)
     {
-        char c = preferences.charAt(0); // Get the character stored inpreferences
+        char c;
+        try
+        {
+        c = preferences.charAt(0); // Get the character stored inpreferences
+        }
+            catch (StringIndexOutOfBoundsException ex)
+        {
+            c = 'K';
+        }
         
         switch (c)  // Switch to determine the serialized object
         {
