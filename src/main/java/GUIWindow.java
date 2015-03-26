@@ -18,6 +18,7 @@ import static org.json.JSONObject.NULL;
 
 /**
  * CS2212
+ *
  * @author team6
  */
 public class GUIWindow extends javax.swing.JFrame {
@@ -126,6 +127,7 @@ public class GUIWindow extends javax.swing.JFrame {
         temperatureLabelSix = new javax.swing.JLabel();
         temperatureLabelSeven = new javax.swing.JLabel();
         temperatureLabelEight = new javax.swing.JLabel();
+        lastUpdatedTimeLabelST = new javax.swing.JLabel();
         longTermPanel = new javax.swing.JPanel();
         currentLocationLT = new javax.swing.JLabel();
         longTermSeperatorFour = new javax.swing.JSeparator();
@@ -176,6 +178,7 @@ public class GUIWindow extends javax.swing.JFrame {
         humidityHeaderMARS = new javax.swing.JLabel();
         humidityFieldMARS = new javax.swing.JLabel();
         currentLocationLabel = new javax.swing.JLabel();
+        searchPromptLabel = new javax.swing.JLabel();
         MenuPreferences = new javax.swing.JMenuBar();
         preferencesMenu = new javax.swing.JMenu();
         preferencesMetricCheckbox = new javax.swing.JCheckBoxMenuItem();
@@ -225,7 +228,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
         locationTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         locationTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        locationTextField.setText("Default: \"London,Ca\"");
+        locationTextField.setText("London,Ca");
         locationTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         locationTextField.setMinimumSize(new java.awt.Dimension(82, 20));
         locationTextField.setColumns(30);
@@ -634,6 +637,10 @@ public class GUIWindow extends javax.swing.JFrame {
             temperatureLabelEight.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
             temperatureLabelEight.setText("T:");
 
+            lastUpdatedTimeLabelST.setFont(new java.awt.Font("Ubuntu", 2, 10)); // NOI18N
+            lastUpdatedTimeLabelST.setForeground(new java.awt.Color(0, 0, 0));
+            lastUpdatedTimeLabelST.setText("Updated:   ");
+
             javax.swing.GroupLayout shortTermPanelLayout = new javax.swing.GroupLayout(shortTermPanel);
             shortTermPanel.setLayout(shortTermPanelLayout);
             shortTermPanelLayout.setHorizontalGroup(
@@ -697,6 +704,10 @@ public class GUIWindow extends javax.swing.JFrame {
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(currentLocationST, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(shortTermPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(lastUpdatedTimeLabelST)
+                    .addGap(0, 0, Short.MAX_VALUE))
             );
             shortTermPanelLayout.setVerticalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -719,7 +730,9 @@ public class GUIWindow extends javax.swing.JFrame {
                                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
+                                    .addGap(6, 6, 6)
+                                    .addComponent(lastUpdatedTimeLabelST)
+                                    .addGap(54, 54, 54)
                                     .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(conditionLabelOne)
@@ -1170,13 +1183,19 @@ public class GUIWindow extends javax.swing.JFrame {
             currentLocationLabel.setForeground(new java.awt.Color(255, 255, 255));
             currentLocationLabel.setText("             ");
 
+            searchPromptLabel.setBackground(new java.awt.Color(255, 255, 255));
+            searchPromptLabel.setForeground(new java.awt.Color(255, 255, 255));
+            searchPromptLabel.setText("<- Press Enter to search");
+
             javax.swing.GroupLayout GUIWindowPanelLayout = new javax.swing.GroupLayout(GUIWindowPanel);
             GUIWindowPanel.setLayout(GUIWindowPanelLayout);
             GUIWindowPanelLayout.setHorizontalGroup(
                 GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(GUIWindowPanelLayout.createSequentialGroup()
                     .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchPromptLabel)
+                    .addGap(328, 328, 328))
                 .addGroup(GUIWindowPanelLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
                     .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1199,7 +1218,9 @@ public class GUIWindow extends javax.swing.JFrame {
             GUIWindowPanelLayout.setVerticalGroup(
                 GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(GUIWindowPanelLayout.createSequentialGroup()
-                    .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(locationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchPromptLabel))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(GUIWindowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(CurrentlyViewingLocationLabel)
@@ -1274,8 +1295,10 @@ public class GUIWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_locationTextFieldFocusGained
 
     /**
-     * locationFieldActionPerformed sends a new json query
-     * Contains catch statements to account for server and malformed query errors
+     * locationFieldActionPerformed sends a new json query Contains catch
+     * statements to account for server and malformed query errors Detects if
+     * the Enter key is pressed.
+     *
      * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
@@ -1303,24 +1326,25 @@ public class GUIWindow extends javax.swing.JFrame {
             updateLongTermTab();
 
             isValid = true;                             // Refresh flag is enabled- query is valid
+            searchPromptLabel.setText("");
         } catch (InternalServerError ex) {
 //            System.out.println(ex);
 //            ex.printStackTrace();
 
-            isValid = false;
             promptQueryAgain();
         } catch (NoConnectionException ex) {
 //            System.out.println(ex);   // REMOVE
 //            ex.printStackTrace();     // REMOVE
 
-            isValid = false;
-            promptQueryAgain();
+            notifyNoConnection();
 
         } catch (Exception ex) {
             System.out.println(ex);
             ex.printStackTrace();
 
             clearCurrent();
+//           clearShortTermTab();
+//            clearLongTermTab();
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
 
             isValid = false;                            // Refresh flag is disabled- query not valid
@@ -1457,6 +1481,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel lastUpdatedTimeLabel;
     private javax.swing.JLabel lastUpdatedTimeLabelLT;
     private javax.swing.JLabel lastUpdatedTimeLabelMARS;
+    private javax.swing.JLabel lastUpdatedTimeLabelST;
     private javax.swing.JTextField locationTextField;
     private javax.swing.JLabel longTermConditionFive;
     private javax.swing.JLabel longTermConditionFour;
@@ -1504,6 +1529,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBoxMenuItem preferencesMetricCheckbox;
     private javax.swing.JCheckBoxMenuItem preferencesSICheckbox;
     private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel searchPromptLabel;
     private javax.swing.JPanel shortTermPanel;
     private javax.swing.JLabel skyConditionField;
     private javax.swing.JLabel skyStateEight;
@@ -1540,6 +1566,7 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * initRefreshButton() updates the refresh icon with a new icon used for
      * animation of refresh icon
+     *
      * @return void
      */
     private void initRefreshButton() {
@@ -1549,6 +1576,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
     /**
      * initIcons draws the sunrise and sunset icons
+     *
      * @return void
      */
     private void initIcons() {
@@ -1563,6 +1591,7 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * updateCurrentTab is called by an action-listener and upates the current
      * weather view's information
+     *
      * @return void
      */
     private void updateCurrentTab() {
@@ -1572,11 +1601,15 @@ public class GUIWindow extends javax.swing.JFrame {
             try {
                 currentObj = jsonObj.updateCurrentWeatherData();
             } catch (NoConnectionException ex) {
-                System.out.println(ex);
-                ex.printStackTrace();
+//                System.out.println(ex);
+//                ex.printStackTrace();
+
+                notifyNoConnection();
             } catch (InternalServerError ex) {
-                System.out.println(ex);
-                ex.printStackTrace();
+//                System.out.println(ex);
+//                ex.printStackTrace();
+
+                promptQueryAgain();
             }
 
             currentLocation.setText(location);
@@ -1604,40 +1637,44 @@ public class GUIWindow extends javax.swing.JFrame {
                 System.out.println(ex);
                 ex.printStackTrace();
             }
-            //getOfficialSunsetForDate(Calendar.getInstance());
-            // FIX FOR BREVEITY 
-            GregorianCalendar cal = currentObj.getSunRise();
-            int h = cal.get(GregorianCalendar.HOUR);
-            int m = cal.get(GregorianCalendar.MINUTE);
-            int amPm = cal.get(GregorianCalendar.AM_PM);
             String[] amP = {"AM", "PM"};
-            sunriseField.setText(String.valueOf(h) +":" + String.valueOf(m) + amP[amPm]);
+
+            GregorianCalendar cal = currentObj.getSunRise();    // Create a sunrise calendar object
+            int h = cal.get(GregorianCalendar.HOUR);            // Hour of sunset
+            int m = cal.get(GregorianCalendar.MINUTE);          // Minute of sunset
+            int amPm = cal.get(GregorianCalendar.AM_PM);        // Get AM or PM
+            sunriseField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
 
             cal = currentObj.getSunSet();
-            h = cal.get(GregorianCalendar.HOUR);
-            m = cal.get(GregorianCalendar.MINUTE);
-            amPm = cal.get(GregorianCalendar.AM_PM);
-            sunsetField.setText(String.valueOf(h) +":" + String.valueOf(m) + amP[amPm]);
+            h = cal.get(GregorianCalendar.HOUR);                // Create sunset calendar object
+            m = cal.get(GregorianCalendar.MINUTE);              // Hour of sunset
+            amPm = cal.get(GregorianCalendar.AM_PM);            // Munute of sunset
+            sunsetField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
 
-            lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));
+            lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));    // Update time label
         }
     }
 
     /**
      * updateShortTermTab refreshes the weather data in the Short Term Tab
+     *
      * @return void
      */
     private void updateShortTermTab() {
 
         try {
-            weatherST = jsonObj.updateShortTermData();
+            weatherST = jsonObj.updateShortTermData();  // Update the data
         } catch (NoConnectionException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+//            System.out.println(ex);
+//            ex.printStackTrace();
+
+            notifyNoConnection();
 
         } catch (InternalServerError ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
+//            System.out.println(ex);
+//            ex.printStackTrace();
+
+            promptQueryAgain();
         }
         if (jsonObj != null) {
             currentLocationST.setText(location);
@@ -1668,29 +1705,24 @@ public class GUIWindow extends javax.swing.JFrame {
             temperatureLabelSix.setText("T: " + weatherST.getHourly(5).getTemperature() + preferences.getTemperatureUnit());
             temperatureLabelThree.setText("T: " + weatherST.getHourly(2).getTemperature() + preferences.getTemperatureUnit());
             temperatureLabelTwo.setText("T: " + weatherST.getHourly(1).getTemperature() + preferences.getTemperatureUnit());
+            lastUpdatedTimeLabelST.setText("Updated: " + String.valueOf(currentTime));
+
         }
     }
-    
+
     /**
      * updateLongTermTab refreshes the weather information in the Long Term Tab
+     *
      * @return void
      */
     private void updateLongTermTab() {
 
         try {
+            
             weatherLT = jsonObj.updateLongTermData();
-        } catch (NoConnectionException ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
-
-        } catch (InternalServerError ex) {
-            System.out.println(ex);
-            ex.printStackTrace();
-        }
-
-        if (weatherLT != NULL) {
             currentLocationLT.setText(location);    // Change the location display text
 
+            // NOT PREFERENCES
             // Main Temperature Updating
             longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
             longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
@@ -1734,9 +1766,15 @@ public class GUIWindow extends javax.swing.JFrame {
             } catch (MalformedURLException ex) {
                 System.out.println(ex);
                 ex.printStackTrace();
+
             } catch (IOException ex) {
                 System.out.println(ex);
                 ex.printStackTrace();
+                
+            } catch (java.lang.NullPointerException ex){
+                
+                System.out.println("Catching");
+                updateLongTermTab();    // Exception comes from JSON- query again to elminate it
             }
 
             // Maximum Temp Updating
@@ -1760,12 +1798,23 @@ public class GUIWindow extends javax.swing.JFrame {
             longTermDateFive.setText(weatherLT.getDaily(4).getDay());
 
             lastUpdatedTimeLabelLT.setText("Updated: " + String.valueOf(currentTime));
+            
+        } catch (NoConnectionException ex) {
+//            System.out.println(ex);
+//            ex.printStackTrace();
+
+            notifyNoConnection();
+
+        } catch (InternalServerError ex) {
+            promptQueryAgain();
         }
+
     }
 
     /**
      * updateMarsTab refreshes the view on the MARS Rover panel, updating the
      * data
+     *
      * @return void
      */
     private void updateMarsTab() {
@@ -1779,7 +1828,9 @@ public class GUIWindow extends javax.swing.JFrame {
     }
 
     /**
-     * clearCurrent takes the data on the Current tab and sets it to a neutral text if errors occur
+     * clearCurrent takes the data on the Current tab and sets it to a neutral
+     * text if errors occur
+     *
      * @return void
      */
     private void clearCurrent() {
@@ -1797,9 +1848,11 @@ public class GUIWindow extends javax.swing.JFrame {
         sunriseField.setText("-----");
         sunsetField.setText("-----");
     }
-    
+
     /**
-     * clearLongTerm takes the data on the Long Term tab and sets it to a neutral text if errors occur
+     * clearLongTerm takes the data on the Long Term tab and sets it to a
+     * neutral text if errors occur
+     *
      * @return void
      */
     private void clearLongTerm() {
@@ -1813,16 +1866,18 @@ public class GUIWindow extends javax.swing.JFrame {
     }
 
     /**
-     * clearShortTerm takes the data on the Short Term tab and sets it to a neutral text if errors occur
+     * clearShortTerm takes the data on the Short Term tab and sets it to a
+     * neutral text if errors occur
+     *
      * @return void
-     */    
+     */
     private void clearShortTerm() {
 
     }
 
-
     /**
      * initTabs sets the default labels and size of the tab options in the GUI
+     *
      * @return void
      */
     private void initTabs() {
@@ -1866,12 +1921,50 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * promptQueryAgain will ask the user to re-input data because the server
      * was unable to process the request
+     *
+     * @return void
      */
     private void promptQueryAgain() {
-        locationTextField.setText("Server Error 5xx, please re-enter location.");
+        locationTextField.setText("Server is under load: request could not be processed. Please re-enter location.");
         clearCurrent();
         clearShortTerm();
         clearLongTerm();
+        isValid = false;
+    }
+
+    /**
+     * notifyNoConnection will inform the user that the client was unable to
+     * contact the server
+     *
+     * @return void
+     */
+    private void notifyNoConnection() {
+        locationTextField.setText("Could not contact server. Please re-enter location.");
+        clearCurrent();
+        clearShortTerm();
+        clearLongTerm();
+        isValid = false;
+    }
+    
+    /**
+     * queryAnotherLocation will attempt to query a secondary location to "refresh" the object
+     * @previousLocation is the location that is previously queried
+     * @return void
+     */
+    private void queryAnotherLocation(String previousLocation)
+    {
+        try{
+            String defaultLocation = "London,Ca";
+            jsonObj = new JSON(defaultLocation);
+            jsonObj.updateCurrentWeatherData();
+            
+            jsonObj = new JSON(previousLocation);
+            jsonObj.updateCurrentWeatherData();
+        }
+        catch (Exception ex)
+        {
+            
+        }
     }
 
 }
