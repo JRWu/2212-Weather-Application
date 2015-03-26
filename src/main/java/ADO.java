@@ -302,7 +302,7 @@ public class ADO implements java.io.Serializable {
     	double windy;
     	if (preferences.equals("M"))
     	{
-    		windy = (wind * 1000)/3600;
+    		windy = (wind * 3600)/1000;
     	}
     	else if (preferences.equals("I"))
     	{
@@ -310,7 +310,7 @@ public class ADO implements java.io.Serializable {
     	}
 	else
 	{
-		windy = (wind *1000)/3600;
+		windy = (wind *3600)/1000;
 	}
     	windy = Math.round(windy*100)/100D;
     	return windy;
