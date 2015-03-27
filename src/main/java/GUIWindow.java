@@ -128,6 +128,14 @@ public class GUIWindow extends javax.swing.JFrame {
         temperatureLabelSeven = new javax.swing.JLabel();
         temperatureLabelEight = new javax.swing.JLabel();
         lastUpdatedTimeLabelST = new javax.swing.JLabel();
+        shortTermTimeLabelOne = new javax.swing.JLabel();
+        shortTermTimeLabelTwo = new javax.swing.JLabel();
+        shortTermTimeLabelThree = new javax.swing.JLabel();
+        shortTermTimeLabelFour = new javax.swing.JLabel();
+        shortTermTimeLabelFive = new javax.swing.JLabel();
+        shortTermTimeLabelSix = new javax.swing.JLabel();
+        shortTermTimeLabelSeven = new javax.swing.JLabel();
+        shortTermTimeLabelEight = new javax.swing.JLabel();
         longTermPanel = new javax.swing.JPanel();
         currentLocationLT = new javax.swing.JLabel();
         longTermSeperatorFour = new javax.swing.JSeparator();
@@ -641,66 +649,98 @@ public class GUIWindow extends javax.swing.JFrame {
             lastUpdatedTimeLabelST.setForeground(new java.awt.Color(0, 0, 0));
             lastUpdatedTimeLabelST.setText("Updated:   ");
 
+            shortTermTimeLabelOne.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelOne.setText("time");
+
+            shortTermTimeLabelTwo.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelTwo.setText("time");
+
+            shortTermTimeLabelThree.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelThree.setText("time");
+
+            shortTermTimeLabelFour.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelFour.setText("time");
+
+            shortTermTimeLabelFive.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelFive.setText("time");
+
+            shortTermTimeLabelSix.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelSix.setText("time");
+
+            shortTermTimeLabelSeven.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelSeven.setText("time");
+
+            shortTermTimeLabelEight.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+            shortTermTimeLabelEight.setText("time");
+
             javax.swing.GroupLayout shortTermPanelLayout = new javax.swing.GroupLayout(shortTermPanel);
             shortTermPanel.setLayout(shortTermPanelLayout);
             shortTermPanelLayout.setHorizontalGroup(
                 shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
-                    .addGap(0, 23, Short.MAX_VALUE)
+                    .addGap(0, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(temperatureLabelOne)
-                        .addComponent(conditionLabelOne))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addComponent(conditionLabelOne)
+                        .addComponent(shortTermTimeLabelOne))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelTwo)
-                        .addComponent(temperatureLabelTwo))
+                        .addComponent(temperatureLabelTwo)
+                        .addComponent(shortTermTimeLabelTwo))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelThree)
-                        .addComponent(temperatureLabelThree))
+                        .addComponent(temperatureLabelThree)
+                        .addComponent(shortTermTimeLabelThree))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelFour)
-                        .addComponent(temperatureLabelFour))
+                        .addComponent(temperatureLabelFour)
+                        .addComponent(shortTermTimeLabelFour))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelFive)
-                        .addComponent(temperatureLabelFive))
+                        .addComponent(temperatureLabelFive)
+                        .addComponent(shortTermTimeLabelFive))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateSix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelSix)
-                        .addComponent(temperatureLabelSix))
+                        .addComponent(temperatureLabelSix)
+                        .addComponent(shortTermTimeLabelSix))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateSeven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelSeven)
-                        .addComponent(temperatureLabelSeven))
+                        .addComponent(temperatureLabelSeven)
+                        .addComponent(shortTermTimeLabelSeven))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                     .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(conditionLabelEight)
-                        .addComponent(temperatureLabelEight))
-                    .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(temperatureLabelEight)
+                        .addComponent(shortTermTimeLabelEight))
+                    .addContainerGap(27, Short.MAX_VALUE))
                 .addGroup(shortTermPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(currentLocationST, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -732,61 +772,79 @@ public class GUIWindow extends javax.swing.JFrame {
                                 .addGroup(shortTermPanelLayout.createSequentialGroup()
                                     .addGap(6, 6, 6)
                                     .addComponent(lastUpdatedTimeLabelST)
-                                    .addGap(54, 54, 54)
-                                    .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelOne)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelOne))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelTwo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelTwo))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelThree)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelThree))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelFour)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelFour))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelFive)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelFive))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(74, 74, 74)
-                                    .addComponent(skyStateSeven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelSeven)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelSeven))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateSix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelSix)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelSix))
-                                .addGroup(shortTermPanelLayout.createSequentialGroup()
-                                    .addGap(73, 73, 73)
-                                    .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(conditionLabelEight)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(temperatureLabelEight)))
+                                    .addGroup(shortTermPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(64, 64, 64)
+                                            .addComponent(shortTermTimeLabelOne)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelOne)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelOne))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelTwo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelTwo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelTwo))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelThree)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelThree)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelThree))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelFour)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateFour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelFour)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelFour))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelFive)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateFive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelFive)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelFive))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelSix)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateSix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelSix)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelSix))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelSeven)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateSeven, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelSeven)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelSeven))
+                                        .addGroup(shortTermPanelLayout.createSequentialGroup()
+                                            .addGap(65, 65, 65)
+                                            .addComponent(shortTermTimeLabelEight)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(skyStateEight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(conditionLabelEight)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(temperatureLabelEight)))))
                             .addGap(0, 0, Short.MAX_VALUE))))
             );
 
@@ -1347,12 +1405,9 @@ public class GUIWindow extends javax.swing.JFrame {
             notifyNoConnection();
             
         } catch (Exception ex) {
-            clearCurrent();
-            clearShortTerm();
-            clearLongTerm();
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
 
-            isValid = false;                            // Refresh flag is disabled- query not valid
+            invalidateData();            
             
             System.out.println(ex);
             ex.printStackTrace();
@@ -1539,6 +1594,14 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JButton refreshButton;
     private javax.swing.JLabel searchPromptLabel;
     private javax.swing.JPanel shortTermPanel;
+    private javax.swing.JLabel shortTermTimeLabelEight;
+    private javax.swing.JLabel shortTermTimeLabelFive;
+    private javax.swing.JLabel shortTermTimeLabelFour;
+    private javax.swing.JLabel shortTermTimeLabelOne;
+    private javax.swing.JLabel shortTermTimeLabelSeven;
+    private javax.swing.JLabel shortTermTimeLabelSix;
+    private javax.swing.JLabel shortTermTimeLabelThree;
+    private javax.swing.JLabel shortTermTimeLabelTwo;
     private javax.swing.JLabel skyConditionField;
     private javax.swing.JLabel skyStateEight;
     private javax.swing.JLabel skyStateFive;
@@ -1638,12 +1701,15 @@ public class GUIWindow extends javax.swing.JFrame {
                 Image img = ImageIO.read(url);
                 Image resizedSkyState = img.getScaledInstance(140, 140, 0);
                 skyStateIconC.setIcon(new ImageIcon(resizedSkyState));
+                
             } catch (MalformedURLException ex) {
                 System.out.println(ex);
                 ex.printStackTrace();
+                
             } catch (IOException ex) {
                 System.out.println(ex);
                 ex.printStackTrace();
+                
             }
             String[] amP = {"AM", "PM"};
 
@@ -1713,6 +1779,18 @@ public class GUIWindow extends javax.swing.JFrame {
             temperatureLabelSix.setText("T: " + weatherST.getHourly(5).getTemperature() + preferences.getTemperatureUnit());
             temperatureLabelThree.setText("T: " + weatherST.getHourly(2).getTemperature() + preferences.getTemperatureUnit());
             temperatureLabelTwo.setText("T: " + weatherST.getHourly(1).getTemperature() + preferences.getTemperatureUnit());
+            
+            shortTermTimeLabelOne.setText(String.valueOf(weatherST.getHourly(0).getHour()) + ":00");
+            shortTermTimeLabelTwo.setText(String.valueOf(weatherST.getHourly(1).getHour()) + ":00");
+            shortTermTimeLabelThree.setText(String.valueOf(weatherST.getHourly(2).getHour()) + ":00");
+            shortTermTimeLabelFour.setText(String.valueOf(weatherST.getHourly(3).getHour()) + ":00");
+            shortTermTimeLabelFive.setText(String.valueOf(weatherST.getHourly(4).getHour()) + ":00");
+            shortTermTimeLabelSix.setText(String.valueOf(weatherST.getHourly(5).getHour()) + ":00");
+            shortTermTimeLabelSeven.setText(String.valueOf(weatherST.getHourly(6).getHour()) + ":00");
+            shortTermTimeLabelEight.setText(String.valueOf(weatherST.getHourly(7).getHour()) + ":00");
+            
+            
+            
             lastUpdatedTimeLabelST.setText("Updated: " + String.valueOf(currentTime));
 
         }
@@ -1816,6 +1894,13 @@ public class GUIWindow extends javax.swing.JFrame {
         } catch (InternalServerError ex) {
             promptQueryAgain();
         }
+         catch (java.lang.NullPointerException ex){
+                
+                System.out.println(ex);
+                ex.printStackTrace();
+//                updateLongTermTab();    // Exception comes from JSON- query again to elminate it
+                invalidateData();
+            }
 
     }
 
@@ -1915,7 +2000,43 @@ public class GUIWindow extends javax.swing.JFrame {
      * @return void
      */
     private void clearShortTerm() {
-
+        
+        temperatureLabelOne.setText("T: --");
+        temperatureLabelTwo.setText("T: --");
+        temperatureLabelThree.setText("T: --");
+        temperatureLabelFour.setText("T: --");
+        temperatureLabelFive.setText("T: --");
+        temperatureLabelSix.setText("T: --");
+        temperatureLabelSeven.setText("T: --");
+        temperatureLabelEight.setText("T: --");
+        
+        conditionLabelOne.setText("------");
+        conditionLabelTwo.setText("------");
+        conditionLabelThree.setText("------");
+        conditionLabelFour.setText("------");
+        conditionLabelFive.setText("------");
+        conditionLabelSix.setText("------");
+        conditionLabelSeven.setText("------");
+        conditionLabelEight.setText("------");
+        
+        skyStateOne.setIcon(null);
+        skyStateTwo.setIcon(null);
+        skyStateThree.setIcon(null);
+        skyStateFour.setIcon(null);
+        skyStateFive.setIcon(null);
+        skyStateSix.setIcon(null);
+        skyStateSeven.setIcon(null);
+        skyStateEight.setIcon(null);
+        
+        shortTermTimeLabelOne.setText("Time");
+        shortTermTimeLabelTwo.setText("Time");
+        shortTermTimeLabelThree.setText("Time");
+        shortTermTimeLabelFour.setText("Time");
+        shortTermTimeLabelFive.setText("Time");
+        shortTermTimeLabelSix.setText("Time");
+        shortTermTimeLabelSeven.setText("Time");
+        shortTermTimeLabelEight.setText("Time");
+        
     }
 
     /**
@@ -1960,6 +2081,7 @@ public class GUIWindow extends javax.swing.JFrame {
         } else // Data is invalid
         {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
+            invalidateData();
         }
     }
 
@@ -1971,10 +2093,7 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void promptQueryAgain() {
         locationTextField.setText("Server under load: request could not be processed.");
-        clearCurrent();
-        clearShortTerm();
-        clearLongTerm();
-        isValid = false;
+        invalidateData();
     }
 
     /**
@@ -1985,12 +2104,22 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void notifyNoConnection() {
         locationTextField.setText("Could not contact server. Please re-enter location.");
+        invalidateData();
+    }
+    
+    /**
+     * invalidateData will nullify the abiility of the refresh button to refresh
+     * the display
+     * It sets the valid flag to false and prevents erroneous data to be queried.
+     * @return void
+     */
+    private void invalidateData()
+    {
         clearCurrent();
         clearShortTerm();
         clearLongTerm();
         isValid = false;
     }
-    
     
 
     
