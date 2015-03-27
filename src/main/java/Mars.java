@@ -14,6 +14,7 @@ public class Mars extends ADO {
 	 * Instance variables
 	 */
 	private double temperature;
+	private String preferences;
 	/**
 	 * Default constructor for Mars
 	 */
@@ -33,7 +34,8 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind, humid, windDir, sky, state);
-        temperature = convertTemp(temp, this.getPreferences());
+	preferences = super.getPreferences();
+        temperature = convertTemp(temp, preferences);
     }
 
     /**
@@ -41,7 +43,8 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind,humid, windDir, sky, state);
-	 temperature = convertTemp(temp, this.getPreferences());
+	preferences = super.getPreferences();
+	temperature = convertTemp(temp, preferences);
     }
     /**
      * Returns value of temperature of the object
@@ -58,7 +61,7 @@ public class Mars extends ADO {
      * @param temp the temperature value to be set
      */
     public void setTemperature(double temp) {
-        temperature = convertTemp(temp, this.getPreferences());
+        temperature = convertTemp(temp, preferences);
     }
     
 /**
@@ -67,22 +70,22 @@ public class Mars extends ADO {
  * @param preferences The user preferences specifying what units to convert to
  * @return the converted temperature
  */
-    private double convertTemp(double temp,String preferences)
+    public double convertTemp(double temp,String preferences)
     {
-    	double temperat;
+    	double temperature;
     	if (preferences.equals("K"))
     	{
-    		temperat = temp + 273.15;
+    		temperature = temp + 273.15;
     	}
     	else if (preferences.equals("I"))
     	{
-    		temperat = (((temp -32)*5)/9) + 273.15;
+    		temperature = (((temp -32)*5)/9) + 273.15;
     	}
     	else
     	{
-    		temperat = temp;
+    		temperature = temp;
     	}
-        temperat = Math.round(temperat * 100) / 100D;
-    	return temperat;
+        temperature = Math.round(temperature * 100) / 100D;
+    	return temperature;
     }
 }
