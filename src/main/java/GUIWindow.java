@@ -1405,13 +1405,10 @@ public class GUIWindow extends javax.swing.JFrame {
             notifyNoConnection();
             
         } catch (BadLocationException ex) {
-        	 locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
-
-             invalidateData();
+            notifyBadLocation();
+            
         } catch (Exception ex) {
-            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
-
-            invalidateData();            
+            notifyBadLocation();           
             
             System.out.println(ex);
             ex.printStackTrace();
@@ -1686,9 +1683,8 @@ public class GUIWindow extends javax.swing.JFrame {
 
                 promptQueryAgain();
             } catch (BadLocationException ex) {
-            	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
-
-                invalidateData();
+            	notifyBadLocation();
+                
             }
 
             currentLocation.setText(location);
@@ -1758,9 +1754,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
             promptQueryAgain();
         } catch (BadLocationException ex) {
-        	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
-
-            invalidateData();
+        	notifyBadLocation();
         }
         if (jsonObj != null) {
             currentLocationST.setText(location);
@@ -1912,9 +1906,7 @@ public class GUIWindow extends javax.swing.JFrame {
 //                updateLongTermTab();    // Exception comes from JSON- query again to elminate it
                 invalidateData();
         } catch (BadLocationException ex) {
-        	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
-
-            invalidateData();
+        	notifyBadLocation();
         }
 
     }
@@ -2095,8 +2087,7 @@ public class GUIWindow extends javax.swing.JFrame {
             updateMarsTab();
         } else // Data is invalid
         {
-            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
-            invalidateData();
+            notifyBadLocation();
         }
     }
 
@@ -2119,6 +2110,15 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void notifyNoConnection() {
         locationTextField.setText("Could not contact server. Please re-enter location.");
+        invalidateData();
+    }
+
+    /**
+     * notifyBadLocation will inform the user that their location is not found.
+     * @return void
+     */
+    private void notifyBadLocation(){
+        locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
         invalidateData();
     }
     
