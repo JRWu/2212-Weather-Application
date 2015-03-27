@@ -81,7 +81,8 @@ public class JSON {
      * returns a 500 response code
      */
     public Current updateCurrentWeatherData() throws NoConnectionException, InternalServerError {
-        Current curr = null;
+        Current curr = new Current();
+        
         try {
             weatherURL = new URL(HOST + PATH_CURRENT + query);
             HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
@@ -99,7 +100,7 @@ public class JSON {
             allWeatherData = new JSONObject(jsonString);
             time = (GregorianCalendar) GregorianCalendar.getInstance();
             time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
-
+            
             JSONObject main = currentWeatherData.getJSONObject(MAIN_JSON);
             JSONArray weather = currentWeatherData.getJSONArray(WEATHER_JSON);
             JSONObject wind = currentWeatherData.getJSONObject(WIND_JSON);
@@ -117,9 +118,17 @@ public class JSON {
         } catch (IOException e) {
             throw new NoConnectionException("No Connection");
         } catch (JSONException e) {
-
+            System.out.println (e);
+            e.printStackTrace();
+            throw new InternalServerError("Server cannot process request.");
+            
         }
 
+        
+        if (curr == null)
+        {
+            System.out.println("shit");
+        }
         return curr;
     }
 
@@ -156,7 +165,7 @@ public class JSON {
             String jsonString = IOUtils.toString(in);
             shortTermData = new JSONObject(jsonString);
             JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
-
+            
             //loop to get the 8 hourly objects
             for (int i = 0; i < 8; i++) {
                 JSONObject hour = arrayData.getJSONObject(i);
@@ -174,7 +183,14 @@ public class JSON {
             throw new NoConnectionException(TIMEOUT_MESSAGE);
         } catch (IOException e) {
             throw new NoConnectionException("No Connection");
+        } catch (JSONException ex)
+        {
+            System.out.println(ex);
+            ex.printStackTrace();
+            
+            throw new InternalServerError("Server cannot process request.");
         }
+        
         return new ShortTerm(shortTermHourlies);
     }
 

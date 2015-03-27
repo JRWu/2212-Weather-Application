@@ -228,7 +228,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
         locationTextField.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         locationTextField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        locationTextField.setText("London,Ca");
+        locationTextField.setText("London, Ca");
         locationTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         locationTextField.setMinimumSize(new java.awt.Dimension(82, 20));
         locationTextField.setColumns(30);
@@ -1309,7 +1309,8 @@ public class GUIWindow extends javax.swing.JFrame {
      * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
-       try // Check if location exists
+       
+        try // Check if location exists
         {
             location = locationTextField.getText(); // Get query string
 
@@ -1324,9 +1325,14 @@ public class GUIWindow extends javax.swing.JFrame {
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
             weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
             mars = jsonObj.updateMarsData();            // Fetch mars-data
-
+            
+            //try
+            //{
             preferences.setUserPreferences(currentObj.getPreferences());
-
+            /*}catch (NullPointerException ex){
+                preferences.setUserPreferences("K");
+            }*/
+            
             updateCurrentTab();
             updateShortTermTab();
             updateLongTermTab();
@@ -1344,9 +1350,12 @@ public class GUIWindow extends javax.swing.JFrame {
             clearCurrent();
             clearShortTerm();
             clearLongTerm();
-            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London,Ca\" ");
+            locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
 
             isValid = false;                            // Refresh flag is disabled- query not valid
+            
+            System.out.println(ex);
+            ex.printStackTrace();
             //MalformedQueryException exp = new MalformedQueryException();
             //exp.setVisible(true);
         }
@@ -1677,7 +1686,7 @@ public class GUIWindow extends javax.swing.JFrame {
         }
         if (jsonObj != null) {
             currentLocationST.setText(location);
-
+            
             conditionLabelEight.setText(weatherST.getHourly(7).getSkyCondition());
             conditionLabelFive.setText(weatherST.getHourly(4).getSkyCondition());
             conditionLabelFour.setText(weatherST.getHourly(3).getSkyCondition());
@@ -1961,7 +1970,7 @@ public class GUIWindow extends javax.swing.JFrame {
      * @return void
      */
     private void promptQueryAgain() {
-        locationTextField.setText("Server is under load: request could not be processed. Please re-enter location.");
+        locationTextField.setText("Server under load: request could not be processed.");
         clearCurrent();
         clearShortTerm();
         clearLongTerm();
@@ -1982,25 +1991,25 @@ public class GUIWindow extends javax.swing.JFrame {
         isValid = false;
     }
     
-    /**
-     * queryAnotherLocation will attempt to query a secondary location to "refresh" the object
-     * @previousLocation is the location that is previously queried
-     * @return void
-     */
-    private void queryAnotherLocation(String previousLocation)
-    {
-        try{
-            String defaultLocation = "London,Ca";
-            jsonObj = new JSON(defaultLocation);
-            jsonObj.updateCurrentWeatherData();
-            
-            jsonObj = new JSON(previousLocation);
-            jsonObj.updateCurrentWeatherData();
-        }
-        catch (Exception ex)
+    
+
+    
+    
+    private void formatQuery(){
+        if (!location.matches(",+\\s"))
         {
-            
+            // format
+            System.out.println("Format");
+            location = location.replace(",", ", ");
+            System.out.println(location);
+        }
+        else
+        {
+            // do nothing
+            System.out.println("fine");
         }
     }
+    
+    
 
 }
