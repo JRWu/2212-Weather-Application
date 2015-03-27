@@ -1404,6 +1404,10 @@ public class GUIWindow extends javax.swing.JFrame {
         } catch (NoConnectionException ex) {
             notifyNoConnection();
             
+        } catch (BadLocationException ex) {
+        	 locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
+
+             invalidateData();
         } catch (Exception ex) {
             locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
 
@@ -1681,6 +1685,10 @@ public class GUIWindow extends javax.swing.JFrame {
 //                ex.printStackTrace();
 
                 promptQueryAgain();
+            } catch (BadLocationException ex) {
+            	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
+
+                invalidateData();
             }
 
             currentLocation.setText(location);
@@ -1749,6 +1757,10 @@ public class GUIWindow extends javax.swing.JFrame {
 //            ex.printStackTrace();
 
             promptQueryAgain();
+        } catch (BadLocationException ex) {
+        	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
+
+            invalidateData();
         }
         if (jsonObj != null) {
             currentLocationST.setText(location);
@@ -1893,14 +1905,17 @@ public class GUIWindow extends javax.swing.JFrame {
 
         } catch (InternalServerError ex) {
             promptQueryAgain();
-        }
-         catch (java.lang.NullPointerException ex){
+        } catch (java.lang.NullPointerException ex){
                 
                 System.out.println(ex);
                 ex.printStackTrace();
 //                updateLongTermTab();    // Exception comes from JSON- query again to elminate it
                 invalidateData();
-            }
+        } catch (BadLocationException ex) {
+        	locationTextField.setText("Invalid! Please Enter a New Location: i.e. \"London, Ca\" ");
+
+            invalidateData();
+        }
 
     }
 

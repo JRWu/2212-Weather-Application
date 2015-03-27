@@ -80,7 +80,7 @@ public class JSON {
      * @throws InternalServerError Throws this exception whenever the server
      * returns a 500 response code
      */
-    public Current updateCurrentWeatherData() throws NoConnectionException, InternalServerError {
+    public Current updateCurrentWeatherData() throws NoConnectionException, InternalServerError, BadLocationException{
         Current curr = new Current();
         
         try {
@@ -98,6 +98,11 @@ public class JSON {
             String jsonString = IOUtils.toString(in);
             JSONObject currentWeatherData = new JSONObject(jsonString);
             allWeatherData = new JSONObject(jsonString);
+
+            if(allWeatherData.getInt("cod") == 404)
+            	throw new BadLocationException("Error: Improper location");
+            
+            
             time = (GregorianCalendar) GregorianCalendar.getInstance();
             time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
             
@@ -144,7 +149,7 @@ public class JSON {
      * @throws InternalServerError Throws this exception whenever the server
      * returns a 500 response code
      */
-    public ShortTerm updateShortTermData() throws NoConnectionException, InternalServerError {
+    public ShortTerm updateShortTermData() throws NoConnectionException, InternalServerError, BadLocationException{
 //	public ShortTerm updateShortTermData(){
         Hourly[] shortTermHourlies = new Hourly[8];
         try {
@@ -164,6 +169,13 @@ public class JSON {
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
             shortTermData = new JSONObject(jsonString);
+            
+            if(shortTermData.has("list") && shortTermData.isNull("list"))
+            	return updateShortTermData();
+            else if(shortTermData.getInt("cod") == 404)
+            	throw new BadLocationException("Error: Improper location");
+            	
+            
             JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
             
             //loop to get the 8 hourly objects
@@ -208,7 +220,7 @@ public class JSON {
      * @throws InternalServerError Throws this exception whenever the server
      * returns a 500 response code
      */
-    public LongTerm updateLongTermData() throws NoConnectionException, InternalServerError {
+    public LongTerm updateLongTermData() throws NoConnectionException, InternalServerError, BadLocationException {
         try {
 
             Daily[] days = new Daily[5];
@@ -226,6 +238,13 @@ public class JSON {
             String jsonString = IOUtils.toString(in);
             JSONObject longTermWeatherData = new JSONObject(jsonString);
 //            System.out.println(longTermWeatherData);  // REMOVE
+            // Ensures that if the list is null (for whatever reason), it will attempt to 
+            if(longTermWeatherData.has("list") && longTermWeatherData.isNull("list"))
+            	return updateLongTermData();
+            else if (longTermWeatherData.getInt("cod") == 404)
+            	throw new BadLocationException("Error: Improper location");
+            
+            
             JSONArray dailyArray = longTermWeatherData.getJSONArray("list");
             String[] weekdays = {"", "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
             String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
@@ -274,7 +293,7 @@ public class JSON {
      * @throws InternalServerError Throws this exception whenever the server
      * returns a 500 response code
      */
-    public Mars updateMarsData() throws InternalServerError, NoConnectionException {
+    public Mars updateMarsData() throws NoConnectionException, InternalServerError, BadLocationException{
         try {
             URL marsURL = new URL("http://marsweather.ingenology.com/v1/latest/?format=json");
             HttpURLConnection connect = (HttpURLConnection) marsURL.openConnection();
@@ -289,7 +308,7 @@ public class JSON {
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
             JSONObject marsWeatherData = new JSONObject(jsonString).getJSONObject("report");
-
+            System.out.println(marsWeatherData);
             currentMarsSetVariables(marsWeatherData);
 
             return new Mars(pressure, windSpeed, temp, temp_min, temp_max, humidity, windDirection, skyState, null);
