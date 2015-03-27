@@ -33,7 +33,7 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind, humid, windDir, sky, state);
-        temperature = temp;
+        temperature = convertTemp(temp, this.getPreferences());
     }
 
     /**
@@ -41,7 +41,7 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind,humid, windDir, sky, state);
-	 temperature = temp;
+	 temperature = convertTemp(temp, this.getPreferences());
     }
     /**
      * Returns value of temperature of the object
