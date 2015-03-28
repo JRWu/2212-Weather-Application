@@ -33,15 +33,40 @@ public class JSON {
     private final String PATH_FORECAST_SHORTTERM = "/data/2.5/forecast";	//where we'll be getting short term and long term forecasts from
     private final String PATH_FORECAST_LONGTERM = "/data/2.5/forecast/daily/";
     private final String PATH_ICON = "/img/w/";
-    private final String MAIN_JSON = "main";
-    private final String WEATHER_JSON = "weather";
-    private final String WIND_JSON = "wind";
+    private final String OWM_MAIN = "main";
+    private final String OWM_WEATHER = "weather";
+    private final String OWM_WIND = "wind";
     private final String ARRAY_JSON = "list";
     private final String SUN_JSON = "sys";
+    private final String TIME	= "dt";
+    private final String RETURN_CODE = "cod";
+    
+    //Open Weather Map MAIN constants for short term, long term, and current
+    private final String OWM_HUMIDITY = "humidity";
+    private final String OWM_TEMP = "temp";
+    private final String OWM_TEMP_MAX = "temp_max";
+    private final String OWM_TEMP_MIN = "temp_min";
+    private final String OWM_PRESSURE = "pressure";
+
+
+    //Open Weather Map Long Term temp set constants   
+    private final String OWM_LONG_DAY = "day";
+    private final String OWM_LONG_MAX = "max";
+    private final String OWM_LONG_MIN = "min";
+
+    //Open Weather Map Wind constants
+    private final String OWM_WIND_DEGREE = "deg";
+    private final String OWM_WIND_SPEED = "speed";
+    
+    //Open Weather Map Weather constants
+    private final String OWM_WEATHER_DESCRIPTION = "description";
+    private final String OWM_WEATHER_ICON = "icon";
+    
     public final String TIMEOUT_MESSAGE = "Timeout";
 
     private final int TIMEOUT_TIME = 5000; //the time it'll take for connection to timeout
-
+    private final int NOT_FOUND_ERROR = 404;
+    
     private String query = "?q="; 	//variable query, dependent on location and whether it will be current, short term, or long term
 
     private String location = ""; //String to contain location
@@ -49,7 +74,6 @@ public class JSON {
     private double temp, temp_max, temp_min, windSpeed; //all the variables for CURRENT weather (forecast still needs to be figured out)
     private int pressure, humidity, windDirectionDegree;
     GregorianCalendar time, sunrise, sunset;
-    private long sunrise1;
     private String weatherDescription, skyState, windDirection; //This may change, need to test out how the currentWeatherSetVariables function is for a while
     private JSONObject allWeatherData, shortTermData, longTermData;
     private ImageIcon icon;
@@ -84,38 +108,46 @@ public class JSON {
         Current curr = new Current();
         
         try {
+        	//Create a URL to grab weather using the query specified
             weatherURL = new URL(HOST + PATH_CURRENT + query);
             HttpURLConnection connect = (HttpURLConnection) weatherURL.openConnection();
+            //Set the timeout time
             connect.setConnectTimeout(TIMEOUT_TIME);
 
+            //If the server returns an error an exception is thrown.
             if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode()) {
                 throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
             } else if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) {
                 throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
             }
-
+            
+            //Convert the input stream into a string
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
+            
+            //create a JSON object using that string
             JSONObject currentWeatherData = new JSONObject(jsonString);
             allWeatherData = new JSONObject(jsonString);
-
-            if(allWeatherData.getInt("cod") == 404)
+            
+            //if the return code in the JSON object is a 404
+            if(allWeatherData.getInt(RETURN_CODE) == NOT_FOUND_ERROR)
             	throw new BadLocationException("Error: Improper location");
             
             
             time = (GregorianCalendar) GregorianCalendar.getInstance();
-            time.setTimeInMillis(1000 * currentWeatherData.getLong("dt"));
+            time.setTimeInMillis(1000 * currentWeatherData.getLong(TIME));
             
-            JSONObject main = currentWeatherData.getJSONObject(MAIN_JSON);
-            JSONArray weather = currentWeatherData.getJSONArray(WEATHER_JSON);
-            JSONObject wind = currentWeatherData.getJSONObject(WIND_JSON);
+            //Calls some functions to set the variables for creating the current object
+            JSONObject main = currentWeatherData.getJSONObject(OWM_MAIN);
+            JSONArray weather = currentWeatherData.getJSONArray(OWM_WEATHER);
+            JSONObject wind = currentWeatherData.getJSONObject(OWM_WIND);
             JSONObject sun = currentWeatherData.getJSONObject(SUN_JSON);
             currentMainSetVariables(main);
             currentWeatherSetVariables(weather);
             currentWindSetVariables(wind);
             currentSunTime(sun);
             //return ADO_Object
-
+            //create the current object
             curr = new Current(time, sunrise, sunset, pressure, windSpeed, temp, temp_min, temp_max, humidity, windDirection, skyState, icon);
 
         } catch (SocketTimeoutException e) {
@@ -128,12 +160,7 @@ public class JSON {
             throw new InternalServerError("Server cannot process request.");
             
         }
-
-        
-        if (curr == null)
-        {
-            System.out.println("shit");
-        }
+        //return current object
         return curr;
     }
 
@@ -170,23 +197,25 @@ public class JSON {
             String jsonString = IOUtils.toString(in);
             shortTermData = new JSONObject(jsonString);
             
-            if(shortTermData.has("list") && shortTermData.isNull("list"))
+            //if the list returns null (a server error) we call this function recursively to ask the server again
+            if(shortTermData.has(ARRAY_JSON) && shortTermData.isNull(ARRAY_JSON))
             	return updateShortTermData();
-            else if(shortTermData.getInt("cod") == 404)
-            	throw new BadLocationException("Error: Improper location");
+            else if(shortTermData.getInt(RETURN_CODE) == NOT_FOUND_ERROR) //otherwise if there is no array in the JSON object or the shortTermData is null (for whatever reason) 
+            	throw new BadLocationException("Error: Improper location"); //throw a bad location exception
             	
             
-            JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly seperation
+            JSONArray arrayData = shortTermData.getJSONArray(ARRAY_JSON);//creates a JSON array with all the tri-hourly separation
             
             //loop to get the 8 hourly objects
             for (int i = 0; i < 8; i++) {
                 JSONObject hour = arrayData.getJSONObject(i);
-
-                shortTermMainSetVariables(hour.getJSONObject(MAIN_JSON));
-                shortTermWeatherSetVariables(hour.getJSONArray(WEATHER_JSON));
-                shortTermWindSetVariables(hour.getJSONObject(WIND_JSON));
+                
+                //functions to set global variables 
+                shortTermMainSetVariables(hour.getJSONObject(OWM_MAIN));
+                shortTermWeatherSetVariables(hour.getJSONArray(OWM_WEATHER));
+                shortTermWindSetVariables(hour.getJSONObject(OWM_WIND));
                 time = (GregorianCalendar) GregorianCalendar.getInstance();
-                time.setTimeInMillis(1000 * hour.getLong("dt"));
+                time.setTimeInMillis(1000 * hour.getLong(TIME));
 
                 shortTermHourlies[i] = new Hourly(time.get(GregorianCalendar.HOUR_OF_DAY), pressure, windSpeed, temp, temp_min, temp_max, humidity, windDirection, skyState, icon);
             }
@@ -197,8 +226,8 @@ public class JSON {
             throw new NoConnectionException("No Connection");
         } catch (JSONException ex)
         {
-            System.out.println(ex);
-            ex.printStackTrace();
+      //      System.out.println(ex);
+      //      ex.printStackTrace();
             
             throw new InternalServerError("Server cannot process request.");
         }
@@ -237,15 +266,14 @@ public class JSON {
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
             JSONObject longTermWeatherData = new JSONObject(jsonString);
-//            System.out.println(longTermWeatherData);  // REMOVE
-            // Ensures that if the list is null (for whatever reason), it will attempt to 
-            if(longTermWeatherData.has("list") && longTermWeatherData.isNull("list"))
+
+            if(longTermWeatherData.has(ARRAY_JSON) && longTermWeatherData.isNull(ARRAY_JSON))
             	return updateLongTermData();
-            else if (longTermWeatherData.getInt("cod") == 404)
+            else if (longTermWeatherData.getInt(RETURN_CODE) == NOT_FOUND_ERROR)
             	throw new BadLocationException("Error: Improper location");
             
             
-            JSONArray dailyArray = longTermWeatherData.getJSONArray("list");
+            JSONArray dailyArray = longTermWeatherData.getJSONArray(ARRAY_JSON);
             String[] weekdays = {"", "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"};
             String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
 
@@ -254,10 +282,10 @@ public class JSON {
             for (int i = 0; i < 5; i++) {
                 JSONObject daily = dailyArray.getJSONObject(i);
 
-                longTermTempSetVariables(daily.getJSONObject("temp"));
+                longTermTempSetVariables(daily.getJSONObject(OWM_TEMP));
                 longTermWeatherSetVariables(daily.getJSONArray("weather"));
                 time = (GregorianCalendar) GregorianCalendar.getInstance();
-                time.setTimeInMillis(1000 * daily.getLong("dt"));
+                time.setTimeInMillis(1000 * daily.getLong(TIME));
 
                 int day = time.get(GregorianCalendar.DAY_OF_MONTH);
                 int month = time.get(GregorianCalendar.MONTH);
@@ -293,20 +321,27 @@ public class JSON {
      */
     public Mars updateMarsData() throws NoConnectionException, InternalServerError, BadLocationException{
         try {
-            URL marsURL = new URL("http://marsweather.ingenology.com/v1/latest/?format=json");
+        	//gets URL for current mars weather from the server
+        	URL marsURL = new URL("http://marsweather.ingenology.com/v1/latest/?format=json");
             HttpURLConnection connect = (HttpURLConnection) marsURL.openConnection();
             connect.setConnectTimeout(TIMEOUT_TIME);
 
+            
+            //use the same type of response code checking as the other update methods
             if (HttpURLConnection.HTTP_INTERNAL_ERROR == connect.getResponseCode()) {
                 throw new InternalServerError(connect.getResponseCode() + ": " + connect.getResponseMessage());
             } else if (HttpURLConnection.HTTP_OK != connect.getResponseCode()) {
                 throw new NoConnectionException(connect.getResponseCode() + ": " + connect.getResponseMessage());
             }
 
+            //Convert unput stream to a string
             InputStream in = connect.getInputStream();
             String jsonString = IOUtils.toString(in);
+            
+            //convert string to JSON object
             JSONObject marsWeatherData = new JSONObject(jsonString).getJSONObject("report");
-//            System.out.println(marsWeatherData);
+            
+            //call method to set all variables
             currentMarsSetVariables(marsWeatherData);
 
             return new Mars(pressure, windSpeed, temp, temp_min, temp_max, humidity, windDirection, skyState, null);
@@ -330,6 +365,12 @@ public class JSON {
      */
     private void currentMarsSetVariables(JSONObject mars) {
 
+    	/*
+    	 * In this method we check if every variable is null, if it is
+    	 * the average value for mars is returned. If no value is found for 
+    	 * the average it is returned as null or 0 (such as humidity and windspeed)
+    	 */
+    	
         if (!mars.isNull("ls")) {
             temp = mars.getDouble("ls");
         } else {
@@ -351,7 +392,7 @@ public class JSON {
         if (!mars.isNull("atmo_opacity")) {
             skyState = mars.getString("atmo_opacity");
         } else {
-            skyState = "null";
+            skyState = null;
         }
 
         if (!mars.isNull("wind_speed")) {
@@ -369,7 +410,7 @@ public class JSON {
         if (!mars.isNull("wind_direction")) {
             windDirection = mars.getString("wind_direction");
         } else {
-            windDirection = "null";
+            windDirection = "--";
         }
 
         if (!mars.isNull("pressure")) {
@@ -378,8 +419,6 @@ public class JSON {
             pressure = 6;
         }
 
-        //TODO get ICON AND ADD ICON HERE
-        
         
     }
 
@@ -390,11 +429,12 @@ public class JSON {
      * @param main JSONObject containing these fields.
      */
     private void currentMainSetVariables(JSONObject main) {
-        humidity = main.getInt("humidity");
-        pressure = main.getInt("pressure");
-        temp_max = main.getDouble("temp_max");
-        temp_min = main.getDouble("temp_min");
-        temp = main.getDouble("temp");
+        //grab all the variables from the JSON object and store them accordingly
+    	humidity = main.getInt(OWM_HUMIDITY);
+        pressure = main.getInt(OWM_PRESSURE);
+        temp_max = main.getDouble(OWM_TEMP_MAX);
+        temp_min = main.getDouble(OWM_TEMP_MIN);
+        temp = main.getDouble(OWM_TEMP);
     }
 
     /**
@@ -404,11 +444,12 @@ public class JSON {
      * @param main JSONObject containing these fields
      */
     private void shortTermMainSetVariables(JSONObject main) {
-        humidity = main.getInt("humidity");
-        pressure = main.getInt("pressure");
-        temp_max = main.getDouble("temp_max");
-        temp_min = main.getDouble("temp_min");
-        temp = main.getDouble("temp");
+    	//grab all variables from the JSON object
+        humidity = main.getInt(OWM_HUMIDITY);
+        pressure = main.getInt(OWM_PRESSURE);
+        temp_max = main.getDouble(OWM_TEMP_MAX);
+        temp_min = main.getDouble(OWM_TEMP_MIN);
+        temp = main.getDouble(OWM_TEMP);
     }
 
     /**
@@ -417,9 +458,10 @@ public class JSON {
      * @param temperature JSONObject containing temperature data
      */
     private void longTermTempSetVariables(JSONObject temperature) {
-        temp = temperature.getDouble("day");
-        temp_max = temperature.getDouble("max");
-        temp_min = temperature.getDouble("min");
+    	
+        temp = temperature.getDouble(OWM_LONG_DAY);
+        temp_max = temperature.getDouble(OWM_LONG_MAX);
+        temp_min = temperature.getDouble(OWM_LONG_MIN);
     }
 
     /**
@@ -429,47 +471,56 @@ public class JSON {
      * @param weather JSONArray containing all weather fields
      */
     private void currentWeatherSetVariables(JSONArray weather) {
-        JSONObject weatherData = weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
-        weatherDescription = weatherData.getString("description");
-        skyState = weatherData.getString("main");
+    	//weather is always returned as a list, so we obtain the forst JSON object in the list
+        JSONObject weatherData = weather.getJSONObject(0);
+        
+        //Methods to get weather description and sky-state
+        weatherDescription = weatherData.getString(OWM_WEATHER_DESCRIPTION);
+        skyState = weatherData.getString(OWM_MAIN);
 
-        //Uses a URL to grab an ImageIcon, to later be implemented in the data
+        //Uses a URL to grab an ImageIcon from the OWM api
         try {
-            iconURL = new URL(HOST + PATH_ICON + weatherData.getString("icon") + ".png");
+            iconURL = new URL(HOST + PATH_ICON + weatherData.getString(OWM_WEATHER_ICON) + ".png");
             icon = new ImageIcon(iconURL);
         } catch (Exception e) {
+        	icon = null;
         }
 
     }
 
     private void shortTermWeatherSetVariables(JSONArray weather) {
 
-        JSONObject weatherData = weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
-        weatherDescription = weatherData.getString("description");
-        skyState = weatherData.getString("main");
+    	//weather is always returned as a list, so we obtain the forst JSON object in the list
+        JSONObject weatherData = weather.getJSONObject(0);
+        
+        //Methods to get weather description and sky-state
+        weatherDescription = weatherData.getString(OWM_WEATHER_DESCRIPTION);
+        skyState = weatherData.getString(OWM_MAIN);
 
-        //Uses a URL to grab an ImageIcon, to later be implemented in the data
+        //Uses a URL to grab an ImageIcon from the OWM api
         try {
-            iconURL = new URL(HOST + PATH_ICON + weatherData.getString("icon") + ".png");
+            iconURL = new URL(HOST + PATH_ICON + weatherData.getString(OWM_WEATHER_ICON) + ".png");
             icon = new ImageIcon(iconURL);
         } catch (Exception e) {
+        
         }
-
     }
 
     private void longTermWeatherSetVariables(JSONArray weather) {
+    	//weather is always returned as a list, so we obtain the forst JSON object in the list
+        JSONObject weatherData = weather.getJSONObject(0);
+        
+        //Methods to get weather description and sky-state
+        weatherDescription = weatherData.getString(OWM_WEATHER_DESCRIPTION);
+        skyState = weatherData.getString(OWM_MAIN);
 
-        JSONObject weatherData = weather.getJSONObject(0);//easier to represent the current weather as a JSONObject than array
-        weatherDescription = weatherData.getString("description");
-        skyState = weatherData.getString("main");
-
-        //Uses a URL to grab an ImageIcon, to later be implemented in the data
+        //Uses a URL to grab an ImageIcon from the OWM api
         try {
-            iconURL = new URL(HOST + PATH_ICON + weatherData.getString("icon") + ".png");
+            iconURL = new URL(HOST + PATH_ICON + weatherData.getString(OWM_WEATHER_ICON) + ".png");
             icon = new ImageIcon(iconURL);
         } catch (Exception e) {
+        
         }
-
     }
 
     /**
@@ -479,8 +530,8 @@ public class JSON {
      * @param wind JSONObject containing all wind data
      */
     private void currentWindSetVariables(JSONObject wind) {
-        windDirectionDegree = wind.getInt("deg");
-        windSpeed = wind.getDouble("speed");
+        windDirectionDegree = wind.getInt(OWM_WIND_DEGREE);
+        windSpeed = wind.getDouble(OWM_WIND_SPEED);
         String[] direction = {"North", "North-Northeast", "Northeast", "East-Northeast", "East", "East-Southeast", "Southeast", "South-Southeast", "South", "South-Southwest", "Southwest", "West-Southwest", "West", "West-Northwest", "Northwest", "North-Northwest"};
 
         windDirection = direction[(int) ((windDirectionDegree / 22.5) % 16)];
@@ -492,8 +543,10 @@ public class JSON {
      * @param wind JSONObject that conatins all wind variables required.
      */
     private void shortTermWindSetVariables(JSONObject wind) {
-        windDirectionDegree = wind.getInt("deg");
-        windSpeed = wind.getDouble("speed");
+        windDirectionDegree = wind.getInt(OWM_WIND_DEGREE);
+        windSpeed = wind.getDouble(OWM_WIND_SPEED);
+     
+        //method to grab 
         String[] direction = {"North", "North-Northeast", "Northeast", "East-Northeast", "East", "East-Southeast", "Southeast", "South-Southeast", "South", "South-Southwest", "Southwest", "West-Southwest", "West", "West-Northwest", "Northwest", "North-Northwest"};
 
         windDirection = direction[(int) ((windDirectionDegree / 22.5) % 16)];
@@ -505,7 +558,6 @@ public class JSON {
      * @param sun JSONObject for sunrise and sunset data
      */
     private void currentSunTime(JSONObject sun) {
-        //TODO get Billy to change time, sunrise, and sunset fields in current to a calendar instead of int
         sunrise = (GregorianCalendar) GregorianCalendar.getInstance();
         sunset = (GregorianCalendar) GregorianCalendar.getInstance();
 
@@ -514,16 +566,5 @@ public class JSON {
 
     }
 
-    /*
-     public static void main(String[] args) {
-     JSON asdf = new JSON("London,ca");
-     try {
-     asdf.updateLongTermData();
-     } catch (InternalServerError e) {
-     System.out.println(e.getMessage());
-     } catch (NoConnectionException e) {
-     System.out.println(e.getMessage());
-     }
 
-     }*/
 }
