@@ -14,9 +14,13 @@ public class ADO implements java.io.Serializable {
      */
     private int airPressure;
     private double windSpeed;
+    private double displayWindSpeed;
     private double temperature;
+    private double displayTemp;
     private double minTemp;
+    private double displayMinTemp;
     private double maxTemp;
+    private double displayMaxTemp;
     private int humidity;
     private String windDirection;
     private String skyCondition;
@@ -42,9 +46,12 @@ public class ADO implements java.io.Serializable {
      */
     public ADO(double temp, double min, double max, String sky, ImageIcon state) {
         deSerializePreferences();
-        temperature = convertTemp(temp, userPreferences);
-        minTemp = convertTemp(min, userPreferences);
-        maxTemp = convertTemp(max, userPreferences);
+	temperature = temp; //saves default value for temperature
+        displayTemp = convertTemp(temp, userPreferences);
+	minTemp = min; //saves default value for the minimum temperature
+        displayMinTemp = convertTemp(min, userPreferences);
+	maxTemp = max; //saves the default value for the maximum temperature
+        displayMaxTemp = convertTemp(max, userPreferences);
         skyCondition = sky;
         skyState = state;
     }
@@ -62,7 +69,8 @@ public class ADO implements java.io.Serializable {
     public ADO(int air, double wind,int humid, String windDir, String sky, ImageIcon state) {
         deSerializePreferences();
         airPressure = air;
-        windSpeed = convertWind(wind,userPreferences);
+	windSpeed = wind; //saves the default value for the wind speed
+        displayWindSpeed = convertWind(wind,userPreferences);
         humidity = humid;
         windDirection = windDir;
         skyCondition = sky;
@@ -86,10 +94,14 @@ public class ADO implements java.io.Serializable {
     public ADO(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         deSerializePreferences();
         airPressure = air;
-        windSpeed = convertWind(wind,userPreferences);
-        temperature = convertTemp(temp, userPreferences);
-        minTemp = convertTemp(min, userPreferences);
-        maxTemp = convertTemp(max, userPreferences);
+	windSpeed = wind;//saves default value for temperature
+        displayWindSpeed = convertWind(wind,userPreferences);
+       	temperature = temp; //saves default value for temperature
+        displayTemp = convertTemp(temp, userPreferences);
+	minTemp = min; //saves default value for the minimum temperature
+        displayMinTemp = convertTemp(min, userPreferences);
+	maxTemp = max; //saves the default value for the maximum temperature
+        displayMaxTemp = convertTemp(max, userPreferences);
         humidity = humid;
         windDirection = windDir;
         skyCondition = sky;
@@ -120,16 +132,24 @@ public class ADO implements java.io.Serializable {
      * @return The wind speed of the abstract data object
      */
     public double getWindSpeed() {
-        return windSpeed;
+        return displayWindSpeed;
     }
 
+    /**
+     * Sets the current wind speed based off of a change in units from user preferences
+     */
+     public void setWindUnits()
+     {
+    	 displayWindSpeed = convertWind(windSpeed, userPreferences);
+     }
     /**
      * This method sets the wind speed for the abstract data object
      *
      * @param wind the wind speed value to be set
      */
     public void setWindSpeed(double wind) {
-        windSpeed = convertWind(wind,userPreferences);
+    	windSpeed = wind;
+        displayWindSpeed = convertWind(wind,userPreferences);
     }
 
     /**
@@ -138,16 +158,23 @@ public class ADO implements java.io.Serializable {
      * @return The temperature of the data object
      */
     public double getTemperature() {
-        return temperature;
+        return displayTemp;
     }
-
+   /**
+     * Sets the current temperature based off of a chang in units from user preferences
+     */
+    public void setTempUnits()
+    {
+    	displayTemp = convertTemp(temperature,userPreferences);
+    }
     /**
      * This method sets the current temperature for the abstract data object
      *
      * @param temp the temperature value to be set
      */
     public void setTemperature(double temp) {
-        temperature = convertTemp(temp, userPreferences);
+    	temperature = temp;
+        displayTemp = convertTemp(temp, userPreferences);
     }
 
     /**
@@ -156,7 +183,7 @@ public class ADO implements java.io.Serializable {
      * @return The minimum temperature for the abstract data object
      */
     public double getMinTemp() {
-        return minTemp;
+        return displayMinTemp;
     }
 
     /**
@@ -165,16 +192,23 @@ public class ADO implements java.io.Serializable {
      * @param min the minimum temperature value to be set
      */
     public void setMinTemp(double min) {
-        minTemp = convertTemp(min, userPreferences);
+    	minTemp = min;
+        displayMinTemp = convertTemp(min, userPreferences);
     }
-
+     /**
+     * Sets the current minimum temperature based off of a change in units from user preferences
+     */
+    public void setMinTempUnits()
+    {
+    	displayMinTemp = convertTemp(minTemp,userPreferences);
+    }
     /**
      * Returns max temperature of data object
      *
      * @return The max temperature of the abstract data object
      */
     public double getMaxTemp() {
-        return maxTemp;
+        return displayMaxTemp;
     }
 
     /**
@@ -184,9 +218,16 @@ public class ADO implements java.io.Serializable {
      * @param max the maximum temperature value to be set
      */
     public void setMaxTemp(double max) {
-        maxTemp = convertTemp(max, userPreferences);
+    	maxTemp = max;
+        displayMaxTemp = convertTemp(max, userPreferences);
     }
-
+     /**
+     * Sets the current maximum temperature based off of a change in units from user preferences
+     */
+    public void setMaxTempUnits()
+    {
+    	displayMaxTemp = convertTemp(maxTemp,userPreferences);
+    }
     /**
      * Returns the humidity of data object
      *

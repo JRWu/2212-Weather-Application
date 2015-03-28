@@ -14,6 +14,11 @@ public class Mars extends ADO {
 	 * Instance variables
 	 */
 	private double temperature;
+	private double displayTemp;
+	private double minTemp;
+	private double displayMinTemp;
+	private double maxTemp;
+	private double displayMaxTemp;
 	private String preferences;
 	/**
 	 * Default constructor for Mars
@@ -34,7 +39,7 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind, humid, windDir, sky, state);
-	preferences = super.getPreferences();
+        preferences = super.getPreferences();
         temperature = convertTemp(temp, preferences);
     }
 
@@ -43,8 +48,13 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind,humid, windDir, sky, state);
-	preferences = super.getPreferences();
-	temperature = convertTemp(temp, preferences);
+        preferences = super.getPreferences();
+        temperature = temp;
+        displayTemp = convertTemp(temp, preferences);
+        minTemp = min;
+        displayMinTemp = convertTemp(min,preferences);
+        maxTemp = max;
+        displayMaxTemp = convertTemp(max,preferences);
     }
     /**
      * Returns value of temperature of the object
@@ -52,16 +62,75 @@ public class Mars extends ADO {
      * @return The temperature of the data object
      */
     public double getTemperature() {
-        return temperature;
+        return displayTemp;
     }
-
+   /**
+     * Sets the current temperature based off of a change in units from user preferences
+     */
+    public void setTempUnits()
+    {
+    	displayTemp = convertTemp(temperature, preferences);
+    }
     /**
      * This method sets the current temperature for the abstract data object
      *
      * @param temp the temperature value to be set
      */
     public void setTemperature(double temp) {
-        temperature = convertTemp(temp, preferences);
+    	temperature = temp;
+        displayTemp = convertTemp(temp, preferences);
+    }
+
+    /**
+     * Returns the minimum temperature of data object
+     *
+     * @return The minimum temperature for the abstract data object
+     */
+    public double getMinTemp() {
+        return displayMinTemp;
+    }
+
+    /**
+     * This method sets the minimum temperature for the abstract data object
+     *
+     * @param min the minimum temperature value to be set
+     */
+    public void setMinTemp(double min) {
+    	minTemp = min;
+        displayMinTemp = convertTemp(min, preferences);
+    }
+     /**
+     * Sets the current minimum temperature based off of a change in units from user preferences
+     */
+    public void setMinTempUnits()
+    {
+    	displayMinTemp = convertTemp(minTemp,preferences);
+    }
+    /**
+     * Returns max temperature of data object
+     *
+     * @return The max temperature of the abstract data object
+     */
+    public double getMaxTemp() {
+        return displayMaxTemp;
+    }
+
+    /**
+     * This method sets the maximum temperature value for the abstract data
+     * object
+     *
+     * @param max the maximum temperature value to be set
+     */
+    public void setMaxTemp(double max) {
+    	maxTemp = max;
+        displayMaxTemp = convertTemp(max, preferences);
+    }
+     /**
+     * Sets the current maximum temperature based off of a change in units from user preferences
+     */
+    public void setMaxTempUnits()
+    {
+    	displayMaxTemp = convertTemp(maxTemp,preferences);
     }
     
 /**
