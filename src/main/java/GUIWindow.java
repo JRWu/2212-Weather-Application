@@ -2189,6 +2189,37 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void refreshUnits()
     {
+    	//updates long term forecast
+    	for (int i = 0; i < 5; i++)
+    	{
+    		Daily temp = weatherLT.getDaily(i);
+    		temp.setTempUnits();
+    		temp.setMinTempUnits();
+    		temp.setMaxTempUnits();
+    		weatherLT.setDaily(temp, i);
+    	}
+    	//updates short term forecast
+    	for (int i=0; i < 8; i++)
+    	{
+    		Hourly temp = weatherST.getHourly(i);
+    		temp.setTempUnits();
+    		temp.setMinTempUnits();
+    		temp.setMaxTempUnits();
+    		temp.setWindUnits();
+    		weatherST.setHourly(temp, i);
+    	}
+    	//updates the mars forecast
+    		mars.setTempUnits();
+    		mars.setMinTempUnits();
+    		mars.setMaxTempUnits();
+    		mars.setWindUnits();
+    	//updates current forecast
+    		currentObj.setTempUnits();
+    		currentObj.setMinTempUnits();
+    		currentObj.setMaxTempUnits();
+    		currentObj.setWindUnits();
+    		
+    	
         // Prototype:
         // weatherST, weatherLT, currentObj units ALL need to be converted
         // i.e. weatherST.getHourly(0).convertTemp(weatherST.getHourly(0).getTemp(), preferences);

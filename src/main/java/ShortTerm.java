@@ -50,6 +50,15 @@ public class ShortTerm implements java.io.Serializable {
      * @param i index of shortTerm array; method returns object at array index i
      */
     public Hourly getHourly(int i) {
-        return shortTerm[i];
+       return shortTerm[i];
+    }
+    
+    /**
+     * This method sets an hourly object at a specficed index in the short term array
+     * @param hour the hour to be set
+     * @param i the index at which the hour will be set
+     */
+    public void setHourly(Hourly hour, int i) {
+    	shortTerm[i] = hour;
     }
 }

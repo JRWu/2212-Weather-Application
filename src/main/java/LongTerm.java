@@ -52,4 +52,14 @@ public class LongTerm implements java.io.Serializable {
     public Daily getDaily(int i) {
         return longTerm[i];
     }
+    
+    /**
+     * This method sets a daily object at a specified location in the long term array
+     * @param day the day to be set
+     * @param i the index at which the day will be set
+     */
+    public void setDaily(Daily day, int i)
+    {
+    	longTerm[i] = day;
+    }
 }
