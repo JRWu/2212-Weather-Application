@@ -1965,6 +1965,8 @@ public class GUIWindow extends javax.swing.JFrame {
         windDirectionFieldMARS.setText(mars.getWindDirection());
         humidityFieldMARS.setText(String.valueOf(mars.getHumidity()) + "%");
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
+        maxTempHeaderMars.setText("Max: " + String.valueOf(mars.getMaxTemp() + preferences.getTemperatureUnit()));
+        minTempHeaderMars.setText("Min: " + String.valueOf(mars.getMinTemp() + preferences.getTemperatureUnit()));
     }
 
     /**
