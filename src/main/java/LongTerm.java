@@ -14,8 +14,17 @@ public class LongTerm implements java.io.Serializable {
      */
     private Daily[] longTerm;
 
+    
+    
     /**
-     * Constructor for the short term forecast
+     * Default constructor for long-term forecast
+     */
+    LongTerm() {
+        super();
+    }
+    
+    /**
+     * Constructor for the long term forecast
      *
      * @param days the array for the long term forecast
      */

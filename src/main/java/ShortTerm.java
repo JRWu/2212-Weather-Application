@@ -14,6 +14,14 @@ public class ShortTerm implements java.io.Serializable {
      */
     private Hourly[] shortTerm;
 
+    
+    /**
+     * Default constructor for long-term forecast
+     */
+    ShortTerm() {
+        super();
+    }
+        
     /**
      * Constructor for the short term forecast
      *

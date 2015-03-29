@@ -1,8 +1,10 @@
 
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,28 +28,39 @@ import static org.json.JSONObject.NULL;
 public class GUIWindow extends javax.swing.JFrame {
 
     // Attributes
-    private SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm:ss a");
-    private String location = "London,Ca";          // Default Location
-    private JSON jsonObj = new JSON(location);      // Current data for London,Ca
+    private SimpleDateFormat timeFormat;
+    private String location;          
+    private JSON jsonObj;               // Current data for London,Ca
 
-    // NEED TRY CATCH HERE WHEN TONY IMPLEMENTS it
-    private Time currentTime = new Time(System.currentTimeMillis());    // Last updated time
-    private boolean isValid = false;         // Represents if the query is valid or not
+    private Time currentTime;           // Last updated time
+    private boolean isValid;            // Represents if a query is valid or not
 
     // Data structures for each panel
-    private Current currentObj = new Current();// = jsonObj.updateCurrentWeatherData();    // Query Server
+    private Current currentObj;
     private ShortTerm weatherST;
     private LongTerm weatherLT;
     private Mars mars;
 
-    private UserPreferences preferences = new UserPreferences();
+    private UserPreferences preferences;
 
     /**
      * Creates new form GUIWindow that represents the container for information
      */
     public GUIWindow() {
+        timeFormat = new SimpleDateFormat("h:mm:ss a"); // Hour:Min:Sec: AM/PM
+        currentTime = new Time(System.currentTimeMillis());
+        location = "London, Ca";    // Default Location
+        jsonObj = new JSON(location);
+        isValid = false;
+        
+        currentObj = new Current();
+        weatherST = new ShortTerm();
+        weatherLT = new LongTerm();
+        mars = new Mars();
+        preferences = new UserPreferences();
+
         initComponents();   // Sets the default fields for each weather panel
-        clearCurrent();
+        invalidateData();   // Sets all fields to invalid and default text look
         initTabs();         // Sets the default size for tabs for Current, ST, LT, and Mars
         initIcons();        // Sets the default sunrise/sunset icons
     }
@@ -1450,30 +1463,54 @@ public class GUIWindow extends javax.swing.JFrame {
         refreshApp();
     }//GEN-LAST:event_refreshButtonActionPerformed
 
+    
+    
     private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
-
+        
         preferences.setUserPreferences("M");
-        currentObj.serializePreferences("M");
         if (isValid) {
-            refreshApp();   // Call refresh units here instead
+        currentObj.serializePreferences("M");
+        for (int i = 0; i < 8; i++) {
+            weatherST.getHourly(i).serializePreferences("M");
+            if (i < 5) {
+                weatherLT.getDaily(i).serializePreferences("M");
+            }
+        }
+
+            refreshData();   // Call refresh units here instead
+//            currentObj.set
         }
     }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
 
     private void preferencesImperialCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesImperialCheckboxActionPerformed
 
         preferences.setUserPreferences("I");
+    if (isValid) {
         currentObj.serializePreferences("I");
-        if (isValid) {
-            refreshApp();   // Call referesh units here instead
+        for (int i = 0; i < 8; i++) {
+            weatherST.getHourly(i).serializePreferences("I");
+            if (i < 5) {
+                weatherLT.getDaily(i).serializePreferences("I");
+            }
+        }
+        
+            refreshData();   // Call referesh units here instead
         }
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
 
     private void preferencesSICheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesSICheckboxActionPerformed
 
         preferences.setUserPreferences("S");
+    if (isValid) {        
         currentObj.serializePreferences("S");
-        if (isValid) {
-            refreshApp();   // Call refresh units here instead
+        for (int i = 0; i < 8; i++) {
+            weatherST.getHourly(i).serializePreferences("S");
+            if (i < 5) {
+                weatherLT.getDaily(i).serializePreferences("S");
+            }
+        }
+        
+            refreshData();   // Call refresh units here instead
         }
     }//GEN-LAST:event_preferencesSICheckboxActionPerformed
 
@@ -1696,6 +1733,58 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
+    private void showCurrentData() {
+        currentLocation.setText(location);
+        temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());
+        windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + preferences.getSpeedUni());
+        windDirectionField.setText(currentObj.getWindDirection());
+        airPressureField.setText(String.valueOf(currentObj.getAirPressure()) + preferences.getPressureUnit());
+        humidityField.setText(String.valueOf(currentObj.getHumidity()) + "%");
+        skyConditionField.setText(currentObj.getSkyCondition());
+        maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + preferences.getTemperatureUnit());
+        minTempHeader.setText(String.valueOf("Min(Low): " + currentObj.getMinTemp()) + preferences.getTemperatureUnit());
+
+        ImageIcon skyState = currentObj.getCondition();
+        skyStateIconC.setIcon(currentObj.getCondition());
+
+        try {
+            URL url = new URL(currentObj.getCondition().toString()); //Resize image icon based on URL
+            Image img = ImageIO.read(url);
+            Image resizedSkyState = img.getScaledInstance(140, 140, 0);
+            skyStateIconC.setIcon(new ImageIcon(resizedSkyState));
+
+        } catch (MalformedURLException ex) {
+
+            notifyNoConnection();
+
+        } catch (IOException ex) {
+
+            notifyNoConnection();
+
+        }
+        String[] amP = {"AM", "PM"};
+
+        GregorianCalendar cal = currentObj.getSunRise();    // Create a sunrise calendar object
+        int h = cal.get(GregorianCalendar.HOUR);            // Hour of sunset
+        int m = cal.get(GregorianCalendar.MINUTE);          // Minute of sunset
+        int amPm = cal.get(GregorianCalendar.AM_PM);        // Get AM or PM
+
+        if (m / 10 == 0) // If the value returned is < 10 minutes, need to add 0 as a filler.
+        {
+            sunriseField.setText(String.valueOf(h) + ":0" + String.valueOf(m) + amP[amPm]);
+        } else {
+            sunriseField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
+        }
+
+        cal = currentObj.getSunSet();
+        h = cal.get(GregorianCalendar.HOUR);                // Create sunset calendar object
+        m = cal.get(GregorianCalendar.MINUTE);              // Hour of sunset
+        amPm = cal.get(GregorianCalendar.AM_PM);            // Munute of sunset
+        sunsetField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
+
+        lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));    // Update time label
+    }
+
     /**
      * updateCurrentTab is called by an action-listener and upates the current
      * weather view's information
@@ -1723,77 +1812,18 @@ public class GUIWindow extends javax.swing.JFrame {
 
             }
 
-            currentLocation.setText(location);
-            temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());
-            windSpeedField.setText(String.valueOf(currentObj.getWindSpeed()) + preferences.getSpeedUni());
-            windDirectionField.setText(currentObj.getWindDirection());
-            airPressureField.setText(String.valueOf(currentObj.getAirPressure()) + preferences.getPressureUnit());
-            humidityField.setText(String.valueOf(currentObj.getHumidity()) + "%");
-            skyConditionField.setText(currentObj.getSkyCondition());
-            maxTempHeader.setText(String.valueOf("Max(High): " + currentObj.getMaxTemp()) + preferences.getTemperatureUnit());
-            minTempHeader.setText(String.valueOf("Min(Low): " + currentObj.getMinTemp()) + preferences.getTemperatureUnit());
-
-            ImageIcon skyState = currentObj.getCondition();
-            skyStateIconC.setIcon(currentObj.getCondition());
-
-            try {
-                URL url = new URL(currentObj.getCondition().toString()); //Resize image icon based on URL
-                Image img = ImageIO.read(url);
-                Image resizedSkyState = img.getScaledInstance(140, 140, 0);
-                skyStateIconC.setIcon(new ImageIcon(resizedSkyState));
-
-            } catch (MalformedURLException ex) {
-//                System.out.println(ex);
-//                ex.printStackTrace();
-                notifyNoConnection();
-
-            } catch (IOException ex) {
-                System.out.println(ex);
-                ex.printStackTrace();
-
-            }
-            String[] amP = {"AM", "PM"};
-
-            GregorianCalendar cal = currentObj.getSunRise();    // Create a sunrise calendar object
-            int h = cal.get(GregorianCalendar.HOUR);            // Hour of sunset
-            int m = cal.get(GregorianCalendar.MINUTE);          // Minute of sunset
-            int amPm = cal.get(GregorianCalendar.AM_PM);        // Get AM or PM
-            sunriseField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
-
-            cal = currentObj.getSunSet();
-            h = cal.get(GregorianCalendar.HOUR);                // Create sunset calendar object
-            m = cal.get(GregorianCalendar.MINUTE);              // Hour of sunset
-            amPm = cal.get(GregorianCalendar.AM_PM);            // Munute of sunset
-            sunsetField.setText(String.valueOf(h) + ":" + String.valueOf(m) + amP[amPm]);
-
-            lastUpdatedTimeLabel.setText("Updated: " + String.valueOf(currentTime));    // Update time label
+            showCurrentData();
         }
     }
 
     /**
-     * updateShortTermTab refreshes the weather data in the Short Term Tab
+     * showShortTermDAta shows the Short Term data in the shortTermTab Displays
+     * the numbers.
      *
      * @return void
      */
-    private void updateShortTermTab() {
-
-        try {
-            weatherST = jsonObj.updateShortTermData();  // Update the data
-        } catch (NoConnectionException ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
-
-            notifyNoConnection();
-
-        } catch (InternalServerError ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
-
-            promptQueryAgain();
-        } catch (BadLocationException ex) {
-            notifyBadLocation();
-        }
-        if (jsonObj != null) {
+    private void showShortTermData() {
+        if (weatherST != null) {
             currentLocationST.setText(location);
 
             conditionLabelEight.setText(weatherST.getHourly(7).getSkyCondition());
@@ -1833,8 +1863,113 @@ public class GUIWindow extends javax.swing.JFrame {
             shortTermTimeLabelEight.setText(String.valueOf(weatherST.getHourly(7).getHour()) + ":00");
 
             lastUpdatedTimeLabelST.setText("Updated: " + String.valueOf(currentTime));
-
         }
+    }
+
+    /**
+     * updateShortTermTab refreshes the weather data in the Short Term Tab
+     * Attempts to pull data from the server. Calls separate function to display
+     * the data.
+     *
+     * @return void
+     */
+    private void updateShortTermTab() {
+
+        try {
+            weatherST = jsonObj.updateShortTermData();  // Update the data
+        } catch (NoConnectionException ex) {
+//            System.out.println(ex);
+//            ex.printStackTrace();
+
+            notifyNoConnection();
+
+        } catch (InternalServerError ex) {
+//            System.out.println(ex);
+//            ex.printStackTrace();
+
+            promptQueryAgain();
+        } catch (BadLocationException ex) {
+            notifyBadLocation();
+        }
+        showShortTermData();
+    }
+
+    private void showLongTermData() {
+        longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
+        longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
+        longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()) + preferences.getTemperatureUnit());
+        longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()) + preferences.getTemperatureUnit());
+        longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()) + preferences.getTemperatureUnit());
+
+        // Sky State Condition
+        longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
+        longTermConditionTwo.setText(weatherLT.getDaily(1).getSkyCondition());
+        longTermConditionThree.setText(weatherLT.getDaily(2).getSkyCondition());
+        longTermConditionFour.setText(weatherLT.getDaily(3).getSkyCondition());
+        longTermConditionFive.setText(weatherLT.getDaily(4).getSkyCondition());
+
+        // Icon resizing function
+        try {
+            URL url = new URL(weatherLT.getDaily(0).getCondition().toString());
+            Image img = ImageIO.read(url);
+            Image resizedSkyState = img.getScaledInstance(140, 140, 0);
+            longTermSkyStateOne.setIcon(new ImageIcon(resizedSkyState));
+
+            url = new URL(weatherLT.getDaily(1).getCondition().toString());
+            img = ImageIO.read(url);
+            resizedSkyState = img.getScaledInstance(140, 140, 0);
+            longTermSkyStateTwo.setIcon(new ImageIcon(resizedSkyState));
+
+            url = new URL(weatherLT.getDaily(2).getCondition().toString());
+            img = ImageIO.read(url);
+            resizedSkyState = img.getScaledInstance(140, 140, 0);
+            longTermSkyStateThree.setIcon(new ImageIcon(resizedSkyState));
+
+            url = new URL(weatherLT.getDaily(3).getCondition().toString());
+            img = ImageIO.read(url);
+            resizedSkyState = img.getScaledInstance(140, 140, 0);
+            longTermSkyStateFour.setIcon(new ImageIcon(resizedSkyState));
+
+            url = new URL(weatherLT.getDaily(4).getCondition().toString());
+            img = ImageIO.read(url);
+            resizedSkyState = img.getScaledInstance(140, 140, 0);
+            longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
+        } catch (MalformedURLException ex) {
+//                System.out.println(ex);
+//                ex.printStackTrace();
+
+        } catch (IOException ex) {
+//                System.out.println(ex);
+//                ex.printStackTrace();
+
+        } catch (java.lang.NullPointerException ex) {
+
+//                System.out.println("Catching");
+            updateLongTermTab();    // Exception comes from JSON- query again to elminate it
+        }
+
+        // Maximum Temp Updating
+        longTermTempHighOne.setText(String.valueOf("H: " + weatherLT.getDaily(0).getMaxTemp()) + preferences.getTemperatureUnit());
+        longTermTempHighTwo.setText(String.valueOf("H: " + weatherLT.getDaily(1).getMaxTemp()) + preferences.getTemperatureUnit());
+        longTermTempHighThree.setText(String.valueOf("H: " + weatherLT.getDaily(2).getMaxTemp()) + preferences.getTemperatureUnit());
+        longTermTempHighFour.setText(String.valueOf("H: " + weatherLT.getDaily(3).getMaxTemp()) + preferences.getTemperatureUnit());
+        longTermTempHighFive.setText(String.valueOf("H: " + weatherLT.getDaily(4).getMaxTemp()) + preferences.getTemperatureUnit());
+
+        // Minimum Temp Updating
+        longTermTempLowOne.setText(String.valueOf("L: " + weatherLT.getDaily(0).getMinTemp()) + preferences.getTemperatureUnit());
+        longTermTempLowTwo.setText(String.valueOf("L: " + weatherLT.getDaily(1).getMinTemp()) + preferences.getTemperatureUnit());
+        longTermTempLowThree.setText(String.valueOf("L: " + weatherLT.getDaily(2).getMinTemp()) + preferences.getTemperatureUnit());
+        longTermTempLowFour.setText(String.valueOf("L: " + weatherLT.getDaily(3).getMinTemp()) + preferences.getTemperatureUnit());
+        longTermTempLowFive.setText(String.valueOf("L: " + weatherLT.getDaily(4).getMinTemp()) + preferences.getTemperatureUnit());
+
+        // 24 Hour time updating
+        longTermDateOne.setText(weatherLT.getDaily(0).getDay());
+        longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
+        longTermDateThree.setText(weatherLT.getDaily(2).getDay());
+        longTermDateFour.setText(weatherLT.getDaily(3).getDay());
+        longTermDateFive.setText(weatherLT.getDaily(4).getDay());
+
+        lastUpdatedTimeLabelLT.setText("Updated: " + String.valueOf(currentTime));
     }
 
     /**
@@ -1851,82 +1986,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
             // NOT PREFERENCES
             // Main Temperature Updating
-            longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
-            longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
-            longTermTempThree.setText(String.valueOf(weatherLT.getDaily(2).getTemperature()) + preferences.getTemperatureUnit());
-            longTermTempFour.setText(String.valueOf(weatherLT.getDaily(3).getTemperature()) + preferences.getTemperatureUnit());
-            longTermTempFive.setText(String.valueOf(weatherLT.getDaily(4).getTemperature()) + preferences.getTemperatureUnit());
-
-            // Sky State Condition
-            longTermConditionOne.setText(weatherLT.getDaily(0).getSkyCondition());
-            longTermConditionTwo.setText(weatherLT.getDaily(1).getSkyCondition());
-            longTermConditionThree.setText(weatherLT.getDaily(2).getSkyCondition());
-            longTermConditionFour.setText(weatherLT.getDaily(3).getSkyCondition());
-            longTermConditionFive.setText(weatherLT.getDaily(4).getSkyCondition());
-
-            // Icon resizing function
-            try {
-                URL url = new URL(weatherLT.getDaily(0).getCondition().toString());
-                Image img = ImageIO.read(url);
-                Image resizedSkyState = img.getScaledInstance(140, 140, 0);
-                longTermSkyStateOne.setIcon(new ImageIcon(resizedSkyState));
-
-                url = new URL(weatherLT.getDaily(1).getCondition().toString());
-                img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140, 140, 0);
-                longTermSkyStateTwo.setIcon(new ImageIcon(resizedSkyState));
-
-                url = new URL(weatherLT.getDaily(2).getCondition().toString());
-                img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140, 140, 0);
-                longTermSkyStateThree.setIcon(new ImageIcon(resizedSkyState));
-
-                url = new URL(weatherLT.getDaily(3).getCondition().toString());
-                img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140, 140, 0);
-                longTermSkyStateFour.setIcon(new ImageIcon(resizedSkyState));
-
-                url = new URL(weatherLT.getDaily(4).getCondition().toString());
-                img = ImageIO.read(url);
-                resizedSkyState = img.getScaledInstance(140, 140, 0);
-                longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
-            } catch (MalformedURLException ex) {
-//                System.out.println(ex);
-//                ex.printStackTrace();
-
-            } catch (IOException ex) {
-//                System.out.println(ex);
-//                ex.printStackTrace();
-
-            } catch (java.lang.NullPointerException ex) {
-
-//                System.out.println("Catching");
-                updateLongTermTab();    // Exception comes from JSON- query again to elminate it
-            }
-
-            // Maximum Temp Updating
-            longTermTempHighOne.setText(String.valueOf("H: " + weatherLT.getDaily(0).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighTwo.setText(String.valueOf("H: " + weatherLT.getDaily(1).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighThree.setText(String.valueOf("H: " + weatherLT.getDaily(2).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighFour.setText(String.valueOf("H: " + weatherLT.getDaily(3).getMaxTemp()) + preferences.getTemperatureUnit());
-            longTermTempHighFive.setText(String.valueOf("H: " + weatherLT.getDaily(4).getMaxTemp()) + preferences.getTemperatureUnit());
-
-            // Minimum Temp Updating
-            longTermTempLowOne.setText(String.valueOf("L: " + weatherLT.getDaily(0).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowTwo.setText(String.valueOf("L: " + weatherLT.getDaily(1).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowThree.setText(String.valueOf("L: " + weatherLT.getDaily(2).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowFour.setText(String.valueOf("L: " + weatherLT.getDaily(3).getMinTemp()) + preferences.getTemperatureUnit());
-            longTermTempLowFive.setText(String.valueOf("L: " + weatherLT.getDaily(4).getMinTemp()) + preferences.getTemperatureUnit());
-
-            // 24 Hour time updating
-            longTermDateOne.setText(weatherLT.getDaily(0).getDay());
-            longTermDateTwo.setText(weatherLT.getDaily(1).getDay());
-            longTermDateThree.setText(weatherLT.getDaily(2).getDay());
-            longTermDateFour.setText(weatherLT.getDaily(3).getDay());
-            longTermDateFive.setText(weatherLT.getDaily(4).getDay());
-            
-            
-            lastUpdatedTimeLabelLT.setText("Updated: " + String.valueOf(currentTime));
+            showLongTermData();
 
         } catch (NoConnectionException ex) {
 //            System.out.println(ex);
@@ -1936,16 +1996,16 @@ public class GUIWindow extends javax.swing.JFrame {
 
         } catch (InternalServerError ex) {
             promptQueryAgain();
-            
+
         } catch (java.lang.NullPointerException ex) {
 
             System.out.println(ex);
             ex.printStackTrace();
 //                updateLongTermTab();    // Exception comes from JSON- query again to elminate it (Possible infinite loop)
             invalidateData();
-            
+
         } catch (BadLocationException ex) {
-            
+
             notifyBadLocation();
         }
 
@@ -1967,6 +2027,22 @@ public class GUIWindow extends javax.swing.JFrame {
         airPressureFieldMARS.setText(String.valueOf(mars.getAirPressure()) + preferences.getPressureUnit());
         maxTempHeaderMars.setText("Max: " + String.valueOf(mars.getMaxTemp() + preferences.getTemperatureUnit()));
         minTempHeaderMars.setText("Min: " + String.valueOf(mars.getMinTemp() + preferences.getTemperatureUnit()));
+
+        try {
+            Image mC;
+            if (mars.getCondition() == null) {
+                mC = ImageIO.read(GUIWindow.class.getResource("mars_cloudy.png"));
+            } else {
+                mC = ImageIO.read(GUIWindow.class.getResource("mars_sunny.png"));
+            }
+            Image resizedmC = mC.getScaledInstance(140, 140, 0);
+            marsSkyStateIcon.setIcon(new ImageIcon(resizedmC));
+
+        } catch (IOException ex) {
+            Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Could not load image.");
+        }
+
     }
 
     /**
@@ -2091,6 +2167,7 @@ public class GUIWindow extends javax.swing.JFrame {
     /**
      * initTabs sets the default labels and size of the tab options in the GUI
      * Sets the Rover icon image over the MARS tab
+     *
      * @return void
      */
     private void initTabs() {
@@ -2117,7 +2194,9 @@ public class GUIWindow extends javax.swing.JFrame {
 
     /**
      * refreshApp will redraw ALL displays utilizes a flag to indicate if query
-     * it's refreshing for is valid or not
+     * it's refreshing for is valid or not Pulls data from server.
+     *
+     * @return void
      */
     private void refreshApp() {
         if (isValid) // Data is valid
@@ -2130,6 +2209,21 @@ public class GUIWindow extends javax.swing.JFrame {
         } else // Data is invalid
         {
             notifyBadLocation();
+        }
+    }
+
+    /**
+     * refreshData is a helper function to update the text displays on their
+     * respective tabs Units are recalculated based on user preferences.
+     *
+     * @return void
+     */
+    private void refreshData() {
+        if (isValid) {
+            refreshUnits();
+            showShortTermData();
+            showCurrentData();
+            showLongTermData();
         }
     }
 
@@ -2179,67 +2273,53 @@ public class GUIWindow extends javax.swing.JFrame {
         isValid = false;
     }
 
-    
-    
     /**
-     * refreshUnits() will be called when the user selects a different type of 
-     * unit from the preferences menu.
-     * Is responsible for converting the units of ALL objects
-     * Will also be called when updateCurrentTab, updateLongTermTab, updateShortTermTab
-     * are called- in order to display the data.
+     * refreshUnits() will be called when the user selects a different type of
+     * unit from the preferences menu. Is responsible for converting the units
+     * of ALL objects Will also be called when updateCurrentTab,
+     * updateLongTermTab, updateShortTermTab are called- in order to display the
+     * data.
+     *
      * @return void
      */
-    private void refreshUnits()
-    {
-    	//updates long term forecast
-    	for (int i = 0; i < 5; i++)
-    	{
-    		Daily temp = weatherLT.getDaily(i);
-    		temp.setTempUnits();
-    		temp.setMinTempUnits();
-    		temp.setMaxTempUnits();
-    		weatherLT.setDaily(temp, i);
-    	}
-    	//updates short term forecast
-    	for (int i=0; i < 8; i++)
-    	{
-    		Hourly temp = weatherST.getHourly(i);
-    		temp.setTempUnits();
-    		temp.setMinTempUnits();
-    		temp.setMaxTempUnits();
-    		temp.setWindUnits();
-    		weatherST.setHourly(temp, i);
-    	}
-    	//updates the mars forecast
-    		mars.setTempUnits();
-    		mars.setMinTempUnits();
-    		mars.setMaxTempUnits();
-    		mars.setWindUnits();
-    	//updates current forecast
-    		currentObj.setTempUnits();
-    		currentObj.setMinTempUnits();
-    		currentObj.setMaxTempUnits();
-    		currentObj.setWindUnits();
-    		
-    	
+    private void refreshUnits() {
+        //updates long term forecast
+        for (int i = 0; i < 5; i++) {
+            Daily temp = weatherLT.getDaily(i);
+            temp.setTempUnits();
+            temp.setMinTempUnits();
+            temp.setMaxTempUnits();
+            weatherLT.setDaily(temp, i);
+        }
+        //updates short term forecast
+        for (int i = 0; i < 8; i++) {
+            Hourly temp = weatherST.getHourly(i);
+            temp.setTempUnits();
+            System.out.println("T: " + String.valueOf(temp.getTemperature()));
+            temp.setMinTempUnits();
+            temp.setMaxTempUnits();
+            temp.setWindUnits();
+            weatherST.setHourly(temp, i);
+        }
+        //updates the mars forecast
+        try {
+            mars.setTempUnits();
+            mars.setMinTempUnits();
+            mars.setMaxTempUnits();
+            mars.setWindUnits();
+        } catch (java.lang.NullPointerException ex) {
+
+        }
+        //updates current forecast
+        currentObj.setTempUnits();
+        currentObj.setMinTempUnits();
+        currentObj.setMaxTempUnits();
+        currentObj.setWindUnits();
+
         // Prototype:
         // weatherST, weatherLT, currentObj units ALL need to be converted
         // i.e. weatherST.getHourly(0).convertTemp(weatherST.getHourly(0).getTemp(), preferences);
-        
-        
         // ADD CODE HERE
-        
-        
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }
