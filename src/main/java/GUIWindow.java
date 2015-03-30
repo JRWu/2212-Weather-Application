@@ -192,7 +192,6 @@ public class GUIWindow extends javax.swing.JFrame {
         currentLocationLT1 = new javax.swing.JLabel();
         marsSkyStateIcon = new javax.swing.JLabel();
         lastUpdatedTimeLabelMARS = new javax.swing.JLabel();
-        marsTempField = new javax.swing.JLabel();
         windSpeedHeaderMARS = new javax.swing.JLabel();
         windSpeedFieldMARS = new javax.swing.JLabel();
         windDirectionFieldMARS = new javax.swing.JLabel();
@@ -1160,13 +1159,6 @@ public class GUIWindow extends javax.swing.JFrame {
             lastUpdatedTimeLabelMARS.setForeground(new java.awt.Color(0, 0, 0));
             lastUpdatedTimeLabelMARS.setText("Updated:   ");
 
-            marsTempField.setFont(new java.awt.Font("Ubuntu", 0, 48)); // NOI18N
-            marsTempField.setText("\"\"");
-            marsTempField.setBorder(null);
-            marsTempField.setMaximumSize(new java.awt.Dimension(176, 58));
-            marsTempField.setMinimumSize(new java.awt.Dimension(176, 58));
-            marsTempField.setPreferredSize(new java.awt.Dimension(176, 58));
-
             windSpeedHeaderMARS.setFont(new java.awt.Font("Ubuntu", 0, 25)); // NOI18N
             windSpeedHeaderMARS.setText("WindSpeed");
 
@@ -1191,12 +1183,14 @@ public class GUIWindow extends javax.swing.JFrame {
             humidityFieldMARS.setFont(new java.awt.Font("Ubuntu", 0, 20)); // NOI18N
             humidityFieldMARS.setText("- %");
 
+            maxTempHeaderMars.setFont(new java.awt.Font("Ubuntu", 0, 30)); // NOI18N
             maxTempHeaderMars.setText("Max(High):");
             maxTempHeaderMars.setBorder(null);
             maxTempHeaderMars.setMaximumSize(new java.awt.Dimension(200, 18));
             maxTempHeaderMars.setMinimumSize(new java.awt.Dimension(200, 18));
             maxTempHeaderMars.setPreferredSize(new java.awt.Dimension(200, 18));
 
+            minTempHeaderMars.setFont(new java.awt.Font("Ubuntu", 0, 30)); // NOI18N
             minTempHeaderMars.setText("Min(Low):");
             minTempHeaderMars.setBorder(null);
             minTempHeaderMars.setMaximumSize(new java.awt.Dimension(200, 18));
@@ -1235,10 +1229,10 @@ public class GUIWindow extends javax.swing.JFrame {
                                     .addComponent(lastUpdatedTimeLabelMARS))
                                 .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(minTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(marsTempField, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(marsPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(minTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             marsPanelLayout.setVerticalGroup(
@@ -1251,11 +1245,9 @@ public class GUIWindow extends javax.swing.JFrame {
                         .addGroup(marsPanelLayout.createSequentialGroup()
                             .addComponent(lastUpdatedTimeLabelMARS)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(marsTempField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(minTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(minTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                     .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1399,13 +1391,18 @@ public class GUIWindow extends javax.swing.JFrame {
      marsTab.setIcon(mars);*/
     /**
      * locationFieldActionPerformed sends a new json query Contains catch
-     * statements to account for server and malformed query errors Detects if
-     * the Enter key is pressed.
+     * statements to account for server and malformed query errors 
+     * Detects if the Enter key is pressed.
      *
      * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
-
+        Time temp = currentTime;
+        currentTime = new Time(System.currentTimeMillis());
+        if ((currentTime.getTime() - temp.getTime()) < 2000)
+        {
+            return; // Cannot query the server too fast.
+        }
         try // Check if location exists
         {
             location = locationTextField.getText(); // Get query string
@@ -1421,12 +1418,7 @@ public class GUIWindow extends javax.swing.JFrame {
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
             weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
 
-            //try
-            //{
             preferences.setUserPreferences(currentObj.getPreferences());
-            /*}catch (NullPointerException ex){
-             preferences.setUserPreferences("K");
-             }*/
 
             updateCurrentTab();
             updateShortTermTab();
@@ -1478,7 +1470,6 @@ public class GUIWindow extends javax.swing.JFrame {
         }
 
             refreshData();   // Call refresh units here instead
-//            currentObj.set
         }
     }//GEN-LAST:event_preferencesMetricCheckboxActionPerformed
 
@@ -1493,7 +1484,6 @@ public class GUIWindow extends javax.swing.JFrame {
                 weatherLT.getDaily(i).serializePreferences("I");
             }
         }
-        
             refreshData();   // Call referesh units here instead
         }
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
@@ -1655,7 +1645,6 @@ public class GUIWindow extends javax.swing.JFrame {
     private javax.swing.JLabel longTermTempTwo;
     private javax.swing.JPanel marsPanel;
     private javax.swing.JLabel marsSkyStateIcon;
-    private javax.swing.JLabel marsTempField;
     private javax.swing.JLabel maxTempHeader;
     private javax.swing.JLabel maxTempHeaderMars;
     private javax.swing.JLabel minTempHeader;
@@ -1893,7 +1882,14 @@ public class GUIWindow extends javax.swing.JFrame {
         }
         showShortTermData();
     }
-
+    
+    /**
+     * showLongTermDAta shows the Long Term data in the longTermTab 
+     * Displays
+     * the numbers.
+     *
+     * @return void
+     */
     private void showLongTermData() {
         longTermTempOne.setText(String.valueOf(weatherLT.getDaily(0).getTemperature()) + preferences.getTemperatureUnit());
         longTermTempTwo.setText(String.valueOf(weatherLT.getDaily(1).getTemperature()) + preferences.getTemperatureUnit());
@@ -1983,15 +1979,10 @@ public class GUIWindow extends javax.swing.JFrame {
 
             weatherLT = jsonObj.updateLongTermData();
             currentLocationLT.setText(location);    // Change the location display text
-
-            // NOT PREFERENCES
-            // Main Temperature Updating
             showLongTermData();
 
         } catch (NoConnectionException ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
-
+            
             notifyNoConnection();
 
         } catch (InternalServerError ex) {
@@ -1999,9 +1990,6 @@ public class GUIWindow extends javax.swing.JFrame {
 
         } catch (java.lang.NullPointerException ex) {
 
-            System.out.println(ex);
-            ex.printStackTrace();
-//                updateLongTermTab();    // Exception comes from JSON- query again to elminate it (Possible infinite loop)
             invalidateData();
 
         } catch (BadLocationException ex) {
@@ -2019,7 +2007,7 @@ public class GUIWindow extends javax.swing.JFrame {
      */
     private void updateMarsTab() {
         //marsTempField
-        marsTempField.setText(String.valueOf(mars.getTemperature()) + preferences.getTemperatureUnit()); // FIX THIS WHEN IT COMES TIME TO UPDATE WEATHER
+//        marsTempField.setText(String.valueOf(mars.getTemperature()) + preferences.getTemperatureUnit()); // FIX THIS WHEN IT COMES TIME TO UPDATE WEATHER
         lastUpdatedTimeLabelMARS.setText("Updated: " + String.valueOf(currentTime));
         windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
         windDirectionFieldMARS.setText(mars.getWindDirection());
@@ -2295,7 +2283,6 @@ public class GUIWindow extends javax.swing.JFrame {
         for (int i = 0; i < 8; i++) {
             Hourly temp = weatherST.getHourly(i);
             temp.setTempUnits();
-            System.out.println("T: " + String.valueOf(temp.getTemperature()));
             temp.setMinTempUnits();
             temp.setMaxTempUnits();
             temp.setWindUnits();
