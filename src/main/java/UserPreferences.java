@@ -41,23 +41,19 @@ public class UserPreferences {
             case 'm':
             case 'M':
                 setMetric();        // Metric 
-                System.out.println(temperatureUnit); 
                 break;
                 
             case 'i':
             case 'I':
                 setImperial();      // Imperial
-                System.out.println(temperatureUnit); 
                 break;
             
             case 's':
             case 'S':
                 setSI();            //System Internationale
-                System.out.println(temperatureUnit); 
                 break;
                 
             default:                // Default is Metric
-                System.out.println(temperatureUnit); 
                 break;
         }
     }

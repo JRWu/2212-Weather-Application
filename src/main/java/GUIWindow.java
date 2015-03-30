@@ -29,7 +29,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
     // Attributes
     private SimpleDateFormat timeFormat;
-    private String location;          
+    private String location;
     private JSON jsonObj;               // Current data for London,Ca
 
     private Time currentTime;           // Last updated time
@@ -52,7 +52,7 @@ public class GUIWindow extends javax.swing.JFrame {
         location = "London, Ca";    // Default Location
         jsonObj = new JSON(location);
         isValid = false;
-        
+
         currentObj = new Current();
         weatherST = new ShortTerm();
         weatherLT = new LongTerm();
@@ -1146,7 +1146,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
             guiTabbedPanels.addTab("Long Term", longTermPanel);
 
-            marsPanel.setBackground(new java.awt.Color(236, 158, 1));
+            marsPanel.setBackground(new java.awt.Color(253, 143, 0));
             marsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
             currentLocationLT1.setFont(new java.awt.Font("gargi", 1, 45)); // NOI18N
@@ -1223,16 +1223,16 @@ public class GUIWindow extends javax.swing.JFrame {
                             .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(currentLocationLT1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                                 .addComponent(marsSkyStateIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(marsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addGap(8, 8, 8)
                                     .addComponent(lastUpdatedTimeLabelMARS))
                                 .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(maxTempHeaderMars, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
                                 .addGroup(marsPanelLayout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(minTempHeaderMars, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(minTempHeaderMars, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
             marsPanelLayout.setVerticalGroup(
@@ -1391,16 +1391,15 @@ public class GUIWindow extends javax.swing.JFrame {
      marsTab.setIcon(mars);*/
     /**
      * locationFieldActionPerformed sends a new json query Contains catch
-     * statements to account for server and malformed query errors 
-     * Detects if the Enter key is pressed.
+     * statements to account for server and malformed query errors Detects if
+     * the Enter key is pressed.
      *
      * @return void
      */
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
         Time temp = currentTime;
         currentTime = new Time(System.currentTimeMillis());
-        if ((currentTime.getTime() - temp.getTime()) < 2000)
-        {
+        if ((currentTime.getTime() - temp.getTime()) < 2000) {
             return; // Cannot query the server too fast.
         }
         try // Check if location exists
@@ -1417,12 +1416,14 @@ public class GUIWindow extends javax.swing.JFrame {
             currentObj = jsonObj.updateCurrentWeatherData();
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
             weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
-
+            mars = jsonObj.updateMarsData();
+            
             preferences.setUserPreferences(currentObj.getPreferences());
 
             updateCurrentTab();
             updateShortTermTab();
             updateLongTermTab();
+            updateMarsTab();
 
             isValid = true;                             // Refresh flag is enabled- query is valid
             searchPromptLabel.setText("");
@@ -1455,19 +1456,20 @@ public class GUIWindow extends javax.swing.JFrame {
         refreshApp();
     }//GEN-LAST:event_refreshButtonActionPerformed
 
-    
-    
+
     private void preferencesMetricCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesMetricCheckboxActionPerformed
-        
+
         preferences.setUserPreferences("M");
+        mars.serializePreferences("M");
+
         if (isValid) {
-        currentObj.serializePreferences("M");
-        for (int i = 0; i < 8; i++) {
-            weatherST.getHourly(i).serializePreferences("M");
-            if (i < 5) {
-                weatherLT.getDaily(i).serializePreferences("M");
+            currentObj.serializePreferences("M");
+            for (int i = 0; i < 8; i++) {
+                weatherST.getHourly(i).serializePreferences("M");
+                if (i < 5) {
+                    weatherLT.getDaily(i).serializePreferences("M");
+                }
             }
-        }
 
             refreshData();   // Call refresh units here instead
         }
@@ -1476,14 +1478,17 @@ public class GUIWindow extends javax.swing.JFrame {
     private void preferencesImperialCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesImperialCheckboxActionPerformed
 
         preferences.setUserPreferences("I");
-    if (isValid) {
-        currentObj.serializePreferences("I");
-        for (int i = 0; i < 8; i++) {
-            weatherST.getHourly(i).serializePreferences("I");
-            if (i < 5) {
-                weatherLT.getDaily(i).serializePreferences("I");
+        mars.serializePreferences("T");
+
+        if (isValid) {
+            currentObj.serializePreferences("I");
+            for (int i = 0; i < 8; i++) {
+                weatherST.getHourly(i).serializePreferences("I");
+                if (i < 5) {
+                    weatherLT.getDaily(i).serializePreferences("I");
+                }
             }
-        }
+
             refreshData();   // Call referesh units here instead
         }
     }//GEN-LAST:event_preferencesImperialCheckboxActionPerformed
@@ -1491,15 +1496,18 @@ public class GUIWindow extends javax.swing.JFrame {
     private void preferencesSICheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preferencesSICheckboxActionPerformed
 
         preferences.setUserPreferences("S");
-    if (isValid) {        
-        currentObj.serializePreferences("S");
-        for (int i = 0; i < 8; i++) {
-            weatherST.getHourly(i).serializePreferences("S");
-            if (i < 5) {
-                weatherLT.getDaily(i).serializePreferences("S");
+        mars.serializePreferences("S");
+
+        if (isValid) {
+            currentObj.serializePreferences("S");
+
+            for (int i = 0; i < 8; i++) {
+                weatherST.getHourly(i).serializePreferences("S");
+                if (i < 5) {
+                    weatherLT.getDaily(i).serializePreferences("S");
+                }
             }
-        }
-        
+
             refreshData();   // Call refresh units here instead
         }
     }//GEN-LAST:event_preferencesSICheckboxActionPerformed
@@ -1548,9 +1556,6 @@ public class GUIWindow extends javax.swing.JFrame {
             System.out.println(ex);
             ex.printStackTrace();
         }
-
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1722,6 +1727,12 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * showShowCurrentData shows the Current Term data in the currentTab
+     * Displays the values of the fields.
+     *
+     * @return void
+     */
     private void showCurrentData() {
         currentLocation.setText(location);
         temperatureHeader.setText(String.valueOf(currentObj.getTemperature()) + preferences.getTemperatureUnit());
@@ -1882,11 +1893,10 @@ public class GUIWindow extends javax.swing.JFrame {
         }
         showShortTermData();
     }
-    
+
     /**
-     * showLongTermDAta shows the Long Term data in the longTermTab 
-     * Displays
-     * the numbers.
+     * showLongTermDAta shows the Long Term data in the longTermTab Displays the
+     * numbers.
      *
      * @return void
      */
@@ -1931,8 +1941,7 @@ public class GUIWindow extends javax.swing.JFrame {
             resizedSkyState = img.getScaledInstance(140, 140, 0);
             longTermSkyStateFive.setIcon(new ImageIcon(resizedSkyState));
         } catch (MalformedURLException ex) {
-//                System.out.println(ex);
-//                ex.printStackTrace();
+            notifyNoConnection();
 
         } catch (IOException ex) {
 //                System.out.println(ex);
@@ -1982,7 +1991,7 @@ public class GUIWindow extends javax.swing.JFrame {
             showLongTermData();
 
         } catch (NoConnectionException ex) {
-            
+
             notifyNoConnection();
 
         } catch (InternalServerError ex) {
@@ -1999,15 +2008,8 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
-    /**
-     * updateMarsTab refreshes the view on the MARS Rover panel, updating the
-     * data
-     *
-     * @return void
-     */
-    private void updateMarsTab() {
-        //marsTempField
-//        marsTempField.setText(String.valueOf(mars.getTemperature()) + preferences.getTemperatureUnit()); // FIX THIS WHEN IT COMES TIME TO UPDATE WEATHER
+    /**/
+    private void showMarsData() {
         lastUpdatedTimeLabelMARS.setText("Updated: " + String.valueOf(currentTime));
         windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
         windDirectionFieldMARS.setText(mars.getWindDirection());
@@ -2018,7 +2020,7 @@ public class GUIWindow extends javax.swing.JFrame {
 
         try {
             Image mC;
-            if (mars.getCondition() == null) {
+            if (mars.getSkyCondition() == null) {
                 mC = ImageIO.read(GUIWindow.class.getResource("mars_cloudy.png"));
             } else {
                 mC = ImageIO.read(GUIWindow.class.getResource("mars_sunny.png"));
@@ -2030,7 +2032,26 @@ public class GUIWindow extends javax.swing.JFrame {
             Logger.getLogger(GUIWindow.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Could not load image.");
         }
+    }
 
+    /**
+     * updateMarsTab refreshes the view on the MARS Rover panel, updating the
+     * data
+     *
+     * @return void
+     */
+    private void updateMarsTab() {
+        try {
+            mars = jsonObj.updateMarsData();
+        } catch (NoConnectionException ex) {
+            notifyNoConnection();
+        } catch (InternalServerError ex) {
+            promptQueryAgain();
+        } catch (BadLocationException ex) {
+            notifyBadLocation();
+        }
+
+        showMarsData();
     }
 
     /**
@@ -2212,6 +2233,7 @@ public class GUIWindow extends javax.swing.JFrame {
             showShortTermData();
             showCurrentData();
             showLongTermData();
+            updateMarsTab();
         }
     }
 
@@ -2290,11 +2312,12 @@ public class GUIWindow extends javax.swing.JFrame {
         }
         //updates the mars forecast
         try {
-            mars.setTempUnits();
             mars.setMinTempUnits();
             mars.setMaxTempUnits();
             mars.setWindUnits();
         } catch (java.lang.NullPointerException ex) {
+            ex.printStackTrace();
+            locationTextField.setText("MARS information could not be updated. Please try again.");
 
         }
         //updates current forecast
@@ -2302,11 +2325,6 @@ public class GUIWindow extends javax.swing.JFrame {
         currentObj.setMinTempUnits();
         currentObj.setMaxTempUnits();
         currentObj.setWindUnits();
-
-        // Prototype:
-        // weatherST, weatherLT, currentObj units ALL need to be converted
-        // i.e. weatherST.getHourly(0).convertTemp(weatherST.getHourly(0).getTemp(), preferences);
-        // ADD CODE HERE
     }
 
 }
