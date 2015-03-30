@@ -1403,7 +1403,7 @@ public class GUIWindow extends javax.swing.JFrame {
     private void locationTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_locationTextFieldActionPerformed
         Time temp = currentTime;
         currentTime = new Time(System.currentTimeMillis());
-        if ((currentTime.getTime() - temp.getTime()) < 2000) {
+        if ((currentTime.getTime() - temp.getTime()) < 1400) {
             return; // Cannot query the server too fast.
         }
         try // Check if location exists
