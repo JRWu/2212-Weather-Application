@@ -1,6 +1,11 @@
 /**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * UserPreferences.java
  * UserPreferences represents the strings that describe the user's preferences
  * Help to update the display accordingly. 
+ * 
  * @author team6
  */
 public class UserPreferences {

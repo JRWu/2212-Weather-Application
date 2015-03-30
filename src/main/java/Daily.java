@@ -1,13 +1,16 @@
-
-import java.io.*;
 import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
 
 /**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * Daily.java
  * This class contains all variables necessary for a full day forecast, as well
  * as all get and set methods. The long term forecast will be an array of Daily
  * objects. In addition to all variables from the super class, it stores a
  * string of the day the object corresponds to.
+ * 
+ * @author team6
  */
 public class Daily extends ADO implements java.io.Serializable {
 

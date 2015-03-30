@@ -1,29 +1,20 @@
-
 import java.io.*;
 import java.net.*;
-import java.sql.Time;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TimeZone;
-
 import javax.swing.ImageIcon;
-import javax.swing.text.html.MinimalHTMLWriter;
-
 import java.util.GregorianCalendar;
-
 import org.apache.commons.io.*;
 import org.json.JSONObject;
 import org.json.JSONException;
 import org.json.JSONArray;
 
-/*unfortunately I needed to add some referenced libraries. 
- To get the JSON jar go to this link: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.json%22%20AND%20a%3A%22json%22
- I'm using version 20131018 as for some reason the 2014 wouldn't work for my system. 
- org.apache.commons.io.* can be found here: http://commons.apache.org/proper/commons-io/
- Version 2.4 is the one I'm using, older versions *should* work as well, haven't been tested though. 
- Best way to handle this would be to make a MAVEN pom file, but I haven't figured that out yet so until then
- this is the way to go. 	
-
+/**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * JSON.java
+ * This class is responsible for querying the OpenWeatherMap API and saving all required data.
+ * 
+ * @author team6
  */
 public class JSON {
 //	private String url = "http://api.openweathermap.org/data/2.5/forecast?q=london,ca&cnt=7";
@@ -340,7 +331,6 @@ public class JSON {
             
             //convert string to JSON object
             JSONObject marsWeatherData = new JSONObject(jsonString).getJSONObject("report");
-            
             //call method to set all variables
             currentMarsSetVariables(marsWeatherData);
 

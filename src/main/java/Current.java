@@ -1,12 +1,17 @@
 
-import java.io.*;
 import javax.swing.ImageIcon;
 import java.util.GregorianCalendar;
 
 /**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * Current.java
  * This class stores all information about the current weather. In addition to
  * all variables from the super class, it stores the date and time it was
  * created, as well as the time of sunrise and sunset of the day.
+ * 
+ * @author team6
  */
 public class Current extends ADO implements java.io.Serializable {
 

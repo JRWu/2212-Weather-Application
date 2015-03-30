@@ -1,11 +1,15 @@
 import java.io.*;
 import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
 
 /**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * ADO.java
  * The superclass that contains all variables and methods common to all data
  * objects.
- *
+ * 
+ * @author team6
  */
 public class ADO implements java.io.Serializable {
 

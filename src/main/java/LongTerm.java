@@ -1,11 +1,12 @@
-
-import java.io.*;
-import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
-
 /**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * LongTerm.java
  * This class contains all parameters and methods required for a long term
  * forecast. It consists of an array of Daily objects.
+ * 
+ * @author team6
  */
 public class LongTerm implements java.io.Serializable {
 

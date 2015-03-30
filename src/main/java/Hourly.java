@@ -1,12 +1,14 @@
-
-import java.io.*;
 import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
+
 /**
- * March 8, 2014 CS 2212
- *
- * @author team 6 This class represents the object for weather in 3 hour
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * Hourly.java
+ * This class represents the object for weather in 3 hour
  * intervals
+ * 
+ * @author team6
  */
 public class Hourly extends ADO implements java.io.Serializable {
 

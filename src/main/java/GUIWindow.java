@@ -1,10 +1,18 @@
+/**
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * GUIWindow.java
+ * A program that fetches weather data based on the OpenWeatherMapAPI.
+ * Contains all the data objects as attributes.
+ * 
+ * @author team6
+ */
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,9 +29,10 @@ import javax.imageio.ImageIO;
 import static org.json.JSONObject.NULL;
 
 /**
- * CS2212
- *
- * @author team6
+ * GUIWindow represents the main window that appears when invoked by main.
+ * Contains all the data objects as attributes, along with their respective
+ * variables.
+ * @extends javax.swing.JFrame 
  */
 public class GUIWindow extends javax.swing.JFrame {
 
@@ -1384,11 +1393,6 @@ public class GUIWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_locationTextFieldFocusGained
 
-    /*
-    
-     ImageIcon mars = new ImageIcon(GUIWindow.class.getResource("mars.png"));
-     JLabel marsTab = new JLabel();
-     marsTab.setIcon(mars);*/
     /**
      * locationFieldActionPerformed sends a new json query Contains catch
      * statements to account for server and malformed query errors Detects if
@@ -1417,6 +1421,7 @@ public class GUIWindow extends javax.swing.JFrame {
             weatherST = jsonObj.updateShortTermData();  // Attempt to Query short term
             weatherLT = jsonObj.updateLongTermData();   // Attempt to query long-term
             mars = jsonObj.updateMarsData();
+            
             
             preferences.setUserPreferences(currentObj.getPreferences());
 
@@ -1878,14 +1883,11 @@ public class GUIWindow extends javax.swing.JFrame {
         try {
             weatherST = jsonObj.updateShortTermData();  // Update the data
         } catch (NoConnectionException ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
 
             notifyNoConnection();
 
         } catch (InternalServerError ex) {
-//            System.out.println(ex);
-//            ex.printStackTrace();
+            promptQueryAgain();
 
             promptQueryAgain();
         } catch (BadLocationException ex) {
@@ -1944,12 +1946,10 @@ public class GUIWindow extends javax.swing.JFrame {
             notifyNoConnection();
 
         } catch (IOException ex) {
-//                System.out.println(ex);
-//                ex.printStackTrace();
+            ex.printStackTrace();
 
         } catch (java.lang.NullPointerException ex) {
 
-//                System.out.println("Catching");
             updateLongTermTab();    // Exception comes from JSON- query again to elminate it
         }
 
@@ -2008,7 +2008,10 @@ public class GUIWindow extends javax.swing.JFrame {
 
     }
 
-    /**/
+    /**
+     * showMarsData updates the units and labels display on the marsTab
+     * @return void
+     */
     private void showMarsData() {
         lastUpdatedTimeLabelMARS.setText("Updated: " + String.valueOf(currentTime));
         windSpeedFieldMARS.setText(String.valueOf(mars.getWindSpeed()) + preferences.getSpeedUni());
@@ -2316,7 +2319,6 @@ public class GUIWindow extends javax.swing.JFrame {
             mars.setMaxTempUnits();
             mars.setWindUnits();
         } catch (java.lang.NullPointerException ex) {
-            ex.printStackTrace();
             locationTextField.setText("MARS information could not be updated. Please try again.");
 
         }

@@ -1,8 +1,17 @@
-
 /**
- * This class runs the program.
+ * CS2212 
+ * 6_TheWeather
+ * 
+ * Main.java
+ * A program that fetches weather data based on the OpenWeatherMapAPI.
+ * Displays the weather forecast for current weather, short term (8x 3 hour intervals)
+ * and long-term (5 days).
+ * Also uses the MAAS API to fetch data from the rover on Mars, for the Mars
+ * weather information.
+ * 
+ * @author team6
  */
-public class main {
+public class Main {
 
     /**
      * @param args the command line arguments

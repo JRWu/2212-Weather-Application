@@ -1,14 +1,14 @@
-
-/**
- * March 29, 2015 
- * CS 2212
- *
- * @author team 6 This class represents the weather object for Mars and contains
- * all methods contained within the ADO class
- */
-import java.util.*;
 import javax.swing.ImageIcon;
-import org.apache.commons.io.*;
+/**
+ * CS2212
+ * 6_TheWeather
+ * 
+ * Mars.java
+ * This class represents the weather object for Mars and contains
+ * all methods contained within the ADO class
+ * 
+ * @author team6 
+ */
 public class Mars extends ADO {
 	/**
 	 * Instance variables
@@ -47,7 +47,7 @@ public class Mars extends ADO {
     public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind,humid, windDir, sky, state);
         temperature = temp;
-        displayTemp = convertTemp(temp, this.getPreferences());
+        displayTemp = convertTemp(temperature, this.getPreferences());
         minTemp = min;
         displayMinTemp = convertTemp(min,this.getPreferences());
         maxTemp = max;
@@ -66,31 +66,32 @@ public class Mars extends ADO {
      */
     public void setTempUnits()
     {
-    	displayTemp = convertTemp(temperature,this.getPreferences());
+    	displayTemp = convertTemp(temperature, this.getPreferences());
     }
-/**
-  * This method sets the current temperature for the abstract data object
-  *
-  * @param temp the temperature value to be set
-  */
+    /**
+     * This method sets the current temperature for the abstract data object
+     *
+     * @param temp the temperature value to be set
+     */
     public void setTemperature(double temp) {
     	temperature = temp;
-    	displayTemp = convertTemp(temp,this.getPreferences());
+        displayTemp = convertTemp(temp, this.getPreferences());
     }
 
-/**
-  * Returns the minimum temperature of data object
-  *
-  * @return The minimum temperature for the abstract data object
-  */
+    /**
+     * Returns the minimum temperature of data object
+     *
+     * @return The minimum temperature for the abstract data object
+     */
     public double getMinTemp() {
         return displayMinTemp;
     }
-/**
-  * This method sets the minimum temperature for the abstract data object
-  *
-  * @param min the minimum temperature value to be set
-  */
+
+    /**
+     * This method sets the minimum temperature for the abstract data object
+     *
+     * @param min the minimum temperature value to be set
+     */
     public void setMinTemp(double min) {
     	minTemp = min;
         displayMinTemp = convertTemp(min, this.getPreferences());
@@ -111,22 +112,22 @@ public class Mars extends ADO {
         return displayMaxTemp;
     }
 
-/**
- * This method sets the maximum temperature value for the abstract data
- * object
- *
- * @param max the maximum temperature value to be set
- */
+    /**
+     * This method sets the maximum temperature value for the abstract data
+     * object
+     *
+     * @param max the maximum temperature value to be set
+     */
     public void setMaxTemp(double max) {
     	maxTemp = max;
         displayMaxTemp = convertTemp(max, this.getPreferences());
     }
-/**
- * Sets the current maximum temperature based off of a change in units from user preferences
- */
+     /**
+     * Sets the current maximum temperature based off of a change in units from user preferences
+     */
     public void setMaxTempUnits()
     {
-    	displayMaxTemp = convertTemp(maxTemp, this.getPreferences());
+    	displayMaxTemp = convertTemp(maxTemp,this.getPreferences());
     }
     
 /**
@@ -137,13 +138,13 @@ public class Mars extends ADO {
  */
     private double convertTemp(double temp,String preferences)
     {
-    	if (preferences.equals("K"))
+    	if (preferences.equals("S"))
     	{
     		temp = temp + 273.15;
     	}
     	else if (preferences.equals("I"))
     	{
-    		temp = (temp*1.8) + 32;
+    		temp = (((temp)*9)/5) + 32;
     	}
         temp = Math.round(temp * 100) / 100D;
     	return temp;
