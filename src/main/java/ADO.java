@@ -317,7 +317,7 @@ public class ADO implements java.io.Serializable {
      * @param userPreferences The user preferences that indicate which type of
      * units the user would like for the temperature to be displayed with
      */
-    public double convertTemp(double temp, String preferences) {
+    private double convertTemp(double temp, String preferences) {
         double temperature;
         if (preferences.equals("I")) {
             temperature = ((temp - 273.15) * 1.8) + 32;
@@ -338,7 +338,7 @@ public class ADO implements java.io.Serializable {
  * @param preferences the user preferences specifying the units to be converted to
  * @return the converted wind value
  */
-    public double convertWind(double wind, String preferences)
+    private double convertWind(double wind, String preferences)
     {
     	double windy;
     	if (preferences.equals("M"))

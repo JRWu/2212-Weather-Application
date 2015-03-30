@@ -19,7 +19,6 @@ public class Mars extends ADO {
 	private double displayMinTemp;
 	private double maxTemp;
 	private double displayMaxTemp;
-	private String preferences;
 	/**
 	 * Default constructor for Mars
 	 */
@@ -39,8 +38,7 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind, humid, windDir, sky, state);
-        preferences = super.getPreferences();
-        temperature = convertTemp(temp, preferences);
+        temperature = convertTemp(temp, this.getPreferences());
     }
 
     /**
@@ -48,13 +46,12 @@ public class Mars extends ADO {
      */
     public Mars(int air, double wind, double temp, double min, double max, int humid, String windDir, String sky, ImageIcon state) {
         super(air, wind,humid, windDir, sky, state);
-        preferences = super.getPreferences();
         temperature = temp;
-        displayTemp = convertTemp(temp, preferences);
+        displayTemp = convertTemp(temperature, this.getPreferences());
         minTemp = min;
-        displayMinTemp = convertTemp(min,preferences);
+        displayMinTemp = convertTemp(min,this.getPreferences());
         maxTemp = max;
-        displayMaxTemp = convertTemp(max,preferences);
+        displayMaxTemp = convertTemp(max,this.getPreferences());
     }
     /**
      * Returns value of temperature of the object
@@ -69,7 +66,7 @@ public class Mars extends ADO {
      */
     public void setTempUnits()
     {
-    	displayTemp = convertTemp(temperature, preferences);
+    	displayTemp = convertTemp(temperature, this.getPreferences());
     }
     /**
      * This method sets the current temperature for the abstract data object
@@ -78,7 +75,7 @@ public class Mars extends ADO {
      */
     public void setTemperature(double temp) {
     	temperature = temp;
-        displayTemp = convertTemp(temp, preferences);
+        displayTemp = convertTemp(temp, this.getPreferences());
     }
 
     /**
@@ -97,14 +94,14 @@ public class Mars extends ADO {
      */
     public void setMinTemp(double min) {
     	minTemp = min;
-        displayMinTemp = convertTemp(min, preferences);
+        displayMinTemp = convertTemp(min, this.getPreferences());
     }
      /**
      * Sets the current minimum temperature based off of a change in units from user preferences
      */
     public void setMinTempUnits()
     {
-    	displayMinTemp = convertTemp(minTemp,preferences);
+    	displayMinTemp = convertTemp(minTemp,this.getPreferences());
     }
     /**
      * Returns max temperature of data object
@@ -123,14 +120,14 @@ public class Mars extends ADO {
      */
     public void setMaxTemp(double max) {
     	maxTemp = max;
-        displayMaxTemp = convertTemp(max, preferences);
+        displayMaxTemp = convertTemp(max, this.getPreferences());
     }
      /**
      * Sets the current maximum temperature based off of a change in units from user preferences
      */
     public void setMaxTempUnits()
     {
-    	displayMaxTemp = convertTemp(maxTemp,preferences);
+    	displayMaxTemp = convertTemp(maxTemp,this.getPreferences());
     }
     
 /**
@@ -139,22 +136,17 @@ public class Mars extends ADO {
  * @param preferences The user preferences specifying what units to convert to
  * @return the converted temperature
  */
-    public double convertTemp(double temp,String preferences)
+    private double convertTemp(double temp,String preferences)
     {
-    	double temperature;
     	if (preferences.equals("K"))
     	{
-    		temperature = temp + 273.15;
+    		temp = temp + 273.15;
     	}
     	else if (preferences.equals("I"))
     	{
-    		temperature = (((temp)*9)/5) + 32;
+    		temp = (((temp)*9)/5) + 32;
     	}
-    	else
-    	{
-    		temperature = temp;
-    	}
-        temperature = Math.round(temperature * 100) / 100D;
-    	return temperature;
+        temp = Math.round(temp * 100) / 100D;
+    	return temp;
     }
 }
