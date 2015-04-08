@@ -34,6 +34,12 @@ Once these are set up, you can use the following command for The Weather:
 - java -jar team6/target/team6-1.0-SNAPSHOT-jar-with-dependencies.jar
 
 ## Build
+Dependencies:
+- json-lib
+- commons-io
+- org.json
+
+
 To build:
 - git clone git@github.com:UWO-2212-W2015/team6.git
 - cd team6/
