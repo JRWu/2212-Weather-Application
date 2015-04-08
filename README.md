@@ -23,7 +23,7 @@ The following libraries were used:
 
 ## Install
 
-Installation requires the follow components and configurations:
+Installation requires the following components and configurations:
 - [Maven](https://maven.apache.org/)
 - [Github](https://github.com/)
 - [Java](https://www.java.com/en/)
