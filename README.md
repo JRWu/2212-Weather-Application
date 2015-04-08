@@ -1,4 +1,4 @@
-# team6
+## team6
 # The Weather
 This application was built for users to see a detailed weather forecast in the location of their choosing in different time frames and different units
 
