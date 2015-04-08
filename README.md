@@ -5,7 +5,7 @@ This application was built for users to see a detailed weather forecast in the l
 ## Synopsis
 Users can view weather in the current term, the short term, and the long term in a location of their choosing along with mars.
 
-The application is written using Java in the Netbeans and Eclipse integrated development environment. We used git for version control, github to host, and maven for build automation. The data itself was obtained from the Openweather Map API (openweathermap.org) and the Mars Atmospheric Aggregation System API(http://marsweather.ingenology.com/)
+The application is written using Java in the Netbeans and Eclipse integrated development environment. We used git for version control, github to host, and maven for build automation. The data itself was obtained from the Openweather Map API (http://openweathermap.org) and the Mars Atmospheric Aggregation System API(http://marsweather.ingenology.com/)
 
 The following libraries were used:
 - java.io.*
