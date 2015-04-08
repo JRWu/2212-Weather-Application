@@ -24,9 +24,9 @@ The following libraries were used:
 ## Install
 
 Installation requires the follow components and configurations:
-* [Maven](https://maven.apache.org/)
-* [Github](https://github.com/)
-* [Java](https://www.java.com/en/)
+- [Maven](https://maven.apache.org/)
+- [Github](https://github.com/)
+- [Java](https://www.java.com/en/)
 
 Once these are set up, you can use the following command for The Weather:
 git clone git@github.com:UWO-2212-W2015/team6.git
