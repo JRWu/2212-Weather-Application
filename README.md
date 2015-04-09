@@ -50,5 +50,5 @@ To build:
 To watch a demonstration of the functionality and usages of the program, please refer to (https://www.youtube.com/watch?v=WR9bqdHAByQ)
 
 ## Documentation
-The javadoc can be accessed at https://github.com/UWO-2212-W2015/team6/tree/master/doc/javadoc 
+The javadoc can be accessed at ![6_TheWeather_Javadocs](184.175.48.186:80)
 
