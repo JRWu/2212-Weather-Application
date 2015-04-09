@@ -50,5 +50,5 @@ To build:
 To watch a demonstration of the functionality and usages of the program, please refer to (https://www.youtube.com/watch?v=WR9bqdHAByQ)
 
 ## Documentation
-The javadoc can be accessed at 6_TheWeather_Javadocs (http://184.175.48.186:80)
+The javadoc can be accessed at: 6_TheWeather_Javadocs (http://184.175.48.186:80). However, the javadoc source files may be found within the doc/javadoc folder.
 
